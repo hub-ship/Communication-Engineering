@@ -1284,3 +1284,151 @@ details .answer {
   border-radius: 999px;
   padding: 1px 10px;
 }
+
+/* ============================================
+   完整学习路线图（纵向 8 步）
+   ============================================ */
+.roadmap-intro {
+  font-size: 13.5px;
+  color: var(--text-light);
+  line-height: 1.85;
+  margin-bottom: 18px;
+  padding: 10px 14px;
+  background: var(--green-bg);
+  border-left: 3px solid var(--green);
+  border-radius: 3px;
+}
+.roadmap-intro strong { color: var(--green-dark); }
+
+.roadmap-v {
+  position: relative;
+  padding-left: 0;
+}
+.rv-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 16px;
+  padding-bottom: 16px;
+}
+/* 中轴线（除最后一步外） */
+.rv-step:not(:last-child) .rv-marker::after {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: calc(100% + 16px);
+  background: linear-gradient(to bottom, var(--green) 0%, var(--green-light) 100%);
+}
+.rv-marker {
+  position: relative;
+  width: 44px;
+  display: flex;
+  justify-content: center;
+  padding-top: 4px;
+}
+.rv-num {
+  position: relative;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(124, 179, 66, 0.4);
+}
+.rv-marker-end .rv-num {
+  background: #f0ad4e;
+  box-shadow: 0 2px 6px rgba(240, 173, 78, 0.45);
+}
+.rv-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--green);
+  border-radius: 5px;
+  padding: 12px 16px 14px;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.rv-card:hover {
+  box-shadow: 0 4px 14px rgba(150, 188, 75, 0.22);
+  transform: translateX(2px);
+}
+.rv-card-end {
+  border-left-color: #f0ad4e;
+  background: linear-gradient(160deg, #fffaf0, #fff);
+}
+.rv-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.rv-sem {
+  font-size: 15px;
+  font-weight: 700;
+  color: #2f3d1e;
+}
+.rv-tag {
+  display: inline-block;
+  font-size: 12px;
+  color: #fff;
+  background: var(--green-dark);
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-weight: 500;
+}
+.rvt-base { background: #6c8fd6; }
+.rvt-signal { background: var(--green); }
+.rvt-core { background: #d97a4d; }
+.rvt-net { background: #b56ec1; }
+.rvt-dir { background: #5a9b9d; }
+.rvt-end { background: #f0ad4e; color: #5a3f00; }
+
+.rv-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.rvt {
+  display: inline-block;
+  font-size: 12.5px;
+  color: #4a5d33;
+  background: var(--green-bg);
+  border: 1px solid rgba(150, 188, 75, 0.4);
+  padding: 3px 10px;
+  border-radius: 3px;
+  text-decoration: none;
+}
+.rvt-link { color: #4a5d33; transition: all 0.15s; }
+.rvt-link:hover {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+  text-decoration: none;
+}
+.rv-note {
+  font-size: 12.5px;
+  color: var(--text-light);
+  background: #fafbf6;
+  padding: 6px 10px;
+  border-radius: 3px;
+  border-left: 2px solid #e0e7c8;
+  line-height: 1.7;
+}
+.rv-note strong { color: var(--green-dark); }
+
+@media (max-width: 600px) {
+  .rv-step { grid-template-columns: 36px 1fr; gap: 10px; }
+  .rv-num { width: 28px; height: 28px; font-size: 12.5px; }
+  .rv-card { padding: 10px 12px 12px; }
+}

@@ -146,27 +146,128 @@
     </div>
   </div>
 
-  <!-- ========== 二、学习路线（四年 4 步） ========== -->
+  <!-- ========== 二、学习路线（完整 8 学期纵向路线图） ========== -->
   <div class="section-block" id="four-year" style="margin-top:16px;">
     <div class="section-header"><span class="icon">≡</span> 二、通信工程 · 四年学习路线图</div>
     <div class="section-body">
-      <div class="roadmap">
-        <div class="roadmap-step">
-          <h4><span class="num">1</span> 大一大二 / 基础层</h4>
-          <p>高数 / 线代 / 概率 + C 语言 + 电路 + 模电 + 数电 → 打好数学与硬件语言底子</p>
+      <p class="roadmap-intro">从大一上 → 大四下，一条贯通的主线，覆盖<strong>数学 · 编程 · 硬件 · 信号 · 通信 · 网络 · 协议 · 方向</strong>的全部核心课程。前序课是后序课的<strong>必要前置</strong>，箭头方向即学习方向。</p>
+
+      <div class="roadmap-v">
+
+        <div class="rv-step">
+          <div class="rv-marker"><span class="rv-num">1</span></div>
+          <div class="rv-card">
+            <div class="rv-head"><span class="rv-sem">大一上</span><span class="rv-tag rvt-base">基础 Ⅰ · 数理编程底子</span></div>
+            <div class="rv-tags">
+              <span class="rvt">高等数学 Ⅰ</span>
+              <span class="rvt">线性代数</span>
+              <span class="rvt">大学物理</span>
+              <span class="rvt">电路分析基础</span>
+              <span class="rvt">C 语言程序设计</span>
+            </div>
+            <div class="rv-note">🎯 目标：数学工具入门、第一个能跑通的 C 程序、认识"电路=电流"概念</div>
+          </div>
         </div>
-        <div class="roadmap-step">
-          <h4><span class="num">2</span> 大二下 / 信号底座</h4>
-          <p>信号与系统（卷积 / 三大变换 / 滤波器）→ 通信原理必须的前置课</p>
+
+        <div class="rv-step">
+          <div class="rv-marker"><span class="rv-num">2</span></div>
+          <div class="rv-card">
+            <div class="rv-head"><span class="rv-sem">大一下</span><span class="rv-tag rvt-base">基础 Ⅱ · 概率与硬件</span></div>
+            <div class="rv-tags">
+              <span class="rvt">高等数学 Ⅱ</span>
+              <span class="rvt">概率论与数理统计</span>
+              <span class="rvt">模拟电子技术</span>
+              <span class="rvt">数字电子技术</span>
+              <span class="rvt">工程制图 / 复变函数</span>
+            </div>
+            <div class="rv-note">🎯 目标：概率统计为通信噪声打底；模电数电构建硬件思维</div>
+          </div>
         </div>
-        <div class="roadmap-step">
-          <h4><span class="num">3</span> 大三 / 专业核心</h4>
-          <p>通信原理 → 单片机（嵌入式） → 数据通信与网络 → 移动通信，4 门课形成系统级闭环</p>
+
+        <div class="rv-step">
+          <div class="rv-marker"><span class="rv-num">3</span></div>
+          <div class="rv-card">
+            <div class="rv-head"><span class="rv-sem">大二上</span><span class="rv-tag rvt-signal">信号底座 · 三大变换</span></div>
+            <div class="rv-tags">
+              <a class="rvt rvt-link" href="signal-system.html">信号与系统</a>
+              <span class="rvt">复变函数与积分变换</span>
+              <span class="rvt">电路原理进阶</span>
+              <span class="rvt">数据结构</span>
+            </div>
+            <div class="rv-note">🎯 目标：搞定<strong>卷积 / 傅里叶 / 拉普拉斯 / Z 变换</strong>，这是后续所有通信课的共同语言</div>
+          </div>
         </div>
-        <div class="roadmap-step">
-          <h4><span class="num">4</span> 大四 / 方向分化 + 毕设</h4>
-          <p>选 1-2 个方向深挖：无线通信 / 嵌入式 / 协议栈 / 算法 → 毕业设计与就业对齐</p>
+
+        <div class="rv-step">
+          <div class="rv-marker"><span class="rv-num">4</span></div>
+          <div class="rv-card">
+            <div class="rv-head"><span class="rv-sem">大二下</span><span class="rv-tag rvt-core">专业核心 Ⅰ · 通信入门</span></div>
+            <div class="rv-tags">
+              <a class="rvt rvt-link" href="comm-principle.html">通信原理</a>
+              <span class="rvt">电磁场与电磁波</span>
+              <span class="rvt">微机原理</span>
+              <span class="rvt">Matlab 仿真实践</span>
+            </div>
+            <div class="rv-note">🎯 目标：理解<strong>调制 · 解调 · 信道 · 编码</strong>的概念级图像，会用 MATLAB 画星座图</div>
+          </div>
         </div>
+
+        <div class="rv-step">
+          <div class="rv-marker"><span class="rv-num">5</span></div>
+          <div class="rv-card">
+            <div class="rv-head"><span class="rv-sem">大三上</span><span class="rv-tag rvt-core">专业核心 Ⅱ · 嵌入式</span></div>
+            <div class="rv-tags">
+              <a class="rvt rvt-link" href="mcu.html">单片机原理与应用</a>
+              <a class="rvt rvt-link" href="os-linux.html">操作系统 &amp; Linux</a>
+              <span class="rvt">数字信号处理（DSP）</span>
+              <span class="rvt">FPGA / Verilog</span>
+            </div>
+            <div class="rv-note">🎯 目标：会写 STM32 串口 / 中断 / DMA，能在 Linux 下写 socket、编译内核模块</div>
+          </div>
+        </div>
+
+        <div class="rv-step">
+          <div class="rv-marker"><span class="rv-num">6</span></div>
+          <div class="rv-card">
+            <div class="rv-head"><span class="rv-sem">大三下</span><span class="rv-tag rvt-net">系统级 · 网络与无线</span></div>
+            <div class="rv-tags">
+              <a class="rvt rvt-link" href="data-network.html">数据通信与计算机网络</a>
+              <a class="rvt rvt-link" href="mobile-comm.html">移动通信（2G→5G）</a>
+              <span class="rvt">天线与电波传播</span>
+              <span class="rvt">Python 工具链</span>
+            </div>
+            <div class="rv-note">🎯 目标：能讲清<strong>TCP/IP 协议栈、5G NR 帧结构、SDR 概念</strong>，可读懂 3GPP 协议</div>
+          </div>
+        </div>
+
+        <div class="rv-step">
+          <div class="rv-marker"><span class="rv-num">7</span></div>
+          <div class="rv-card">
+            <div class="rv-head"><span class="rv-sem">大四上</span><span class="rv-tag rvt-dir">方向分化 · 选 1-2 钻深</span></div>
+            <div class="rv-tags">
+              <span class="rvt">📡 无线通信（OFDM / MIMO / 信道估计）</span>
+              <span class="rvt">🔧 嵌入式 / IoT（RTOS / 边缘 AI）</span>
+              <span class="rvt">🛰 卫星 / 光通信 / 雷达</span>
+              <span class="rvt">🤖 通信 + AI（深度学习信道、语义通信）</span>
+            </div>
+            <div class="rv-note">🎯 目标：选定<strong>毕设方向 + 就业方向</strong>，把 1-2 个方向做到能写进简历</div>
+          </div>
+        </div>
+
+        <div class="rv-step">
+          <div class="rv-marker rv-marker-end"><span class="rv-num">8</span></div>
+          <div class="rv-card rv-card-end">
+            <div class="rv-head"><span class="rv-sem">大四下</span><span class="rv-tag rvt-end">毕业出口 · 产出</span></div>
+            <div class="rv-tags">
+              <span class="rvt">📝 毕业论文 / 设计</span>
+              <span class="rvt">💼 秋招 / 春招 / 实习转正</span>
+              <span class="rvt">📚 读研 / 出国深造</span>
+              <span class="rvt">🚀 创业 / 竞赛成果转化</span>
+            </div>
+            <div class="rv-note">✅ 完成：7 门课 + 1 个方向 + 1 份可展示项目 = 进入通信行业或读研的入场券</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
