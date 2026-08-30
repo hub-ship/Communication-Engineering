@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>信号与系统 - 通信工程学习站</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="site-header">
+  <div class="site-header-inner">
+    <a href="index.html" class="brand"><span class="b1">通信工程</span><span class="b2">.CN</span></a>
+    <div class="search-box" data-search-host>
+      <input type="search" placeholder="搜索本课程章节……" aria-label="搜索">
+      <div class="search-results" id="header-search-results" hidden></div>
+    </div>
+  </div>
+</div>
+
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="signal-system.html" class="active">信号与系统</a>
+    <div class="nav-dropdown">
+      <a class="dropdown-toggle" tabindex="0">全部教程</a>
+      <ul class="dropdown-menu">
+        <li class="dd-cat">基础课</li>
+        <li><a href="c-programming.html">💻 C 语言程序设计</a></li>
+        <li><a href="signal-system.html">📊 信号与系统</a></li>
+        <li class="dd-cat">专业核心</li>
+        <li><a href="comm-principle.html">📡 通信原理</a></li>
+        <li><a href="mcu.html">🔧 单片机原理与应用</a></li>
+        <li><a href="data-network.html">🌐 数据通信与网络</a></li>
+        <li><a href="mobile-comm.html">📶 移动通信</a></li>
+        <li class="dd-cat">工具与平台</li>
+        <li><a href="os-linux.html">🐧 操作系统与 Linux</a></li>
+      </ul>
+    </div>
+    <a href="index.html#roadmap">学习路线</a>
+    <a href="index.html#tools">工具推荐</a>
+    <a href="index.html#howto">用户笔记</a>
+    <a href="index.html#quiz">期末自测</a>
+    <a href="index.html">信号与系统</a>
+  </div>
+</nav>
+
+
+<div class="layout-2col">
+<aside class="sidebar"><div class="sidebar-title"><span class="icon">≡</span> 信号与系统 目录</div>
+  
+  <ul>
+    <li><a href="#ch1">1. 信号与系统基本概念</a></li>
+    <li><a href="#ch2">2. LTI 系统与卷积</a></li>
+    <li><a href="#ch3">3. 傅里叶级数（周期信号）</a></li>
+    <li><a href="#ch4">4. 傅里叶变换（非周期信号）</a></li>
+    <li><a href="#ch5">5. 傅里叶变换性质与应用</a></li>
+    <li><a href="#ch6">6. 采样定理</a></li>
+    <li><a href="#ch7">7. 拉普拉斯变换</a></li>
+    <li><a href="#ch8">8. Z 变换</a></li>
+    <li><a href="#ch9">9. 系统函数与稳定性</a></li>
+    <li><a href="#ch10">10. 滤波器设计</a></li>
+    <li><a href="#ch11">11. 状态变量分析</a></li>
+    <li><a href="#ch12">12. 习题与思考</a></li>
+    <li><a href="#ch13">13. 仿真实验（Python/MATLAB）</a></li>
+  </ul>
+</aside>
+
+<main class="main">
+
+    <div class="course-intro">
+      <div class="title-row">
+        <h1>📊 信号与系统</h1>
+        <span class="version-tag">信号与系统.x</span>
+      </div>
+      <p>时域频域分析、 LTI 系统、卷积、傅里叶变换、拉普拉斯变换、Z 变换、滤波器设计。</p>
+      <p style="font-size:12px;color:var(--text-muted);">📚 建议顺序：从第一章开始依次学习 · 每章后附带习题与实验</p>
+    </div>
+
+<!-- ============================ 第一章 ============================ -->
+<section class="section" id="ch1">
+<h2>第一章 信号与系统基本概念</h2>
+
+<h3>1.1 信号的分类</h3>
+<table>
+  <tr><th>分类维度</th><th>类型</th><th>例子</th></tr>
+  <tr><td>连续性</td><td>连续时间信号 x(t) / 离散时间信号 x[n]</td><td>电压波形 / 语音采样</td></tr>
+  <tr><td>确定性</td><td>确定信号 / 随机信号</td><td>正弦波 / 噪声</td></tr>
+  <tr><td>周期性</td><td>周期 T：x(t+T)=x(t) / 非周期</td><td>市电 50Hz</td></tr>
+  <tr><td>能量/功率</td><td>能量信号（E有限） / 功率信号（P有限）</td><td>脉冲 / 周期信号</td></tr>
+</table>
+
+<h3>1.2 典型信号</h3>
+<ul>
+  <li><strong>指数信号</strong>：e<sup>st</sup>（s=σ+jω，一切信号分析的"原子"）</li>
+  <li><strong>正弦信号</strong>：A·sin(ωt+φ)</li>
+  <li><strong>单位冲激 δ(t)</strong>：抽样性质 <strong>∫f(t)δ(t−t₀)dt = f(t₀)</strong>，是 LTI 系统分析的基石</li>
+  <li><strong>单位阶跃 u(t)</strong>：与 δ 的关系 δ(t)=du/dt</li>
+  <li><strong>sa 函数（抽样函数）</strong>：sa(t)=sin(t)/t，理想低通滤波器的冲激响应</li>
+</ul>
+
+<h3>1.3 信号的基本运算</h3>
+<table>
+  <tr><th>运算</th><th>表达式</th><th>注意点</th></tr>
+  <tr><td>翻转</td><td>x(−t)</td><td>以纵轴为镜</td></tr>
+  <tr><td>尺度</td><td>x(at)</td><td>a&gt;1 时间压缩、频率展宽</td></tr>
+  <tr><td>时移</td><td>x(t−t₀)</td><td>减号右移（推迟）</td></tr>
+  <tr><td>微分/积分</td><td>dx/dt、∫x dτ</td><td>跳变处出现冲激</td></tr>
+</table>
+
+<h3>1.4 系统的性质</h3>
+<ul>
+  <li><strong>线性</strong>：齐次性 + 叠加性</li>
+  <li><strong>时不变</strong>：输入延迟 → 输出同样延迟</li>
+  <li><strong>因果</strong>：输出不超前输入（物理可实现系统的必要条件）</li>
+  <li><strong>稳定</strong>：有界输入 → 有界输出（BIBO）</li>
+</ul>
+<div class="alert alert-info">💡 <strong>LTI（线性时不变）系统</strong>是全课程主角：只需知道 h(t)（冲激响应），就能求任意输入的输出 —— 卷积。</div>
+</section>
+
+<!-- ============================ 第二章 ============================ -->
+<section class="section" id="ch2">
+<h2>第二章 LTI 系统与卷积</h2>
+
+<h3>2.1 卷积的定义</h3>
+<div class="formula">y(t) = x(t) * h(t) = ∫<sub>−∞</sub><sup>∞</sup> x(τ)h(t−τ)dτ</div>
+<div class="formula">离散：y[n] = Σ<sub>k</sub> x[k]h[n−k]</div>
+
+<h3>2.2 卷积的性质</h3>
+<table>
+  <tr><th>性质</th><th>公式</th></tr>
+  <tr><td>交换律</td><td>x*h = h*x</td></tr>
+  <tr><td>分配律</td><td>x*(h₁+h₂) = x*h₁ + x*h₂</td></tr>
+  <tr><td>结合律</td><td>(x*h₁)*h₂ = x*(h₁*h₂)（级联系统）</td></tr>
+  <tr><td>与冲激卷积</td><td>x(t)*δ(t) = x(t)；x(t)*δ(t−t₀) = x(t−t₀)</td></tr>
+  <tr><td>微积分</td><td>d/dt[x*h] = x′*h = x*h′</td></tr>
+</table>
+
+<h3>2.3 图解法求卷积</h3>
+<div class="code-block"><pre>步骤：① 翻转 h(τ)→h(−τ) ② 平移 h(t−τ) ③ 相乘 ④ 积分(面积)
+关键：确定积分上下限的交界点，分段讨论！</pre></div>
+
+<h3>2.4 因果性与稳定性判据</h3>
+<div class="formula">因果 ⇔ h(t) = 0 (t&lt;0)；稳定 ⇔ ∫|h(t)|dt &lt; ∞（绝对可积）</div>
+
+<h3>2.5 卷积的工程意义</h3>
+<p>系统的零状态响应 = 输入与冲激响应的卷积。任何线性滤波、信道传输、图像模糊，本质都是卷积。FFT 加速卷积（快速卷积）是 DSP 的常用技巧。</p>
+</section>
+
+<!-- ============================ 第三章 ============================ -->
+<section class="section" id="ch3">
+<h2>第三章 傅里叶级数（周期信号）</h2>
+
+<h3>3.1 三角形式</h3>
+<div class="formula">x(t) = a₀/2 + Σ<sub>n=1</sub><sup>∞</sup>[a<sub>n</sub>cos(nω₁t) + b<sub>n</sub>sin(nω₁t)]</div>
+<div class="formula">a<sub>n</sub> = (2/T)∫x(t)cos(nω₁t)dt，　b<sub>n</sub> = (2/T)∫x(t)sin(nω₁t)dt</div>
+
+<h3>3.2 指数形式（更常用）</h3>
+<div class="formula">x(t) = Σ<sub>n=−∞</sub><sup>∞</sup> X<sub>n</sub>e<sup>jnω₁t</sup>，　X<sub>n</sub> = (1/T)∫<sub>T</sub> x(t)e<sup>−jnω₁t</sup>dt</div>
+
+<h3>3.3 典型周期信号的频谱</h3>
+<table>
+  <tr><th>信号</th><th>频谱特点</th></tr>
+  <tr><td>周期方波</td><td>幅度 ∝ 1/n（奇次谐波），sa 包络</td></tr>
+  <tr><td>周期锯齿波</td><td>幅度 ∝ 1/n（全部谐波）</td></tr>
+  <tr><td>周期冲激串</td><td>所有谐波等幅 —— 理想抽样载波</td></tr>
+</table>
+<div class="alert alert-info">💡 <strong>频谱三大规律</strong>：离散性（谐波间隔 ω₁）、收敛性（幅度递减）、奇偶性（实信号幅度谱偶对称、相位谱奇对称）。</div>
+</section>
+
+<!-- ============================ 第四章 ============================ -->
+<section class="section" id="ch4">
+<h2>第四章 傅里叶变换（非周期信号）</h2>
+
+<h3>4.1 定义</h3>
+<div class="formula">X(jω) = ∫<sub>−∞</sub><sup>∞</sup> x(t)e<sup>−jωt</sup>dt　　（正变换）</div>
+<div class="formula">x(t) = (1/2π)∫<sub>−∞</sub><sup>∞</sup> X(jω)e<sup>jωt</sup>dω　　（反变换）</div>
+<p>物理意义：非周期信号可视为周期 T→∞ 的周期信号，谱线无限密集 → 连续频谱。</p>
+
+<h3>4.2 常见傅里叶变换对（必背！）</h3>
+<table>
+  <tr><th>x(t)</th><th>X(jω)</th></tr>
+  <tr><td>δ(t)</td><td>1（全频谱均匀）</td></tr>
+  <tr><td>1</td><td>2πδ(ω)</td></tr>
+  <tr><td>u(t)</td><td>πδ(ω) + 1/(jω)</td></tr>
+  <tr><td>e<sup>−at</sup>u(t), a&gt;0</td><td>1/(a+jω)</td></tr>
+  <tr><td>矩形脉冲 g<sub>τ</sub>(t)</td><td>τ·sa(ωτ/2)</td></tr>
+  <tr><td>sa(ω<sub>c</sub>t/π)</td><td>理想低通（门函数）</td></tr>
+  <tr><td>cos ω₀t</td><td>π[δ(ω−ω₀)+δ(ω+ω₀)]</td></tr>
+  <tr><td>e<sup>−at²</sup>（高斯）</td><td>√(π/a)·e<sup>−ω²/4a</sup>（还是高斯）</td></tr>
+</table>
+
+<h3>4.3 频谱的幅度与相位</h3>
+<p>X(jω) = |X(jω)|e<sup>jφ(ω)</sup>。幅度谱决定"有什么频率成分"，相位谱决定"各成分如何对齐"—— 数字通信中相位谱同样关键。</p>
+</section>
+
+<!-- ============================ 第五章 ============================ -->
+<section class="section" id="ch5">
+<h2>第五章 傅里叶变换性质与应用</h2>
+
+<h3>5.1 重要性质（考试核心）</h3>
+<table>
+  <tr><th>性质</th><th>时域</th><th>频域</th></tr>
+  <tr><td>线性</td><td>ax₁+bx₂</td><td>aX₁+bX₂</td></tr>
+  <tr><td>时移</td><td>x(t−t₀)</td><td>X e<sup>−jωt₀</sup>（幅度不变，相位线性滞后）</td></tr>
+  <tr><td>频移（调制！）</td><td>x(t)e<sup>jω₀t</sup></td><td>X(j(ω−ω₀))</td></tr>
+  <tr><td>尺度</td><td>x(at)</td><td>(1/|a|)X(jω/a)</td></tr>
+  <tr><td>时域微分</td><td>dx/dt</td><td>jωX</td></tr>
+  <tr><td>时域卷积 ⭐</td><td>x*h</td><td>X·H</td></tr>
+  <tr><td>频域卷积</td><td>x·y</td><td>(1/2π)X*Y</td></tr>
+  <tr><td>帕塞瓦尔</td><td>∫|x|²dt</td><td>(1/2π)∫|X|²dω（能量守恒）</td></tr>
+</table>
+
+<h3>5.2 时域卷积定理 —— 全书最重要的定理</h3>
+<div class="alert alert-success">✅ <strong>y(t)=x(t)*h(t) ⇔ Y(jω)=X(jω)·H(jω)</strong>。时域复杂的卷积运算变成频域简单乘法。这是 FFT 快速卷积、频域均衡、滤波器设计的理论根基。</div>
+
+<h3>5.3 调制与解调的频域解释</h3>
+<p>乘以 cos ω<sub>c</sub>t = 频谱左右各搬移 ω<sub>c</sub>（幅度减半）—— 这就是傅里叶变换频移性质的直接应用，也是通信原理中所有调制的数学本质。</p>
+
+<h3>5.4 周期信号的傅里叶变换</h3>
+<div class="formula">x(t) 周期信号 → X(jω) = 2πΣ X<sub>n</sub>δ(ω−nω₁)</div>
+<p>把傅里叶级数系数放到冲激位置上，统一了周期与非周期信号的频谱语言。</p>
+</section>
+
+<!-- ============================ 第六章 ============================ -->
+<section class="section" id="ch6">
+<h2>第六章 采样定理（抽样定理）</h2>
+
+<h3>6.1 抽样过程</h3>
+<div class="code-block"><pre>抽样 = 信号 × 冲激串 → 频域：原频谱以 ωₛ 为周期进行复制搬移</pre></div>
+
+<h3>6.2 奈奎斯特抽样定理</h3>
+<div class="formula">f<sub>s</sub> ≥ 2f<sub>m</sub>（信号最高频率）→ 抽样后频谱不混叠，可用低通滤波恢复原信号</div>
+<ul>
+  <li>f<sub>s</sub> = 2f<sub>m</sub> 称<strong>奈奎斯特速率</strong></li>
+  <li>f<sub>s</sub> &lt; 2f<sub>m</sub> → 混叠（aliasing）：高频成分"伪装"成低频，不可逆失真</li>
+</ul>
+
+<h3>6.3 频域抽样定理（对偶）</h3>
+<p>对时域采样：时域离散 ↔ 频域周期延拓；对频域采样：频域离散 ↔ 时域周期延拓（DFT 的理论基础）。</p>
+
+<h3>6.4 实际系统的抗混叠</h3>
+<ul>
+  <li>ADC 前必须加<strong>抗混叠低通滤波器</strong>（因为实际信号不严格带限）</li>
+  <li>CD 音频 44.1 kHz：人耳上限 20 kHz × 2 + 2.05 kHz 保护带</li>
+  <li>欠采样（带通抽样）在射频采样接收机中有意利用混叠 —— 带通采样定理</li>
+</ul>
+</section>
+
+<!-- ============================ 第七章 ============================ -->
+<section class="section" id="ch7">
+<h2>第七章 拉普拉斯变换</h2>
+
+<h3>7.1 定义</h3>
+<div class="formula">X(s) = ∫<sub>0</sub><sup>∞</sup> x(t)e<sup>−st</sup>dt　（单边），s = σ + jω</div>
+<p>拉氏变换 = 广义的傅氏变换（乘 e<sup>−σt</sup> 强制收敛），能处理 e<sup>at</sup>u(t) 等增长信号。</p>
+
+<h3>7.2 收敛域（ROC）</h3>
+<div class="alert alert-warning">⚠️ 拉氏变换必须指明收敛域才唯一对应信号！这是期末考试与考研的高频陷阱。例如 1/(s−1)：ROC 为 Re(s)&gt;1 时是 e<sup>t</sup>u(t)（因果），Re(s)&lt;1 时是 −e<sup>t</sup>u(−t)（反因果）。</div>
+
+<h3>7.3 常用变换对与性质</h3>
+<table>
+  <tr><th>x(t)</th><th>X(s)</th><th>ROC</th></tr>
+  <tr><td>δ(t)</td><td>1</td><td>全平面</td></tr>
+  <tr><td>u(t)</td><td>1/s</td><td>Re(s)&gt;0</td></tr>
+  <tr><td>e<sup>−at</sup>u(t)</td><td>1/(s+a)</td><td>Re(s)&gt;−a</td></tr>
+  <tr><td>t·u(t)</td><td>1/s²</td><td>Re(s)&gt;0</td></tr>
+  <tr><td>cos ω₀t·u(t)</td><td>s/(s²+ω₀²)</td><td>Re(s)&gt;0</td></tr>
+  <tr><td>sin ω₀t·u(t)</td><td>ω₀/(s²+ω₀²)</td><td>Re(s)&gt;0</td></tr>
+</table>
+<p>核心性质：时域卷积 → s 域乘积；时域微分 → 乘 s（初值/终值定理可快速求 f(0⁺)、f(∞)）。</p>
+
+<h3>7.4 用拉氏变换解微分方程</h3>
+<div class="code-block"><pre>线性常系数微分方程 --拉氏变换--> s域代数方程 --求Y(s)--> 部分分式分解 --反变换--> y(t)
+(自动包含初始条件，一步到位求全响应！)</pre></div>
+</section>
+
+<!-- ============================ 第八章 ============================ -->
+<section class="section" id="ch8">
+<h2>第八章 Z 变换</h2>
+
+<h3>8.1 定义</h3>
+<div class="formula">X(z) = Σ<sub>n=−∞</sub><sup>∞</sup> x[n]z<sup>−n</sup>，z = re<sup>jω</sup></div>
+<p>Z 变换是离散时间信号的"拉普拉斯变换"。单位圆上 z = e<sup>jω</sup> 时退化为离散时间傅里叶变换（DTFT）。</p>
+
+<h3>8.2 常用 Z 变换对</h3>
+<table>
+  <tr><th>x[n]</th><th>X(z)</th><th>ROC</th></tr>
+  <tr><td>δ[n]</td><td>1</td><td>全平面</td></tr>
+  <tr><td>u[n]</td><td>z/(z−1)</td><td>|z|&gt;1</td></tr>
+  <tr><td>a<sup>n</sup>u[n]</td><td>z/(z−a)</td><td>|z|&gt;|a|</td></tr>
+  <tr><td>na<sup>n</sup>u[n]</td><td>az/(z−a)²</td><td>|z|&gt;|a|</td></tr>
+  <tr><td>cos(ω₀n)u[n]</td><td>(z²−zcosω₀)/(z²−2zcosω₀+1)</td><td>|z|&gt;1</td></tr>
+</table>
+
+<h3>8.3 Z 反变换</h3>
+<ul>
+  <li><strong>幂级数法（长除法）</strong>：直接展开得 x[n] 前若干项</li>
+  <li><strong>部分分式法</strong>：X(z)/z 展开后查表（最常用）</li>
+  <li><strong>留数法</strong>：x[n] = Σ Res[X(z)z<sup>n−1</sup>]</li>
+</ul>
+
+<h3>8.4 差分方程求解</h3>
+<div class="code-block"><pre class="language-python"># 一阶 IIR 系统: y[n] = 0.9*y[n-1] + x[n] 的单位阶跃响应
+y = 0
+for n in range(20):
+    y = 0.9*y + 1
+    print(n, round(y, 4))   # 收敛到 1/(1-0.9)=10（终值定理验证）</pre></div>
+</section>
+
+<!-- ============================ 第九章 ============================ -->
+<section class="section" id="ch9">
+<h2>第九章 系统函数与稳定性</h2>
+
+<h3>9.1 系统函数</h3>
+<div class="formula">连续：H(s) = Y(s)/X(s)；离散：H(z) = Y(z)/X(z)</div>
+<p>零状态响应下由系统结构唯一决定，与激励无关。</p>
+
+<h3>9.2 极零点与系统行为</h3>
+<ul>
+  <li><strong>极点</strong>：分母零点 → 决定响应模式（e<sup>pt</sup> / a<sup>n</sup>）</li>
+  <li><strong>零点</strong>：分子零点 → 决定各模式的幅度和相位</li>
+  <li>极点在左半平面 → 衰减；虚轴 → 等幅振荡；右半平面 → 发散</li>
+</ul>
+
+<h3>9.3 稳定性判据</h3>
+<table>
+  <tr><th>系统类型</th><th>稳定条件</th></tr>
+  <tr><td>连续系统</td><td>H(s) 全部极点位于左半 s 平面（Re&lt;0）</td></tr>
+  <tr><td>离散系统</td><td>H(z) 全部极点位于单位圆内（|z|&lt;1）</td></tr>
+  <tr><td>劳斯判据</td><td>不解方程判断特征根位置（控制理论）</td></tr>
+</table>
+
+<h3>9.4 频率响应的几何求解</h3>
+<p>由极零图直接画 |H(jω)|：零点靠近单位圆/虚轴 → 该频率增益出现谷；极点靠近 → 出现峰。全通系统（零极点镜像对）、最小相位系统等概念由此展开。</p>
+</section>
+
+<!-- ============================ 第十章 ============================ -->
+<section class="section" id="ch10">
+<h2>第十章 滤波器设计</h2>
+
+<h3>10.1 滤波器分类</h3>
+<table>
+  <tr><th>类型</th><th>通带</th><th>典型应用</th></tr>
+  <tr><td>低通 LPF</td><td>|ω|&lt;ω<sub>c</sub></td><td>抗混叠、平滑</td></tr>
+  <tr><td>高通 HPF</td><td>|ω|&gt;ω<sub>c</sub></td><td>隔直、边缘检测</td></tr>
+  <tr><td>带通 BPF</td><td>ω₁&lt;|ω|&lt;ω₂</td><td>超外差接收机中频</td></tr>
+  <tr><td>带阻 BSF</td><td>排除 ω₁~ω₂</td><td>陷波去除工频干扰</td></tr>
+</table>
+
+<h3>10.2 理想 vs 实际滤波器</h3>
+<p>理想低通（矩形幅度特性）物理不可实现（非因果的 sa 冲激响应）。实际滤波器用通带波纹、阻带衰减、过渡带宽三大指标描述。巴特沃斯（最大平坦）、切比雪夫（等波纹）、椭圆（过渡最陡）是三大经典逼近。</p>
+
+<h3>10.3 数字滤波器 FIR vs IIR</h3>
+<table>
+  <tr><th></th><th>FIR</th><th>IIR</th></tr>
+  <tr><td>结构</td><td>无反馈（非递归）</td><td>有反馈（递归）</td></tr>
+  <tr><td>稳定性</td><td>恒稳定</td><td>需设计保证</td></tr>
+  <tr><td>线性相位</td><td>可实现（对称冲激响应）</td><td>一般不行</td></tr>
+  <tr><td>阶数</td><td>高</td><td>低（效率高）</td></tr>
+  <tr><td>代表</td><td>窗函数法、频率抽样</td><td>冲激响应不变法、双线性变换</td></tr>
+</table>
+
+<h3>10.4 双线性变换设计 IIR（流程）</h3>
+<div class="code-block"><pre>数字指标 →(预畸变 ω=(2/T)tan(Ω/2))→ 模拟指标 → 模拟低通原型(巴特沃斯)
+→ 频率变换(低通/高通/带通/带阻) → 双线性变换 s=(2/T)(1−z⁻¹)/(1+z⁻¹) → H(z)</pre></div>
+</section>
+
+<!-- ============================ 第十一章 ============================ -->
+<section class="section" id="ch11">
+<h2>第十一章 状态变量分析</h2>
+
+<h3>11.1 状态方程与输出方程</h3>
+<div class="formula">连续：ẋ = Ax + Bu；y = Cx + Du　　离散：x[n+1] = Ax[n] + Bu[n]</div>
+
+<h3>11.2 状态方程建立</h3>
+<ul>
+  <li>由微分方程/系统函数直接实现（直接形式信号流图）</li>
+  <li>由电路列写（电容电压、电感电流为状态变量）</li>
+</ul>
+
+<h3>11.3 状态方程求解</h3>
+<div class="formula">x(t) = e<sup>At</sup>x(0) + e<sup>At</sup>*Bu(t)（矩阵指数/状态转移矩阵 φ(t)=e<sup>At</sup>）</div>
+
+<h3>11.4 可控性与可观测性</h3>
+<p>系统能控：rank[B AB … A<sup>n−1</sup>B] = n；能观：rank[C; CA; …; CA<sup>n−1</sup>] = n。现代控制理论基石，也是卡尔曼滤波器的理论基础。</p>
+</section>
+
+<!-- ============================ 第十二章 ============================ -->
+<section class="section" id="ch12">
+<h2>第十二章 习题与思考</h2>
+
+<div class="quiz">
+<details>
+<summary>1.（计算）已知 x(t)=e<sup>−2t</sup>u(t)，h(t)=u(t)，求 y(t)=x(t)*h(t)。</summary>
+<div class="quiz-answer">
+<p>y(t) = ∫<sub>0</sub><sup>t</sup> e<sup>−2τ</sup>dτ · u(t) = (1/2)(1−e<sup>−2t</sup>)u(t)</p>
+<p>另解（频域）：X=1/(2+jω)，H=1/(jω)+πδ(ω)，Y=XH → 部分分式得同结果。</p>
+</div>
+</details>
+
+<details>
+<summary>2.（概念）为什么说 δ(t) 是 LTI 系统分析的基石？</summary>
+<div class="quiz-answer">
+<p>任意信号可分解为 δ 的加权积分：x(t)=∫x(τ)δ(t−τ)dτ。由线性时不变性，响应为 x(τ)h(t−τ)的积分 —— 即卷积。所以<strong>知道了 h(t) 就知道系统对一切输入的响应</strong>，δ 是"探针"。</p>
+</div>
+</details>
+
+<details>
+<summary>3.（计算）矩形脉冲宽度 τ=1ms，其频谱主瓣宽度（第一零点）是多少？</summary>
+<div class="quiz-answer">
+<p>矩形脉冲频谱为 τ·sa(ωτ/2)，第一零点在 f = 1/τ = <strong>1 kHz</strong>。脉冲越窄，频谱越宽 —— 时频对偶（尺度特性）的直接体现。</p>
+</div>
+</details>
+
+<details>
+<summary>4.（判断）某系统 h[n] = 2<sup>n</sup>u[n]，是否稳定？</summary>
+<div class="quiz-answer">
+<p>Σ|2<sup>n</sup>| = ∞，不绝对可和 → <strong>不稳定</strong>。也可看极点 z=2 在单位圆外，同样结论。</p>
+</div>
+</details>
+
+<details>
+<summary>5.（计算）求 y[n] = x[n] + 0.5y[n−1] 的系统函数，判断稳定性与滤波类型。</summary>
+<div class="quiz-answer">
+<p>H(z) = 1/(1−0.5z<sup>−1</sup>) = z/(z−0.5)。极点 z=0.5 在单位圆内 → 稳定。|ω|=0 时 |H|=2，|ω|=π 时 |H|=2/3 → <strong>低通</strong>。这是一阶 IIR 低通（指数平滑）滤波器。</p>
+</div>
+</details>
+
+<details>
+<summary>6.（思考）说明"时域卷积 = 频域相乘"在通信系统中的三个应用。</summary>
+<div class="quiz-answer">
+<p>①<strong>滤波</strong>：信号通过信道/滤波器即卷积，频域为 H(jω)加权；②<strong>快速卷积</strong>：FFT 计算长卷积，复杂度 O(N log N)，DSP 芯片核心算法；③<strong>频域均衡</strong>：OFDM 中每子载波一次复数乘法完成均衡，代替复杂时域均衡器。</p>
+</div>
+</details>
+
+<details>
+<summary>7.（计算）信号 x(t)=cos(200πt)+cos(400πt)，最低抽样频率？抽样后如何恢复？</summary>
+<div class="quiz-answer">
+<p>f<sub>m</sub> = 200 Hz → f<sub>s</sub> ≥ <strong>400 Hz</strong>。恢复：截频 200&lt;ω<sub>c</sub>&lt;400π 的理想低通滤波器。若 f<sub>s</sub>=300 Hz，400π 分量混叠到 200π，无法恢复。</p>
+</div>
+</details>
+</div>
+</section>
+
+<!-- ============================ 第十三章 ============================ -->
+<section class="section" id="ch13">
+<h2>第十三章 仿真实验（Python / MATLAB）</h2>
+
+<h3>实验一：卷积的图形验证</h3>
+<div class="code-block"><pre class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.linspace(-5, 5, 1000)
+x = np.exp(-2*t)*np.where(t >= 0, 1, 0)   # e^(-2t)u(t)
+h = np.where(t >= 0, 1, 0)                 # u(t)
+
+y = np.convolve(x, h) * (t[1]-t[0])        # 数值卷积(乘dt)
+ty = np.linspace(2*t[0], 2*t[1], len(y))
+
+plt.plot(ty, y); plt.title('y(t)=x(t)*h(t)')
+plt.grid(); plt.show()   # 与理论 (1-e^(-2t))u(t)/2 对比</pre></div>
+
+<h3>实验二：方波的傅里叶合成（吉布斯现象）</h3>
+<div class="code-block"><pre class="language-python">t = np.linspace(0, 4, 2000)
+square = np.sign(np.sin(2*np.pi*t))         # 周期1s方波
+for N in (1, 3, 7, 21, 101):                # 叠加谐波数
+    approx = np.zeros_like(t)
+    for n in range(1, N+1, 2):              # 只有奇次谐波
+        approx += (4/np.pi)*np.sin(2*np.pi*n*t)/n
+    plt.plot(t, approx, label=f'N={N}')
+plt.legend(); plt.title('傅里叶级数合成与吉布斯现象'); plt.show()</pre></div>
+
+<h3>实验三：采样与混叠可视化</h3>
+<div class="code-block"><pre class="language-python">f0, fs = 5, 12          # 5Hz信号, 12Hz采样(<2*5=10? 否, 12>10不混叠)
+fs_bad = 7              # 欠采样示例
+t = np.linspace(0, 1, 1000)
+n = np.arange(0, 1, 1/fs)
+signal = np.sin(2*np.pi*f0*t)
+plt.plot(t, signal, 'k--', alpha=0.4)
+plt.plot(n, np.sin(2*np.pi*f0*n), 'ro-', label=f'fs={fs}Hz')
+# 试试 fs=7: 采样点看起来像 2Hz 信号 —— 这就是混叠!
+plt.legend(); plt.show()</pre></div>
+
+<h3>实验四：零极点与频率响应</h3>
+<div class="code-block"><pre class="language-python">from scipy import signal
+# H(z) = (z^2+1)/(z^2-0.9z+0.81)  极点近单位圆→谐振峰
+b = [1, 0, 1]; a = [1, -0.9, 0.81]
+w, H = signal.freqz(b, a)
+plt.subplot(121); plt.plot(w/np.pi, 20*np.log10(abs(H)))
+plt.title('|H(e^jω)| dB'); plt.grid()
+z, p, k = signal.tf2zpk(b, a)
+plt.subplot(122)
+plt.scatter(np.real(z), np.imag(z), marker='o', s=80, facecolors='none')
+plt.scatter(np.real(p), np.imag(p), marker='x', s=80)
+th = np.linspace(0, 2*np.pi, 100)
+plt.plot(np.cos(th), np.sin(th), 'k--', alpha=0.5)
+plt.axis('equal'); plt.title('零极点图'); plt.show()</pre></div>
+
+<h3>实验五：FIR 滤波器设计与应用</h3>
+<div class="code-block"><pre class="language-python">fs = 1000
+t = np.arange(0, 1, 1/fs)
+x = np.sin(2*np.pi*10*t) + 0.8*np.sin(2*np.pi*200*t)   # 10Hz+200Hz
+h = signal.firwin(64, 50, fs=fs)                        # 64阶, 截止50Hz
+y = signal.lfilter(h, 1, x)
+plt.subplot(211); plt.plot(t[:300], x[:300]); plt.title('滤波前')
+plt.subplot(212); plt.plot(t[:300], y[:300]); plt.title('滤波后(200Hz被抑制)')
+plt.tight_layout(); plt.show()</pre></div>
+
+<div class="alert alert-success">✅ <strong>学习建议</strong>：信号与系统的每一章都值得做一次仿真。把卷积、频谱、混叠、零极点全部"画出来"，抽象公式会立刻具象化。Python（numpy/scipy/matplotlib）全免费，MATLAB 学校一般有正版授权。</div>
+
+<div class="section" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;text-align:center;">
+  <h2 style="color:#fff;border-color:#fff;">🎯 学习目标检查</h2>
+  <p>完成本章后你应该能够：</p>
+  <ul style="list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;text-align:left;">
+    <li>✅ 判断信号的能量/功率、周期、奇偶性</li>
+    <li>✅ 图解法与解析法计算卷积</li>
+    <li>✅ 熟记 10 个以上傅氏变换对与性质</li>
+    <li>✅ 解释时域卷积定理及其工程应用</li>
+    <li>✅ 应用奈奎斯特采样定理并识别混叠</li>
+    <li>✅ 用拉氏变换解微分方程并理解 ROC</li>
+    <li>✅ 用 Z 变换解差分方程并判断稳定性</li>
+    <li>✅ 由零极点图定性画出频率响应</li>
+    <li>✅ 区分 FIR/IIR 并完成简单设计</li>
+    <li>✅ 用 Python 复现本页全部仿真实验</li>
+  </ul>
+</div>
+
+</main>
+</div>
+
+<footer class="site-footer">
+  <p>© 2026 通信工程学习站 · 仿菜鸟教程风格 · 仅供本科学习用途</p>
+  <p>本文档基于 CC BY-SA 4.0 协议，欢迎分享、传播并署名</p>
+  <p><a href="index.html">← 返回首页</a> · <a href="#top">↑ 回到顶部</a></p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/search-data.js"></script>
+<script src="js/search.js"></script>
+</body>
+</html>

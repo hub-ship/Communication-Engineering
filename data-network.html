@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数据通信与网络技术 - 通信工程学习站</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="site-header">
+  <div class="site-header-inner">
+    <a href="index.html" class="brand"><span class="b1">通信工程</span><span class="b2">.CN</span></a>
+    <div class="search-box" data-search-host>
+      <input type="search" placeholder="搜索本课程章节……" aria-label="搜索">
+      <div class="search-results" id="header-search-results" hidden></div>
+    </div>
+  </div>
+</div>
+
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="data-network.html" class="active">数据通信</a>
+    <div class="nav-dropdown">
+      <a class="dropdown-toggle" tabindex="0">全部教程</a>
+      <ul class="dropdown-menu">
+        <li class="dd-cat">基础课</li>
+        <li><a href="c-programming.html">💻 C 语言程序设计</a></li>
+        <li><a href="signal-system.html">📊 信号与系统</a></li>
+        <li class="dd-cat">专业核心</li>
+        <li><a href="comm-principle.html">📡 通信原理</a></li>
+        <li><a href="mcu.html">🔧 单片机原理与应用</a></li>
+        <li><a href="data-network.html">🌐 数据通信与网络</a></li>
+        <li><a href="mobile-comm.html">📶 移动通信</a></li>
+        <li class="dd-cat">工具与平台</li>
+        <li><a href="os-linux.html">🐧 操作系统与 Linux</a></li>
+      </ul>
+    </div>
+    <a href="index.html#roadmap">学习路线</a>
+    <a href="index.html#tools">工具推荐</a>
+    <a href="index.html#howto">用户笔记</a>
+    <a href="index.html#quiz">期末自测</a>
+    <a href="index.html">数据通信</a>
+  </div>
+</nav>
+
+
+<div class="layout-2col">
+<aside class="sidebar"><div class="sidebar-title"><span class="icon">≡</span> 数据通信与网络技术 目录</div>
+  
+  <ul>
+    <li><a href="#ch1">1. 数据通信基础</a></li>
+    <li><a href="#ch2">2. 网络体系结构（OSI/TCP-IP）</a></li>
+    <li><a href="#ch3">3. 物理层与传输媒介</a></li>
+    <li><a href="#ch4">4. 数据链路层与以太网</a></li>
+    <li><a href="#ch5">5. 交换机与VLAN</a></li>
+    <li><a href="#ch6">6. 网络层与IP协议</a></li>
+    <li><a href="#ch7">7. 路由原理与协议</a></li>
+    <li><a href="#ch8">8. 传输层 TCP/UDP</a></li>
+    <li><a href="#ch9">9. 应用层协议</a></li>
+    <li><a href="#ch10">10. 网络安全基础</a></li>
+    <li><a href="#ch11">11. Socket 编程</a></li>
+    <li><a href="#ch12">12. Wireshark 抓包实验</a></li>
+    <li><a href="#ch13">13. 习题与思考</a></li>
+    <li><a href="#ch14">14. 组网综合实验</a></li>
+  </ul>
+</aside>
+
+<main class="main">
+
+    <div class="course-intro">
+      <div class="title-row">
+        <h1>🌐 数据通信与网络技术</h1>
+        <span class="version-tag">数据通信.x</span>
+      </div>
+      <p>OSI/TCP-IP 模型、路由交换、 TCP/UDP、 HTTP/S、 Socket 编程、 Wireshark 抓包。</p>
+      <p style="font-size:12px;color:var(--text-muted);">📚 建议顺序：从第一章开始依次学习 · 每章后附带习题与实验</p>
+    </div>
+
+<!-- ============================ 第一章 ============================ -->
+<section class="section" id="ch1">
+<h2>第一章 数据通信基础</h2>
+
+<h3>1.1 数据通信系统模型</h3>
+<div class="code-block"><pre>源系统(源点+发送器) → 传输系统(信道) → 目的系统(接收器+终点)
+五大部件 + 协议(通信双方共同遵守的规则)</pre></div>
+
+<h3>1.2 基本术语</h3>
+<table>
+  <tr><th>术语</th><th>含义</th></tr>
+  <tr><td>码元</td><td>一个数字脉冲（可携带 log₂M bit，M为进制）</td></tr>
+  <tr><td>波特率</td><td>码元速率（Baud）</td></tr>
+  <tr><td>比特率</td><td>信息速率（bit/s）= 波特率 × log₂M</td></tr>
+  <tr><td>带宽(模拟)</td><td>Hz；带宽(数字)：bit/s —— 注意语境</td></tr>
+  <tr><td>时延</td><td>发送+传播+处理+排队</td></tr>
+</table>
+
+<h3>1.3 时延计算（必考）</h3>
+<div class="formula">发送时延 = 分组长度/发送速率　　传播时延 = 距离/传播速度（约2×10⁸ m/s）</div>
+<div class="code-block"><pre>例: 1000字节分组, 100Mbps链路, 1000km光纤
+发送时延 = 8000bit / 10⁸ bit/s = 80μs
+传播时延 = 10⁶m / (2×10⁸m/s) = 5ms   → 传播占绝对主导!</pre></div>
+
+<h3>1.4 交换方式</h3>
+<table>
+  <tr><th>方式</th><th>原理</th><th>优缺点</th></tr>
+  <tr><td>电路交换</td><td>先建立专用通路</td><td>实时好、利用率低（电话）</td></tr>
+  <tr><td>报文交换</td><td>整个报文存储转发</td><td>时延大、需大缓存</td></tr>
+  <tr><td><strong>分组交换</strong></td><td>切小组存储转发</td><td>灵活高效、有排队时延（因特网）⭐</td></tr>
+</table>
+</section>
+
+<!-- ============================ 第二章 ============================ -->
+<section class="section" id="ch2">
+<h2>第二章 网络体系结构</h2>
+
+<h3>2.1 OSI 七层模型</h3>
+<table>
+  <tr><th>层次</th><th>功能</th><th>数据单元</th><th>设备/协议</th></tr>
+  <tr><td>7 应用层</td><td>为用户提供服务</td><td>报文</td><td>HTTP/FTP/DNS</td></tr>
+  <tr><td>6 表示层</td><td>格式转换/加密压缩</td><td>—</td><td>JPEG/SSL</td></tr>
+  <tr><td>5 会话层</td><td>建立管理会话</td><td>—</td><td>RPC</td></tr>
+  <tr><td>4 <strong>传输层</strong></td><td>端到端可靠传输</td><td>段(Segment)</td><td>TCP/UDP ⭐</td></tr>
+  <tr><td>3 <strong>网络层</strong></td><td>寻址与路由</td><td>包(Packet)</td><td>IP/ICMP/路由器 ⭐</td></tr>
+  <tr><td>2 <strong>数据链路层</strong></td><td>相邻节点成帧传输</td><td>帧(Frame)</td><td>以太网/PPP/交换机 ⭐</td></tr>
+  <tr><td>1 物理层</td><td>比特传输</td><td>比特(Bit)</td><td>网线/光纤/中继器</td></tr>
+</table>
+<div class="alert alert-info">💡 记忆口诀（物数网传会表应）：<strong>物联网淑惠试用</strong> —— OSI 是理论模型，实际互联网采用 TCP/IP 四层（应用/传输/网际/网络接口）。</div>
+
+<h3>2.2 封装与解封装</h3>
+<div class="code-block"><pre>发送方: 数据 → +TCP头(段) → +IP头(包) → +MAC头+FCS(帧) → 比特流
+接收方: 逐层剥头,同层协议对话(逻辑直接通信,物理逐层传递)</pre></div>
+</section>
+
+<!-- ============================ 第三章 ============================ -->
+<section class="section" id="ch3">
+<h2>第三章 物理层与传输媒介</h2>
+
+<h3>3.1 导引型媒介</h3>
+<table>
+  <tr><th>媒介</th><th>距离</th><th>带宽</th><th>特点</th></tr>
+  <tr><td>双绞线(UTP)</td><td>100m</td><td>百MHz</td><td>便宜,568B线序,水晶头</td></tr>
+  <tr><td>同轴电缆</td><td>数百m</td><td>高</td><td>抗干扰强,视频/旧以太网</td></tr>
+  <tr><td>光纤(单模)</td><td>几十km+</td><td>THz级</td><td>细芯激光,长途干线</td></tr>
+  <tr><td>光纤(多模)</td><td>几百m~2km</td><td>高</td><td>粗芯LED,楼宇布线</td></tr>
+</table>
+
+<h3>3.2 无线媒介</h3>
+<ul>
+  <li>无线电：短波（天波反射）、微波（视线中继/卫星）</li>
+  <li>ISM 免许可频段：2.4GHz / 5GHz / 60GHz（Wi-Fi、蓝牙共用 2.4G）</li>
+  <li>信道复用：FDM 频分 → OFDM 正交频分 → WDM 波分（光纤扩容神器）</li>
+</ul>
+
+<h3>3.3 常见物理层标准</h3>
+<div class="code-block"><pre>10BASE-T  → 10Mbps 双绞线
+100BASE-TX → 快速以太网(百兆)
+1000BASE-T → 千兆(四对全双工)
+10GBASE-SR → 万兆多模光纤
+光纤接口: LC/SC/ST; 双绞线: RJ45</pre></div>
+</section>
+
+<!-- ============================ 第四章 ============================ -->
+<section class="section" id="ch4">
+<h2>第四章 数据链路层与以太网</h2>
+
+<h3>4.1 链路层的三个基本问题</h3>
+<ul>
+  <li><strong>封装成帧</strong>：帧定界（MAC帧前导码、PPP标志0x7E）</li>
+  <li><strong>透明传输</strong>：字节填充（转义0x7D）/比特填充（连续5个1插0）</li>
+  <li><strong>差错检测</strong>：CRC 循环冗余校验（检错不纠错，错则丢弃）</li>
+</ul>
+
+<h3>4.2 CRC 校验计算（必考）</h3>
+<div class="code-block"><pre>例: 数据 101110, 生成多项式 P=1101 (x³+x²+1)
+步骤: 数据后补3个0 → 101110000 ÷ 1101 (模2除法,不借位)
+     余数 = 011 → 发送帧 = 101110 011
+接收方: 收到的整串除以P,余数为0 → 无错</pre></div>
+
+<h3>4.3 以太网 MAC 帧</h3>
+<div class="code-block"><pre>前导码(8B) | 目的MAC(6B) | 源MAC(6B) | 类型(2B) | 数据(46~1500B) | FCS(4B)
+类型: 0x0800=IP  0x0806=ARP
+MAC地址: 48位全球唯一, 前24位OUI厂商号
+MTU = 1500字节(以太网)</pre></div>
+
+<h3>4.4 CSMA/CD 与现代以太网</h3>
+<p>传统共享式以太网：载波监听多点接入/碰撞检测（半双工，退避算法）。现代交换式全双工以太网<strong>已无碰撞</strong>，CSMA/CD 仅具历史意义。</p>
+
+<h3>4.5 ARP 协议</h3>
+<div class="code-block"><pre>作用: IP地址 → MAC地址(同一局域网内)
+流程: 查缓存 → 无则广播ARP请求(目的MAC=FF:FF:FF:FF:FF:FF)
+     → 目的主机单播应答 → 写入ARP表(缓存,有生存期)
+# arp -a 可查看本机ARP表</pre></div>
+</section>
+
+<!-- ============================ 第五章 ============================ -->
+<section class="section" id="ch5">
+<h2>第五章 交换机与 VLAN</h2>
+
+<h3>5.1 交换机工作原理</h3>
+<ul>
+  <li>学习：收到帧 → 源MAC + 入端口 写入 MAC地址表</li>
+  <li>转发：查目的MAC → 表中有则单播转发，无则向除入口外<strong>所有端口泛洪</strong></li>
+  <li>三层架构：接入层(接终端) → 汇聚层 → 核心层(高速转发)</li>
+</ul>
+
+<h3>5.2 VLAN 虚拟局域网</h3>
+<div class="code-block"><pre>作用: 广播域隔离,安全+管理
+实现: 802.1Q 在MAC帧插入4字节Tag(VLAN ID 1~4094)
+Trunk口: 跨交换机承载多个VLAN; Access口: 属于单一VLAN
+配置(H3C/华为风格):
+[SWA] vlan 10
+[SWA-vlan10] name teachers
+[SWA] interface g0/0/1
+[SWA-GigabitEthernet0/0/1] port link-type access
+[SWA-GigabitEthernet0/0/1] port default vlan 10
+[SWA] interface g0/0/24
+[SWA-GigabitEthernet0/0/24] port link-type trunk
+[SWA-GigabitEthernet0/0/24] port trunk permit vlan 10 20</pre></div>
+
+<h3>5.3 链路聚合与生成树</h3>
+<ul>
+  <li><strong>链路聚合</strong>(LACP)：多条物理线捆成一条逻辑链路，带宽叠加+冗余</li>
+  <li><strong>生成树协议 STP</strong>：阻塞冗余链路防广播风暴，故障时自动切换（RSTP秒级收敛）</li>
+</ul>
+</section>
+
+<!-- ============================ 第六章 ============================ -->
+<section class="section" id="ch6">
+<h2>第六章 网络层与 IP 协议</h2>
+
+<h3>6.1 IPv4 首部关键字段</h3>
+<div class="code-block"><pre>版本(4) 首部长度(4) 总长度(16) | 标识+标志+片偏移(分片用)
+TTL(8,每过一个路由器-1,为0丢弃) | 协议(8: 1=ICMP 6=TCP 17=UDP)
+首部校验和 | 源IP(32) | 目的IP(32)
+首部20~60字节,路由器逐跳转发基于目的IP查路由表</pre></div>
+
+<h3>6.2 IP 地址与子网划分（重中之重）</h3>
+<table>
+  <tr><th>类别</th><th>网络位/主机位</th><th>默认掩码</th><th>私有地址段</th></tr>
+  <tr><td>A类</td><td>8/24</td><td>255.0.0.0</td><td>10.0.0.0/8</td></tr>
+  <tr><td>B类</td><td>16/16</td><td>255.255.0.0</td><td>172.16.0.0/12</td></tr>
+  <tr><td>C类</td><td>24/8</td><td>255.255.255.0</td><td>192.168.0.0/16</td></tr>
+</table>
+<div class="formula">可用主机数 = 2^(32−前缀长度) − 2（去掉网络地址与广播地址）</div>
+
+<h3>6.3 子网划分实例</h3>
+<div class="code-block"><pre>例: 把 192.168.1.0/24 划分成4个子网
+借用2位主机位 → 掩码 /26 → 255.255.255.192
+子网1: 192.168.1.0/26   范围 .1~.62   广播 .63
+子网2: 192.168.1.64/26  范围 .65~.126 广播 .127
+子网3: 192.168.1.128/26 范围 .129~.190
+子网4: 192.168.1.192/26 范围 .193~.254
+每子网可用主机 = 2⁶-2 = 62台</pre></div>
+
+<h3>6.4 特殊地址</h3>
+<table>
+  <tr><th>地址</th><th>含义</th></tr>
+  <tr><td>127.0.0.1</td><td>环回（本机）</td></tr>
+  <tr><td>0.0.0.0</td><td>任意/默认路由</td></tr>
+  <tr><td>255.255.255.255</td><td>受限广播</td></tr>
+  <tr><td>169.254.x.x</td><td>DHCP失败自动配置</td></tr>
+</table>
+
+<h3>6.5 NAT 与 IPv6</h3>
+<div class="code-block"><pre>NAT: 私有地址 ↔ 公网地址转换(家用路由器标配), 缓解IPv4枯竭
+IPv6: 128位地址(如 2001:db8::1), 无NAT、无广播、首部简化、
+     SLAAC无状态自动配置。过渡技术: 双栈 / 隧道 / NAT64</pre></div>
+
+<h3>6.6 ICMP 与常用网络命令</h3>
+<div class="code-block"><pre class="language-bash">ping 8.8.8.8          # ICMP回显,测连通性
+tracert www.qq.com    # 跟踪路径(逐跳TTL超时)
+ipconfig /all         # Windows查看网卡配置
+ip route / route -n   # 查看路由表
+nslookup www.baidu.com# DNS解析查询
+netstat -an           # 查看端口连接状态</pre></div>
+</section>
+
+<!-- ============================ 第七章 ============================ -->
+<section class="section" id="ch7">
+<h2>第七章 路由原理与协议</h2>
+
+<h3>7.1 路由器转发流程</h3>
+<div class="code-block"><pre>收到IP包 → 减TTL → 查路由表(最长前缀匹配) → 下一跳+出接口
+→ 重新封装链路层帧(改MAC) → 转发
+无匹配则丢包并回 ICMP 不可达</pre></div>
+
+<h3>7.2 静态路由 vs 动态路由</h3>
+<table>
+  <tr><th></th><th>静态路由</th><th>动态路由</th></tr>
+  <tr><td>配置</td><td>手工</td><td>协议自动学习</td></tr>
+  <tr><td>开销</td><td>零协议开销</td><td>CPU/带宽消耗</td></tr>
+  <tr><td>适应性</td><td>差（故障需手改）</td><td>自动收敛</td></tr>
+  <tr><td>场景</td><td>小网络/末梢</td><td>中大型网络</td></tr>
+</table>
+
+<h3>7.3 动态路由协议分类</h3>
+<table>
+  <tr><th>协议</th><th>类型</th><th>算法</th><th>适用</th></tr>
+  <tr><td>RIP</td><td>IGP,距离矢量</td><td>跳数(Bellman-Ford),最大15跳</td><td>小型(教学)</td></tr>
+  <tr><td><strong>OSPF</strong></td><td>IGP,链路状态</td><td>Dijkstra SPF,开销=带宽</td><td>中大企业/运营商 ⭐</td></tr>
+  <tr><td>BGP</td><td>EGP,路径矢量</td><td>策略路由(AS间)</td><td>互联网骨干 ⭐</td></tr>
+</table>
+
+<h3>7.4 默认网关与路由表读法</h3>
+<div class="code-block"><pre class="language-bash"># ip route 典型输出解读
+default via 192.168.1.1 dev eth0        # 默认路由:其他全走网关
+192.168.1.0/24 dev eth0 proto kernel scope link src 192.168.1.100
+10.10.0.0/16 via 192.168.1.254 dev eth0 # 静态:去10.10网段走.254</pre></div>
+</section>
+
+<!-- ============================ 第八章 ============================ -->
+<section class="section" id="ch8">
+<h2>第八章 传输层 TCP / UDP</h2>
+
+<h3>8.1 端口号与套接字</h3>
+<div class="code-block"><pre>端口(16位): 0~65535 | 知名端口0~1023 | 注册端口1024~49151
+FTP 21 / SSH 22 / HTTP 80 / HTTPS 443 / DNS 53 / DHCP 67/68
+套接字Socket = (IP, Port) 唯一标识一个通信端点</pre></div>
+
+<h3>8.2 UDP 特点</h3>
+<ul>
+  <li>无连接、尽力而为、首部仅8字节、支持一对多</li>
+  <li>应用层自己做可靠性的场景：DNS、DHCP、视频直播、RTP语音、游戏</li>
+</ul>
+
+<h3>8.3 TCP 特点（核心考点）</h3>
+<ul>
+  <li>面向连接（三次握手 / 四次挥手）</li>
+  <li>可靠传输：确认应答、超时重传(RTO自适应)、校验</li>
+  <li>流量控制：滑动窗口（接收方通告 rwnd）</li>
+  <li>拥塞控制：慢启动、拥塞避免、快重传、快恢复（AIMD）</li>
+</ul>
+
+<h3>8.4 三次握手与四次挥手</h3>
+<div class="code-block"><pre>建立连接(三次握手):
+客户端 → SYN(seq=x)           → 服务器
+客户端 ← SYN+ACK(seq=y,ack=x+1) ← 服务器
+客户端 → ACK(ack=y+1)         → 服务器
+(防失效连接请求/确认双方收发能力)
+
+释放连接(四次挥手):
+主动方 → FIN → 被动方
+主动方 ← ACK ← 被动方      (被动方处理剩余数据)
+主动方 ← FIN ← 被动方
+主动方 → ACK → 被动方      (主动方TIME_WAIT等待2MSL)</pre></div>
+
+<h3>8.5 TCP 拥塞控制四阶段</h3>
+<div class="code-block"><pre>慢启动: cwnd从1MSS指数增长到门限ssthresh
+拥塞避免: cwnd线性+1 MSS/RTT
+快重传: 连续3个重复ACK → 立即重传(不等超时)
+快恢复: ssthresh=cwnd/2, cwnd=ssthresh(新算法如CUBIC/BBR)</pre></div>
+</section>
+
+<!-- ============================ 第九章 ============================ -->
+<section class="section" id="ch9">
+<h2>第九章 应用层协议</h2>
+
+<h3>9.1 DNS 域名系统</h3>
+<div class="code-block"><pre>递归+迭代查询: 主机 → 本地DNS(递归) → 根 → 顶级域 → 权威DNS(迭代)
+记录类型: A(IPv4) AAAA(IPv6) CNAME(别名) MX(邮件) NS(权威)
+端口53(UDP为主,长报文用TCP)</pre></div>
+
+<h3>9.2 HTTP / HTTPS</h3>
+<table>
+  <tr><th></th><th>HTTP/1.1</th><th>HTTP/2</th><th>HTTP/3</th></tr>
+  <tr><td>传输</td><td>TCP</td><td>TCP</td><td>QUIC(UDP) ⭐</td></tr>
+  <tr><td>并发</td><td>管线化弱</td><td>多路复用</td><td>多路复用+0-RTT</td></tr>
+  <tr><td>头压缩</td><td>无</td><td>HPACK</td><td>QPACK</td></tr>
+</table>
+<div class="code-block"><pre class="language-http">GET /index.html HTTP/1.1        # 请求方法: GET POST PUT DELETE ...
+Host: www.example.com            # 必需首部
+Connection: keep-alive
+
+HTTP/1.1 200 OK                  # 状态码: 2xx成功 3xx重定向 4xx客户端错 5xx服务器错
+Content-Type: text/html; charset=utf-8</pre></div>
+<p>HTTPS = HTTP + TLS：握手协商密钥 → 对称加密传输（证书体系防中间人）。</p>
+
+<h3>9.3 DHCP 动态主机配置</h3>
+<div class="code-block"><pre>DORA四步(UDP 67/68,广播):
+Discover(客户端广播) → Offer(服务器提供) → Request(客户端选择) → ACK(确认分配)
+分配: IP+掩码+网关+DNS+租期</pre></div>
+
+<h3>9.4 电子邮件与文件传输</h3>
+<ul>
+  <li>SMTP(25) 发送 / POP3(110) / IMAP(143)收取</li>
+  <li>FTP(21控制+20数据)：主动/被动模式</li>
+  <li>MIME 扩展支持多媒体附件</li>
+</ul>
+</section>
+
+<!-- ============================ 第十章 ============================ -->
+<section class="section" id="ch10">
+<h2>第十章 网络安全基础</h2>
+
+<h3>10.1 机密性、完整性、可用性（CIA）</h3>
+<table>
+  <tr><th>属性</th><th>威胁</th><th>技术手段</th></tr>
+  <tr><td>机密性</td><td>窃听</td><td>对称/非对称加密</td></tr>
+  <tr><td>完整性</td><td>篡改</td><td>哈希(MD5/SHA)、MAC、数字签名</td></tr>
+  <tr><td>可用性</td><td>DDoS</td><td>流量清洗、CDN、限流</td></tr>
+  <tr><td>真实性</td><td>冒充</td><td>数字证书CA、PKI</td></tr>
+</table>
+
+<h3>10.2 加速密体制速览</h3>
+<div class="code-block"><pre>对称加密: AES-128/256(快,密钥分发难)
+非对称: RSA/ECC(慢,解决密钥分发+签名)
+混合: 用非对称协商会话密钥,用对称加密数据(TLS的做法)
+哈希: 单向,MD5(已不安全)/SHA-256
+数字签名: 私钥签名,公钥验签 → 不可否认</pre></div>
+
+<h3>10.3 常见攻击与防御</h3>
+<table>
+  <tr><th>攻击</th><th>原理</th><th>防御</th></tr>
+  <tr><td>ARP欺骗</td><td>伪造网关MAC</td><td>静态ARP绑定/DAI</td></tr>
+  <tr><td>DDoS</td><td>海量傀儡机耗尽资源</td><td>清洗中心/限流</td></tr>
+  <tr><td>钓鱼</td><td>伪造页面骗密码</td><td>安全意识/双因素</td></tr>
+  <tr><td>中间人攻击</td><td>冒充双方转发</td><td>TLS证书校验</td></tr>
+</table>
+
+<h3>10.4 防火墙与VPN</h3>
+<ul>
+  <li>防火墙：包过滤（ACL五元组）/状态检测/应用层网关</li>
+  <li>VPN：隧道+加密（IPSec、SSL VPN、WireGuard）跨公网组私网</li>
+</ul>
+</section>
+
+<!-- ============================ 第十一章 ============================ -->
+<section class="section" id="ch11">
+<h2>第十一章 Socket 编程</h2>
+
+<h3>11.1 Socket 编程模型</h3>
+<div class="code-block"><pre>TCP服务器: socket → bind → listen → accept → recv/send → close
+TCP客户端: socket → connect → send/recv → close
+UDP:       socket → bind(可选) → sendto/recvfrom → close</pre></div>
+
+<h3>11.2 TCP 服务器完整示例（Linux C）</h3>
+<div class="code-block"><pre class="language-c">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;arpa/inet.h&gt;
+
+int main(void)
+{
+    int srv = socket(AF_INET, SOCK_STREAM, 0);
+
+    struct sockaddr_in addr;
+    memset(&amp;addr, 0, sizeof(addr));
+    addr.sin_family      = AF_INET;
+    addr.sin_port        = htons(8888);            /* 主机序→网络序! */
+    addr.sin_addr.s_addr = htonl(INADDR_ANY);      /* 监听所有网卡 */
+
+    bind(srv, (struct sockaddr *)&amp;addr, sizeof(addr));
+    listen(srv, 5);                                /* backlog队列 */
+
+    printf("listening on 8888...\n");
+    while (1) {
+        struct sockaddr_in cli;
+        socklen_t len = sizeof(cli);
+        int conn = accept(srv, (struct sockaddr *)&amp;cli, &amp;len);
+        printf("client: %s:%d\n",
+               inet_ntoa(cli.sin_addr), ntohs(cli.sin_port));
+
+        char buf[1024];
+        int n = recv(conn, buf, sizeof(buf)-1, 0);
+        buf[n] = 0;
+        send(conn, buf, n, 0);                     /* 回显服务器echo */
+        close(conn);
+    }
+}</pre></div>
+
+<h3>11.3 TCP 客户端</h3>
+<div class="code-block"><pre class="language-c">int fd = socket(AF_INET, SOCK_STREAM, 0);
+struct sockaddr_in srv;
+srv.sin_family = AF_INET;
+srv.sin_port   = htons(8888);
+inet_pton(AF_INET, "127.0.0.1", &amp;srv.sin_addr);   /* 点分串→二进制 */
+
+connect(fd, (struct sockaddr *)&amp;srv, sizeof(srv));
+send(fd, "hello", 5, 0);
+char buf[1024];
+int n = recv(fd, buf, sizeof(buf)-1, 0);
+buf[n] = 0;
+printf("echo: %s\n", buf);
+close(fd);</pre></div>
+
+<h3>11.4 编译与测试</h3>
+<div class="code-block"><pre class="language-bash">gcc server.c -o server &amp;&amp; ./server    # 终端1
+gcc client.c -o client &amp;&amp; ./client    # 终端2
+# 编译时加 -lws2_32 (Windows需链接winsock)</pre></div>
+
+<div class="alert alert-warning">⚠️ <strong>字节序坑</strong>：x86 主机是小端，网络序是大端。端口/IP 必须用 htons/htonl/inet_pton 转换，否则连不上。这是初学者第一大坑。</div>
+</section>
+
+<!-- ============================ 第十二章 ============================ -->
+<section class="section" id="ch12">
+<h2>第十二章 Wireshark 抓包实验</h2>
+
+<h3>实验一：抓取并分析 TCP 三次握手</h3>
+<div class="code-block"><pre>1. 打开Wireshark → 选择网卡 → 过滤器输入 tcp.flags.syn==1
+2. 浏览器访问任一网站
+3. 观察前三个包: SYN → SYN+ACK → ACK (Seq/Ack变化)
+4. 验证: [SYN] Seq=0 → [SYN,ACK] Seq=0 Ack=1 → [ACK] Seq=1 Ack=1</pre></div>
+
+<h3>实验二：HTTP 明文与 HTTPS 加密对比</h3>
+<div class="code-block"><pre>访问 http://example.com → 过滤 http → 右键"追踪流→HTTP流"
+  可以看到完整的请求头/响应头/正文(明文!)
+访问 https://example.com → 过滤 tls
+  只能看到 Client Hello / Server Hello / Application Data(密文)
+  结论: 抓包能直观理解"加密在哪一层"</pre></div>
+
+<h3>实验三：DNS 解析过程</h3>
+<div class="code-block"><pre>过滤器: dns
+清DNS缓存后访问新域名 → 观察标准查询A记录 → 响应中的Answers
+nslookup 交叉验证</pre></div>
+
+<h3>实验四：ARP 观察</h3>
+<div class="code-block"><pre>过滤器: arp
+ping 同网段新IP → 先出现 ARP广播(谁有192.168.1.1?) 
+→ ARP应答(192.168.1.1的MAC是xx:xx:...)
+再ping则直接ICMP(缓存生效)</pre></div>
+
+<h3>常用过滤器速查</h3>
+<table>
+  <tr><th>过滤器</th><th>作用</th></tr>
+  <tr><td>ip.addr == 192.168.1.100</td><td>指定IP</td></tr>
+  <tr><td>tcp.port == 80</td><td>指定端口</td></tr>
+  <tr><td>http.request.method == "GET"</td><td>GET请求</td></tr>
+  <tr><td>tcp.analysis.retransmission</td><td>TCP重传(排查丢包)</td></tr>
+  <tr><td>icmp</td><td>ping流量</td></tr>
+</table>
+</section>
+
+<!-- ============================ 第十三章 ============================ -->
+<section class="section" id="ch13">
+<h2>第十三章 习题与思考</h2>
+
+<div class="quiz">
+<details>
+<summary>1.（计算）CRC：数据 101010，生成多项式 1101，求发送码字。</summary>
+<div class="quiz-answer">
+<p>数据后补3个0：101010000，模2除以1101：<br>
+101010000 ÷ 1101 → 余数 = <strong>110</strong>（过程：异或不借位长除）<br>
+发送码字 = 101010<b>110</b>。接收方整除校验，余数非0即传输出错。</p>
+</div>
+</details>
+
+<details>
+<summary>2.（计算）主机 IP 172.16.130.100，掩码 255.255.128.0，求网络地址与广播地址。</summary>
+<div class="quiz-answer">
+<p>掩码 /17。130 = 10000010，取最高1位与网络位对齐：<br>
+网络地址 = 172.16.128.0/17，广播地址 = 172.16.255.255，<br>
+可用主机 = 2¹⁵ − 2 = 32766 台。</p>
+</div>
+</details>
+
+<details>
+<summary>3.（概念）为什么 TCP 建立连接是三次握手而释放连接要四次挥手？</summary>
+<div class="quiz-answer">
+<p><strong>三次</strong>：本质是"双方各发一次 SYN 并确认对方的 SYN"，2×2=4 个动作中服务器可把 SYN+ACK 合并，故3次已够。<br>
+<strong>四次</strong>：收到 FIN 只代表对方不再发送，我方可能还有数据要发，ACK 与 FIN 不能合并，必须分开。</p>
+</div>
+</details>
+
+<details>
+<summary>4.（思考）发送 1MB 文件走 1Gbps 链路（RTT 忽略），与走卫星链路（RTT 500ms，停等协议），各需多久？说明什么问题？</summary>
+<div class="quiz-answer">
+<p>① 1MB/1Gbps ≈ 8ms（带宽主导）。<br>
+② 停等协议每 RTT 发一窗：1MB/1460B ≈ 7197 个包 × 500ms ≈ 3600s！带宽时延积 BDP = 10⁹×0.25s = 250Mb，停等窗口远小于 BDP，信道利用率极低。<br>
+结论：高时延带宽积网络必须用<strong>滑动窗口/大窗口+选择性重传</strong>，这正是 TCP 滑动窗口存在的意义。</p>
+</div>
+</details>
+
+<details>
+<summary>5.（读代码）指出这段 Socket 代码的两处错误。</summary>
+<div class="quiz-answer">
+<pre class="language-c">struct sockaddr_in addr;
+addr.sin_family = AF_INET;
+addr.sin_port   = 8888;                 /* ①没 htons,端口字节序错 */
+bind(fd, (struct sockaddr*)&amp;addr, sizeof(addr));
+addr.sin_addr.s_addr = inet_addr("192.168.1.1");  /* ②bind之后才设置地址,无效 */</pre>
+<p>修正：sin_port = htons(8888)；所有字段应在 bind/connect 前配置完成。</p>
+</div>
+</details>
+
+<details>
+<summary>6.（设计）宿舍6台电脑要隔离成2个独立网络，说明所需设备与配置思路。</summary>
+<div class="quiz-answer">
+<p>一台<strong>二层交换机</strong>（支持VLAN）即可：端口1-3划分 VLAN10、端口4-6划分 VLAN20，两VLAN广播域隔离无法互访。若需互通，再上三层交换机配 SVI 网关（VLANif10/VLANif20）做 VLAN 间路由，可用 ACL 控制访问策略。</p>
+</div>
+</details>
+
+<details>
+<summary>7.（综合）网页打不开，给出你的分层排查思路（自底向上）。</summary>
+<div class="quiz-answer">
+<p>①物理/链路：ipconfig 看是否169.254（DHCP失败）→ 检查网线/交换机口；<br>
+②内网连通：ping 网关 → 不通查ARP/交换机；<br>
+③外网连通：ping 8.8.8.8 → 通则DNS问题（nslookup验证），不通查路由/NAT；<br>
+④传输/应用：telnet 域名 443 测端口 → Wireshark 抓包看是 DNS 卡住还是 TCP 重传丢包。<br>
+分层定位，逐层缩小范围。</p>
+</div>
+</details>
+</div>
+</section>
+
+<!-- ============================ 第十四章 ============================ -->
+<section class="section" id="ch14">
+<h2>第十四章 组网综合实验</h2>
+
+<h3>实验拓扑（eNSP / Packet Tracer）</h3>
+<div class="code-block"><pre>PC1 ──┐                          ┌── PC3 (VLAN20)
+      ├── [SW1] ── Trunk ── [SW2]┤
+PC2 ──┘   (VLAN10/20)            └── PC4 (VLAN20)
+   SW1上联口 → [AR1路由器] → 模拟外网 (Loopback 8.8.8.8)</pre></div>
+
+<h3>配置清单（华为命令）</h3>
+<div class="code-block"><pre class="language-bash"># 1.交换机VLAN与端口
+[SW1] vlan batch 10 20
+[SW1] int e0/0/1 ; port link-type access ; port default vlan 10
+[SW1] int e0/0/24 ; port link-type trunk ; port trunk permit vlan 10 20
+
+# 2.路由器单臂路由实现VLAN间通信
+[AR1] int g0/0/0.10
+[AR1-GigabitEthernet0/0/0.10] dot1q termination vid 10
+[AR1-GigabitEthernet0/0/0.10] ip address 192.168.10.1 24
+[AR1-GigabitEthernet0/0/0.10] arp broadcast enable
+# (或SW做三层: interface Vlanif10 + ip address)
+
+# 3.静态路由/默认路由
+[AR1] ip route-static 0.0.0.0 0 200.1.1.2     # 去外网
+[SW1] ip route-static 0.0.0.0 0 192.168.10.1  # 回程路由
+
+# 4.PC配置: IP+掩码+网关(指向对应VLANif/Dot1q地址)
+# 5.验证: PC1 ping PC4(跨VLAN) / PC1 ping 8.8.8.8(跨网段)</pre></div>
+
+<h3>进阶：DHCP + NAT 让全网自动上网</h3>
+<div class="code-block"><pre class="language-bash">[AR1] dhcp enable
+[AR1] int g0/0/0.10 ; dhcp select interface    # 接口地址池自动分配
+[AR1] acl 2000 ; rule permit source 192.168.0.0 0.0.255.255
+[AR1] int g0/0/1 ; nat outbound 2000          # 内网共享公网口上网</pre></div>
+
+<h3>工程实践建议</h3>
+<ul>
+  <li>先画拓扑图再配置，标注每段地址/VLAN/端口</li>
+  <li>每完成一步立即验证（display vlan / display ip routing-table / ping）</li>
+  <li>保存配置：display saved-configuration 对比 current-configuration</li>
+</ul>
+
+<div class="section" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;text-align:center;">
+  <h2 style="color:#fff;border-color:#fff;">🎯 学习目标检查</h2>
+  <p>完成本章后你应该能够：</p>
+  <ul style="list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;text-align:left;">
+    <li>✅ 计算四种时延与信道利用率</li>
+    <li>✅ 画出OSI/TCP-IP模型并说明封装过程</li>
+    <li>✅ 手算CRC与子网划分</li>
+    <li>✅ 解释ARP、交换机学习转发原理</li>
+    <li>✅ 配置VLAN/Trunk/静态路由</li>
+    <li>✅ 描述TCP握手挥手与拥塞控制</li>
+    <li>✅ 用抓包工具定位DNS/TCP/HTTP问题</li>
+    <li>✅ 独立编写TCP回显服务器客户端</li>
+    <li>✅ 在模拟器完成跨VLAN互通+上网综合实验</li>
+    <li>✅ 分层排查"网页打不开"故障</li>
+  </ul>
+</div>
+
+</main>
+</div>
+
+<footer class="site-footer">
+  <p>© 2026 通信工程学习站 · 仿菜鸟教程风格 · 仅供本科学习用途</p>
+  <p>本文档基于 CC BY-SA 4.0 协议，欢迎分享、传播并署名</p>
+  <p><a href="index.html">← 返回首页</a> · <a href="#top">↑ 回到顶部</a></p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/search-data.js"></script>
+<script src="js/search.js"></script>
+</body>
+</html>

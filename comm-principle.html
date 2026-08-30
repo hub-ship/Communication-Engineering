@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通信原理 - 通信工程学习站</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="site-header">
+  <div class="site-header-inner">
+    <a href="index.html" class="brand"><span class="b1">通信工程</span><span class="b2">.CN</span></a>
+    <div class="search-box" data-search-host>
+      <input type="search" placeholder="搜索本课程章节……" aria-label="搜索">
+      <div class="search-results" id="header-search-results" hidden></div>
+    </div>
+  </div>
+</div>
+
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="comm-principle.html" class="active">通信原理</a>
+    <div class="nav-dropdown">
+      <a class="dropdown-toggle" tabindex="0">全部教程</a>
+      <ul class="dropdown-menu">
+        <li class="dd-cat">基础课</li>
+        <li><a href="c-programming.html">💻 C 语言程序设计</a></li>
+        <li><a href="signal-system.html">📊 信号与系统</a></li>
+        <li class="dd-cat">专业核心</li>
+        <li><a href="comm-principle.html">📡 通信原理</a></li>
+        <li><a href="mcu.html">🔧 单片机原理与应用</a></li>
+        <li><a href="data-network.html">🌐 数据通信与网络</a></li>
+        <li><a href="mobile-comm.html">📶 移动通信</a></li>
+        <li class="dd-cat">工具与平台</li>
+        <li><a href="os-linux.html">🐧 操作系统与 Linux</a></li>
+      </ul>
+    </div>
+    <a href="index.html#roadmap">学习路线</a>
+    <a href="index.html#tools">工具推荐</a>
+    <a href="index.html#howto">用户笔记</a>
+    <a href="index.html#quiz">期末自测</a>
+    <a href="index.html">通信原理</a>
+  </div>
+</nav>
+
+
+<div class="layout-2col">
+<aside class="sidebar"><div class="sidebar-title"><span class="icon">≡</span> 通信原理 目录</div>
+  
+  <ul>
+    <li><a href="#ch1">1. 通信系统概述</a></li>
+    <li><a href="#ch2">2. 信道与噪声</a></li>
+    <li><a href="#ch3">3. 模拟调制（AM/DSB/SSB）</a></li>
+    <li><a href="#ch4">4. 角度调制（FM/PM）</a></li>
+    <li><a href="#ch5">5. 抽样定理与脉冲调制</a></li>
+    <li><a href="#ch6">6. PCM 脉冲编码调制</a></li>
+    <li><a href="#ch7">7. 数字基带传输</a></li>
+    <li><a href="#ch8">8. 二进制数字调制（ASK/FSK/PSK）</a></li>
+    <li><a href="#ch9">9. 多进制与 QAM 调制</a></li>
+    <li><a href="#ch10">10. 信道编码（纠错码）</a></li>
+    <li><a href="#ch11">11. 同步原理</a></li>
+    <li><a href="#ch12">12. 最佳接收与信道容量</a></li>
+    <li><a href="#ch13">13. OFDM 与现代通信</a></li>
+    <li><a href="#ch14">14. 习题与思考</a></li>
+    <li><a href="#ch15">15. MATLAB 仿真实验</a></li>
+  </ul>
+</aside>
+
+<main class="main">
+
+    <div class="course-intro">
+      <div class="title-row">
+        <h1>📡 通信原理</h1>
+        <span class="version-tag">通信原理.x</span>
+      </div>
+      <p>模拟与数字调制、 PCM/信道编码、同步、 OFDM/扩频，含 MATLAB/Python 仿真。</p>
+      <p style="font-size:12px;color:var(--text-muted);">📚 建议顺序：从第一章开始依次学习 · 每章后附带习题与实验</p>
+    </div>
+
+<!-- ============================ 第一章 ============================ -->
+<section class="section" id="ch1">
+<h2>第一章 通信系统概述</h2>
+
+<h3>1.1 通信的基本概念</h3>
+<p><strong>通信</strong>：信息的传输与交换。消息（Message）是信息的载体，<strong>信息（Information）</strong>是消息中不确定性的消除。</p>
+
+<h3>1.2 通信系统一般模型</h3>
+<div class="code-block"><pre>信源 → 信源编码 → 信道编码 → 调制 → 信道(+噪声) → 解调 → 信道译码 → 信源译码 → 信宿</pre></div>
+
+<table>
+  <tr><th>模块</th><th>作用</th><th>典型技术</th></tr>
+  <tr><td>信源编码</td><td>压缩冗余，提高有效性</td><td>Huffman、MP3、H.264</td></tr>
+  <tr><td>信道编码</td><td>增加冗余，提高可靠性</td><td>汉明码、卷积码、LDPC</td></tr>
+  <tr><td>调制</td><td>频谱搬移，匹配信道</td><td>AM、FM、QAM、OFDM</td></tr>
+  <tr><td>信道</td><td>传输媒介</td><td>双绞线、光纤、自由空间</td></tr>
+</table>
+
+<div class="alert alert-info">💡 <strong>有效性 vs 可靠性</strong>：信源编码去冗余提高有效性，信道编码加冗余提高可靠性 —— 二者是矛盾的统一，这是通信系统设计永恒的权衡。</div>
+
+<h3>1.3 通信系统分类</h3>
+<ul>
+  <li><strong>按信号</strong>：模拟通信系统 / 数字通信系统</li>
+  <li><strong>按媒介</strong>：有线（明线/电缆/光纤）/ 无线（地波/天波/视线）</li>
+  <li><strong>按复用</strong>：FDM（频分）/ TDM（时分）/ CDM（码分）/ OFDM（正交频分）</li>
+</ul>
+
+<h3>1.4 信息度量（香农信息熵）</h3>
+<div class="formula">I = log<sub>2</sub>(1/P(x)) （比特 bit）</div>
+<div class="formula">信源熵 H(X) = −Σ P(x<sub>i</sub>) log<sub>2</sub> P(x<sub>i</sub>) bit/符号</div>
+<p>等概二进制信源：H = 1 bit/符号（每符号信息量最大）。</p>
+
+<h3>1.5 通信系统主要性能指标</h3>
+<table>
+  <tr><th>指标</th><th>模拟系统</th><th>数字系统</th></tr>
+  <tr><td>有效性</td><td>带宽 B</td><td>频带利用率 η = R<sub>B</sub>/B (Baud/Hz)</td></tr>
+  <tr><td>可靠性</td><td>信噪比 SNR</td><td>误码率 P<sub>e</sub>、误信率 P<sub>b</sub></td></tr>
+</table>
+</section>
+
+<!-- ============================ 第二章 ============================ -->
+<section class="section" id="ch2">
+<h2>第二章 信道与噪声</h2>
+
+<h3>2.1 信道的数学模型</h3>
+<p>调制信道模型：<strong>y(t) = k(t)·x(t) + n(t)</strong>，其中 k(t) 为乘性干扰（衰落），n(t) 为加性噪声。</p>
+<ul>
+  <li><strong>恒参信道</strong>：k(t) 基本不变 —— 有线信道、微波视距中继（幅频失真、相频失真可用均衡器补偿）</li>
+  <li><strong>随参信道</strong>：k(t) 随机变化 —— 短波电离层反射、移动信道（产生多径衰落、多普勒频移）</li>
+</ul>
+
+<h3>2.2 高斯白噪声与窄带噪声</h3>
+<ul>
+  <li><strong>白噪声</strong>：功率谱密度 P<sub>n</sub>(f) = n<sub>0</sub>/2（双边），对所有频率均匀分布</li>
+  <li><strong>高斯噪声</strong>：幅度服从高斯（正态）分布</li>
+  <li><strong>AWGN</strong>：加性高斯白噪声，通信理论分析的标准噪声模型</li>
+</ul>
+
+<h3>2.3 多径传播与瑞利衰落</h3>
+<p>移动环境下信号经多条路径到达接收端，合成信号包络服从<strong>瑞利分布</strong>（无直射径）或<strong>莱斯分布</strong>（有直射径）。</p>
+<div class="formula">多径时延扩展 τ<sub>m</sub> → 相关带宽 B<sub>c</sub> ≈ 1/τ<sub>m</sub></div>
+<p>信号带宽 &gt; B<sub>c</sub> 时发生<strong>频率选择性衰落</strong>；反之称为平坦衰落。这是 OFDM 划分子载波的根本依据。</p>
+
+<h3>2.4 信道容量（香农公式）</h3>
+<div class="formula">C = B·log<sub>2</sub>(1 + S/N) （bit/s）</div>
+<ul>
+  <li>提高容量三条路：增大带宽 B、增大信号功率 S、降低噪声 N</li>
+  <li>B → ∞ 时 C → (S/n<sub>0</sub>)·log<sub>2</sub>e，即<strong>香农极限</strong></li>
+  <li>意义：给出了无差错传输的速率上限，是 5G、Wi-Fi 等所有系统逼近的理论天花板</li>
+</ul>
+</section>
+
+<!-- ============================ 第三章 ============================ -->
+<section class="section" id="ch3">
+<h2>第三章 模拟幅度调制</h2>
+
+<h3>3.1 常规调幅（AM）</h3>
+<div class="formula">s<sub>AM</sub>(t) = [A + m(t)]·cos(ω<sub>c</sub>t)</div>
+<p>要求 |m(t)|<sub>max</sub> ≤ A（否则过调制失真）。已调波包含<strong>载波 + 上下边带</strong>。</p>
+<table>
+  <tr><th>项目</th><th>AM</th><th>DSB</th><th>SSB</th><th>VSB</th></tr>
+  <tr><td>带宽</td><td>2f<sub>H</sub></td><td>2f<sub>H</sub></td><td>f<sub>H</sub></td><td>介于两者间</td></tr>
+  <tr><td>功率效率</td><td>低（载波占大半）</td><td>高</td><td>最高</td><td>较高</td></tr>
+  <tr><td>解调</td><td>包络检波（简单！）</td><td>相干解调</td><td>相干解调</td><td>相干/插入载波</td></tr>
+  <tr><td>应用</td><td>中波广播</td><td>立体声副信道</td><td>短波/频谱紧张</td><td>模拟电视</td></tr>
+</table>
+
+<h3>3.2 包络检波原理</h3>
+<p>利用二极管 + RC 电路跟踪已调波包络，无需本地载波，接收机极其简单 —— 这就是收音机用 AM 的原因。</p>
+
+<h3>3.3 相干解调（同步检波）</h3>
+<div class="formula">s(t)·cos(ω<sub>c</sub>t) → 低通滤波 → (1/2)m(t)</div>
+<p>需要接收端产生与发送端<strong>同频同相</strong>的本地载波（同步问题见第十一章）。</p>
+</section>
+
+<!-- ============================ 第四章 ============================ -->
+<section class="section" id="ch4">
+<h2>第四章 角度调制（FM / PM）</h2>
+
+<h3>4.1 基本概念</h3>
+<div class="formula">调频 FM：瞬时频率随 m(t) 线性变化 —— ω(t) = ω<sub>c</sub> + K<sub>f</sub>·m(t)</div>
+<div class="formula">调相 PM：瞬时相位随 m(t) 线性变化 —— θ(t) = ω<sub>c</sub>t + K<sub>p</sub>·m(t)</div>
+
+<h3>4.2 FM 频谱与卡森带宽</h3>
+<div class="formula">调频指数 m<sub>f</sub> = Δf / f<sub>m</sub>　　B<sub>FM</sub> = 2(m<sub>f</sub>+1)f<sub>m</sub> = 2(Δf + f<sub>m</sub>)（卡森公式）</div>
+<ul>
+  <li>窄带 FM（m<sub>f</sub> ≪ 1）：B ≈ 2f<sub>m</sub>，与 AM 相同</li>
+  <li>宽带 FM（m<sub>f</sub> ≫ 1）：B ≈ 2Δf，带宽换取信噪比增益的典型体现</li>
+</ul>
+
+<h3>4.3 FM 的抗噪声性能</h3>
+<div class="formula">大信噪比下制度增益 G<sub>FM</sub> ≈ 3m<sub>f</sub><sup>2</sup>(m<sub>f</sub>+1)</div>
+<div class="alert alert-success">✅ <strong>以带宽换信噪比</strong>：FM 通过增加带宽可大幅提升解调输出信噪比，这是"有效性换可靠性"的经典范例，也是 FM 音质优于 AM 的根本原因。调频广播 Δf = 75 kHz、电视伴音均用 FM。</div>
+
+<h3>4.4 门限效应</h3>
+<p>小信噪比时包络检波（AM）和 FM 鉴频都出现输出信噪比急剧恶化的<strong>门限效应</strong>。采用锁相环(PLL)鉴频、预加重/去加重可改善门限。</p>
+</section>
+
+<!-- ============================ 第五章 ============================ -->
+<section class="section" id="ch5">
+<h2>第五章 抽样定理与脉冲调制</h2>
+
+<h3>5.1 低通抽样定理（奈奎斯特）</h3>
+<div class="formula">f<sub>s</sub> ≥ 2f<sub>H</sub> （奈奎斯特速率），否则产生混叠失真</div>
+<p>一个频带限制在 [0, f<sub>H</sub>] 的模拟信号，可以用间隔 T<sub>s</sub> = 1/(2f<sub>H</sub>) 的离散样值无失真重建。电话语音 f<sub>H</sub> = 3.4 kHz，取 f<sub>s</sub> = 8 kHz 留保护带。</p>
+
+<h3>5.2 脉冲模拟调制家族</h3>
+<table>
+  <tr><th>方式</th><th>被调参数</th><th>特点</th></tr>
+  <tr><td>PAM 脉幅调制</td><td>脉冲幅度</td><td>抽样本身，未量化</td></tr>
+  <tr><td>PDM/PWM 脉宽调制</td><td>脉冲宽度</td><td>开关电源、舵机控制</td></tr>
+  <tr><td>PPM 脉位调制</td><td>脉冲位置</td><td>抗幅噪能力强</td></tr>
+</table>
+
+<h3>5.3 量化</h3>
+<ul>
+  <li><strong>均匀量化</strong>：小信号量化信噪比差</li>
+  <li><strong>非均匀量化（A律/μ律）</strong>：小信号密、大信号疏，量化信噪比趋于均匀。中国/欧洲用 A律(13折线)，北美用 μ律</li>
+</ul>
+<div class="formula">量化信噪比 SQNR ≈ 6.02N + 1.76 dB（N 为量化位数）</div>
+<p>每增加 1 bit 量化位数，信噪比提升约 6 dB —— ADC 选型的核心公式。</p>
+</section>
+
+<!-- ============================ 第六章 ============================ -->
+<section class="section" id="ch6">
+<h2>第六章 PCM 脉冲编码调制</h2>
+
+<h3>6.1 PCM 三步曲</h3>
+<div class="code-block"><pre>模拟信号 → ①抽样(时间离散) → ②量化(幅度离散) → ③编码(二进制表示) → PCM 数字信号</pre></div>
+
+<h3>6.2 A律13折线编码</h3>
+<p>8 位 PCM 码字：极性码 C1 + 段落码 C2C3C4 + 段内码 C5C6C7C8。</p>
+<table>
+  <tr><th>参数</th><th>数值</th></tr>
+  <tr><td>抽样率</td><td>8000 Hz</td></tr>
+  <tr><td>每样值比特数</td><td>8 bit（1+3+4）</td></tr>
+  <tr><td>PCM 话路速率</td><td>64 kbit/s（G.711）</td></tr>
+  <tr><td>30/32 路 PCM 基群（E1）</td><td>2.048 Mbit/s</td></tr>
+</table>
+
+<h3>6.3 PCM 系统抗噪性能</h3>
+<div class="formula">输出总信噪比 = 量化信噪比 + 误码信噪比　　(SNR)<sub>dB</sub> ≈ 6N + 2 − 10lg(1/(1−P<sub>e</sub><sup>2</sup>))</div>
+
+<h3>6.4 增量调制（ΔM）与 DPCM</h3>
+<ul>
+  <li><strong>ΔM</strong>：每样值只编 1 bit（预测误差符号），简单但有过载量化噪声</li>
+  <li><strong>DPCM</strong>：对预测误差多比特量化，图像编码（如 H.264 帧内预测）的基础</li>
+</ul>
+</section>
+
+<!-- ============================ 第七章 ============================ -->
+<section class="section" id="ch7">
+<h2>第七章 数字基带传输</h2>
+
+<h3>7.1 常用基带波形</h3>
+<table>
+  <tr><th>码型</th><th>特点</th><th>适用</th></tr>
+  <tr><td>单极性 NRZ</td><td>有直流、无定时分量</td><td>近距离/芯片内部</td></tr>
+  <tr><td>双极性 NRZ</td><td>无直流（等概时）</td><td>通用</td></tr>
+  <tr><td>AMI 码</td><td>0→0，1→交替±1；无直流、可检错</td><td>电话基带</td></tr>
+  <tr><td>HDB3 码</td><td>AMI + 连零抑制（最多3连0）</td><td>E1 传输标准 ⭐</td></tr>
+  <tr><td>曼彻斯特码</td><td>每比特中央跳变，自带时钟</td><td>以太网 10BASE-T</td></tr>
+  <tr><td>CMI 码</td><td>1→11/00 交替，0→01</td><td>SDH 光接口</td></tr>
+</table>
+
+<h3>7.2 码间串扰（ISI）与奈奎斯特第一准则</h3>
+<div class="formula">Σ a<sub>k</sub>·h(t−kT<sub>s</sub>) 中，抽样时刻 h(0)≠0、h(kT<sub>s</sub>)=0（k≠0）→ 无码间串扰</div>
+<p><strong>理想低通</strong>：B = R<sub>B</sub>/2，极限频带利用率 2 Baud/Hz（极限不可实现）；<br>
+<strong>升余弦滚降</strong>：B = (1+α)·R<sub>B</sub>/2，拖尾衰减快、可实现，α 为滚降系数。</p>
+
+<h3>7.3 眼图</h3>
+<p>示波器上重叠显示的基带波形 —— "眼睛"张开越大，码间串扰越小、噪声容限越大；眼睛闭合时刻即最佳抽样时刻。工程调测基带系统的第一工具。</p>
+
+<h3>7.4 部分响应与均衡</h3>
+<ul>
+  <li><strong>部分响应技术</strong>：有意引入可控 ISI（相关电平编码），逼近 2 Baud/Hz 的极限利用率</li>
+  <li><strong>时域均衡</strong>：横向滤波器消除信道失真（判决反馈均衡 DFE、最大似然序列检测 MLSE）</li>
+</ul>
+</section>
+
+<!-- ============================ 第八章 ============================ -->
+<section class="section" id="ch8">
+<h2>第八章 二进制数字调制</h2>
+
+<h3>8.1 三种基本方式</h3>
+<table>
+  <tr><th>方式</th><th>表达式变化</th><th>带宽</th><th>误码率（相干）</th></tr>
+  <tr><td>2ASK/OOK</td><td>幅度 0/1</td><td>2R<sub>B</sub></td><td>Q(√(r/2))</td></tr>
+  <tr><td>2FSK</td><td>频率 f<sub>1</sub>/f<sub>2</sub></td><td>|f₂−f₁|+2R<sub>B</sub></td><td>Q(√r)</td></tr>
+  <tr><td>2PSK</td><td>相位 0/π</td><td>2R<sub>B</sub></td><td>Q(√2r) 最优</td></tr>
+</table>
+<p>r 为解调器输入信噪比。抗噪声性能：<strong>2PSK &gt; 2FSK &gt; 2ASK</strong>。</p>
+
+<h3>8.2 2PSK 的倒π问题与 2DPSK</h3>
+<p>2PSK 相干解调时本地载波相位跳变 π 会导致输出全错（"倒π"现象）。解决：<strong>差分相移键控 2DPSK</strong> —— 用相邻码元相位差携带信息，接收端差分译码。</p>
+
+<h3>8.3 多进制数字调制</h3>
+<div class="formula">MASK/ MPSK/ MQAM：每符号 log<sub>2</sub>M bit，频带利用率 η = log<sub>2</sub>M (bit/s/Hz)</div>
+<ul>
+  <li>QPSK：卫星、DVB-S 的经典调制，抗噪好</li>
+  <li>8PSK：EDGE、卫星</li>
+  <li>16QAM/64QAM/256QAM：幅度相位联合调制，效率高但对信噪比要求高（Wi-Fi、4G/5G、Cable）</li>
+</ul>
+
+<h3>8.4 各种调制误码率统一形式</h3>
+<div class="formula">MPSK: P<sub>s</sub> ≈ 2Q(√(2k·r<sub>b</sub>)·sin(π/M))，k=log<sub>2</sub>M</div>
+</section>
+
+<!-- ============================ 第九章 ============================ -->
+<section class="section" id="ch9">
+<h2>第九章 QAM 与高性能调制</h2>
+
+<h3>9.1 QAM 星座图</h3>
+<p>正交幅度调制：I/Q 两路独立的多电平 ASK 正交叠加。16QAM = 4×4 星座，每符号 4 bit。</p>
+<table>
+  <tr><th>调制</th><th>bit/符号</th><th>典型应用</th></tr>
+  <tr><td>QPSK</td><td>2</td><td>卫星、CDMA 导频</td></tr>
+  <tr><td>16QAM</td><td>4</td><td>Wi-Fi 802.11a/g</td></tr>
+  <tr><td>64QAM</td><td>6</td><td>Wi-Fi 5 / LTE</td></tr>
+  <tr><td>256QAM</td><td>8</td><td>Wi-Fi 6 / 5G</td></tr>
+  <tr><td>1024QAM</td><td>10</td><td>Wi-Fi 7</td></tr>
+</table>
+
+<h3>9.2 最小频移键控（MSK）与 GMSK</h3>
+<ul>
+  <li><strong>MSK</strong>：相位连续的 2FSK，调制指数 h=0.5，包络恒定、频谱紧凑</li>
+  <li><strong>GMSK</strong>：MSK 前加高斯预调制滤波器，带外辐射更低 —— GSM 空口标准调制</li>
+</ul>
+
+<h3>9.3 星座图工程解读</h3>
+<div class="alert alert-warning">⚠️ 工程口诀：星座点<strong>发散</strong>=噪声大；<strong>旋转</strong>=载波频偏；<strong>压缩</strong>=放大器非线性(AM/AM)；<strong>偏移</strong>=直流分量(IQ不平衡)。学会看星座图，是射频工程师的基本功。</div>
+</section>
+
+<!-- ============================ 第十章 ============================ -->
+<section class="section" id="ch10">
+<h2>第十章 信道编码（纠错码）</h2>
+
+<h3>10.1 差错控制三种方式</h3>
+<ul>
+  <li><strong>检错重发（ARQ）</strong>：TCP、HARQ —— 可靠但时延不定</li>
+  <li><strong>前向纠错（FEC）</strong>：实时性好 —— 主流方向</li>
+  <li><strong>混合纠错（HEC）</strong>：ARQ+FEC 结合</li>
+</ul>
+
+<h3>10.2 差错控制编码基本概念</h3>
+<div class="formula">纠错能力 t 位 ←→ 码距 d ≥ 2t+1；检错能力 e 位 ←→ d ≥ e+1</div>
+<p>(n,k) 码：k 位信息 + r=n−k 位监督。编码效率 R = k/n。</p>
+
+<h3>10.3 线性分组码与汉明码</h3>
+<p><strong>(7,4) 汉明码</strong>：4 位信息编 7 位码字，可纠正 1 位错。</p>
+<div class="code-block"><pre class="language-python"># (7,4)汉明码监督方程
+s1 = a6⊕a5⊕a4⊕a2
+s2 = a6⊕a5⊕a3⊕a1
+s3 = a6⊕a4⊕a3⊕a0
+# 伴随式 s3s2s1 非0 → 由校正子表定位错误位</pre></div>
+
+<h3>10.4 循环码与 CRC</h3>
+<div class="formula">g(x) 生成多项式整除码多项式 → 循环码；CRC 用于检错（以太网 FCS = CRC-32）</div>
+
+<h3>10.5 卷积码与维特比译码</h3>
+<ul>
+  <li>卷积码 (n,k,K)：记忆长度 K（约束长度），输出与当前及此前 K−1 组输入有关</li>
+  <li><strong>维特比算法</strong>：最大似然序列译码，网格图上找最小汉明距离路径 —— 深空通信、2G/3G 核心</li>
+</ul>
+
+<h3>10.6 现代信道编码</h3>
+<table>
+  <tr><th>码</th><th>特点</th><th>应用</th></tr>
+  <tr><td>Turbo 码</td><td>并行级联+迭代译码，逼近香农限</td><td>3G/4G 上行</td></tr>
+  <tr><td>LDPC 码</td><td>稀疏校验矩阵，长码性能优</td><td>5G 数据、Wi-Fi 6、DVB-S2</td></tr>
+  <tr><td>Polar 码</td><td>唯一被证明可达香农限的码</td><td>5G 控制信道</td></tr>
+</table>
+</section>
+
+<!-- ============================ 第十一章 ============================ -->
+<section class="section" id="ch11">
+<h2>第十一章 同步原理</h2>
+
+<h3>11.1 载波同步</h3>
+<ul>
+  <li><strong>直接法</strong>：平方环（2PSK→倍频提取 2f<sub>c</sub>→二分频）、科斯塔斯环（Costas Loop）</li>
+  <li><strong>插入导频法</strong>：发送端插入导频，接收端窄带滤波提取</li>
+</ul>
+
+<h3>11.2 位同步（码元同步）</h3>
+<ul>
+  <li>滤波法：延迟相乘产生时钟分量</li>
+  <li><strong>锁相法（Gardner 算法）</strong>：数字接收机通用</li>
+</ul>
+
+<h3>11.3 帧同步</h3>
+<p>利用<strong>巴克码</strong>（如 1110010，自相关旁瓣 ≤1）作帧头，通过相关运算确定帧边界。E1 帧同步码为 0011011。</p>
+
+<h3>11.4 网同步</h3>
+<p>主从同步（SDH 时钟树）、相互同步、GPS/北斗授时 —— 电信网络频率同步与相位同步（PTP/1588v2）。</p>
+</section>
+
+<!-- ============================ 第十二章 ============================ -->
+<section class="section" id="ch12">
+<h2>第十二章 最佳接收与匹配滤波</h2>
+
+<h3>12.1 匹配滤波器</h3>
+<div class="formula">h(t) = k·s(T−t)，在抽样时刻 t=T 输出最大 SNR：r<sub>max</sub> = 2E/n<sub>0</sub></div>
+<p>匹配滤波器的冲激响应是信号波形的时间反转平移 —— 相关接收机的物理实现。</p>
+
+<h3>12.2 最佳接收机结构</h3>
+<div class="code-block"><pre>接收信号 r(t) → 与每个可能波形 s₁(t)...sₘ(t) 做相关 → 取最大者作为判决
+（等价于匹配滤波器组 + 抽样判决）</pre></div>
+
+<h3>12.3 误码率统一比较</h3>
+<div class="formula">P<sub>e</sub> = Q(√(E<sub>b</sub>/n<sub>0</sub>)) —— 2PSK 相干（最优二进制）</div>
+<p>E<sub>b</sub>/n<sub>0</sub>（比特能量与噪声谱密度比）是数字通信最核心的参数，链路预算最终都归结为它。</p>
+
+<h3>12.4 链路预算实例</h3>
+<div class="code-block"><pre>EIRP(dBW) = Pt(dBW) + Gt(dBi) − Lf(馈线)
+Pr(dBm) = EIRP − Lfs(自由空间) − Lmisc + Gr
+C/N₀ = EIRP + G/T − L - k(玻尔兹曼常数 dB)
+自由空间损耗 Lfs = 92.45 + 20lg f(GHz) + 20lg d(km) dB</pre></div>
+</section>
+
+<!-- ============================ 第十三章 ============================ -->
+<section class="section" id="ch13">
+<h2>第十三章 OFDM 与现代通信技术</h2>
+
+<h3>13.1 为什么需要 OFDM</h3>
+<p>宽带信号历经多径 → 频率选择性衰落 → 单载波均衡复杂。OFDM 将宽带信道切成大量<strong>正交窄带子载波</strong>，每个子载波只经历平坦衰落，均衡极简。</p>
+
+<h3>13.2 正交性与实现</h3>
+<div class="formula">子载波间隔 Δf = 1/T<sub>symbol</sub>（正交条件）；N 点 IFFT 并行调制 N 个子载波</div>
+<div class="code-block"><pre>发送：比特流 → 串并转换 → 星座映射(QAM) → IFFT → 加循环前缀CP → 并串 → DAC
+接收：ADC → 去CP → FFT → 信道均衡(每子载波一个复数乘法) → 判决</pre></div>
+<ul>
+  <li><strong>循环前缀 CP</strong>：复制尾部到头部（长于最大多径时延），将线性卷积变循环卷积，消除 ISI 与 ICI</li>
+  <li>优点：频谱效率高、抗多径、易与 MIMO 结合</li>
+  <li>缺点：高峰均比 PAPR（功放效率低）、对频偏/相位噪声敏感</li>
+</ul>
+
+<h3>13.3 OFDM 家族应用</h3>
+<table>
+  <tr><th>系统</th><th>技术</th></tr>
+  <tr><td>Wi-Fi (802.11a/ac/ax)</td><td>OFDM / OFDMA</td></tr>
+  <tr><td>4G LTE</td><td>下行 OFDMA、上行 SC-FDMA（低PAPR）</td></tr>
+  <tr><td>5G NR</td><td>CP-OFDM + 灵活参数集（子载波间隔 15~240 kHz）</td></tr>
+  <tr><td>ADSL/VDSL、电力线</td><td>DMT（离散多音）</td></tr>
+  <tr><td>数字广播 DAB/DVB-T</td><td>COFDM（编码OFDM）</td></tr>
+</table>
+
+<h3>13.4 扩频通信</h3>
+<ul>
+  <li><strong>直扩 DS-SS</strong>：数据与伪随机码(PN)异或展宽频谱，处理增益 G = B<sub>ss</sub>/B<sub>d</sub> —— CDMA、GPS</li>
+  <li><strong>跳频 FH-SS</strong>：载频按伪随机序列跳变 —— 蓝牙、军用抗干扰</li>
+</ul>
+</section>
+
+<!-- ============================ 第十四章 ============================ -->
+<section class="section" id="ch14">
+<h2>第十四章 习题与思考</h2>
+
+<div class="quiz">
+<details>
+<summary>1.（计算）某信源含 8 个符号，概率分别为 1/2、1/4、1/8、1/16、1/32、1/64、1/64、1/64，求信源熵。</summary>
+<div class="quiz-answer">
+<p>H = ΣP·log₂(1/P) = 1/2×1 + 1/4×2 + 1/8×3 + 1/16×4 + 1/32×5 + 3×(1/64×6)</p>
+<p>= 0.5 + 0.5 + 0.375 + 0.25 + 0.15625 + 0.28125 = <strong>2.0625 bit/符号</strong></p>
+<p>（小于 log₂8 = 3 bit，因为信源不等概存在冗余）</p>
+</div>
+</details>
+
+<details>
+<summary>2.（计算）电话信道带宽 3.1 kHz，信噪比 30 dB，求信道容量；若要传 33.6 kbit/s 需多大信噪比？</summary>
+<div class="quiz-answer">
+<p>30 dB → S/N = 1000。C = 3100×log₂(1001) ≈ 3100×9.97 ≈ <strong>30.9 kbit/s</strong></p>
+<p>33.6 kbit/s 时：log₂(1+S/N) = 33600/3100 = 10.84 → S/N = 2^10.84 ≈ 1845 ≈ <strong>32.7 dB</strong></p>
+<p>（56k Modem 采用的是非对称数字技术，已接近电话线极限）</p>
+</div>
+</details>
+
+<details>
+<summary>3.（概念）为什么 2DPSK 能克服 2PSK 的"倒π"现象？</summary>
+<div class="quiz-answer">
+<p>2DPSK 信息携带在<strong>相邻码元相位差</strong>中而非绝对相位。即使本地载波相位翻转 π，相邻码元的相位差不变，差分译码后信息仍正确，代价是误码会"成对"出现（约2倍误码扩散）。</p>
+</div>
+</details>
+
+<details>
+<summary>4.（计算）某系统采用 16QAM，符号率 2 MBaud，求比特速率与滚降 α=0.5 时的占用带宽。</summary>
+<div class="quiz-answer">
+<p>比特速率 = 2M × log₂16 = <strong>8 Mbit/s</strong></p>
+<p>基带带宽 B = (1+α)×R<sub>s</sub>/2 = 1.5×1M = 1.5 MHz，已调信号带宽（通带）= <strong>3 MHz</strong></p>
+<p>频带利用率 = 8/3 ≈ 2.67 bit/s/Hz</p>
+</div>
+</details>
+
+<details>
+<summary>5.（概念）OFDM 中循环前缀 CP 的作用是什么？CP 过长或过短各有何问题？</summary>
+<div class="quiz-answer">
+<p>作用：①CP 长度 ≥ 最大多径时延时，消除符号间 ISI；②把线性卷积变循环卷积，使 FFT 后每子载波只受单一复数衰落（频率平坦），均衡简化为一个复数乘法。</p>
+<p>CP 过短 → 残余 ISI/ICI；CP 过长 → 频谱与功率效率下降（开销比例 = T<sub>CP</sub>/(T<sub>CP</sub>+T<sub>u</sub>)），5G 通过可配置 CP 长度折中。</p>
+</div>
+</details>
+
+<details>
+<summary>6.（计算）(7,4) 汉明码的对偶距离是多少？能纠几位错？若收到码字 1000101，用监督方程判断是否有错。</summary>
+<div class="quiz-answer">
+<p>d<sub>min</sub> = 3，可纠 1 位错、检 2 位错。</p>
+<p>代入监督方程计算校正子（按教材生成矩阵约定），若伴随式 ≠ 000 则有错并可由校正子表定位错误比特取反纠正。</p>
+</div>
+</details>
+
+<details>
+<summary>7.（思考）FM 与 AM 广播音质差异巨大的物理本质是什么？</summary>
+<div class="quiz-answer">
+<p>FM 通过大调频指数 m<sub>f</sub> 获得约 3m<sub>f</sub><sup>2</sup>(m<sub>f</sub>+1) 的制度增益，即<strong>用带宽换信噪比</strong>（FM 带宽 200kHz vs AM 10kHz）；且限幅器可去除包络上的幅度噪声。两者共同使 FM 解调输出信噪比远高于 AM。</p>
+</div>
+</details>
+</div>
+</section>
+
+<!-- ============================ 第十五章 ============================ -->
+<section class="section" id="ch15">
+<h2>第十五章 MATLAB 仿真实验</h2>
+
+<h3>实验一：AM 调制与解调</h3>
+<div class="code-block"><pre class="language-matlab">fm = 10; fc = 100; fs = 4000; t = 0:1/fs:0.5;
+mt = cos(2*pi*fm*t);                       % 基带信号
+s = (1 + 0.5*mt).*cos(2*pi*fc*t);          % AM 调制(调幅度0.5)
+figure; subplot(311); plot(t,mt); title('调制信号');
+subplot(312); plot(t,s);  title('AM已调波');
+subplot(313); pwelch(s,[],[],[],fs); title('功率谱');</pre></div>
+
+<h3>实验二：PCM 编解码（A律）</h3>
+<div class="code-block"><pre class="language-matlab">x = sin(2*pi*5*(0:255)/256);               % 抽样值
+pcm = compand(x, 87.6, 1, 'a/compressor'); % A律压缩
+q   = round(pcm*127)/127;                  % 均匀量化8bit
+y   = compand(q, 87.6, 1, 'a/expander');   % A律扩张
+snr = 10*log10(mean(x.^2)/mean((x-y).^2));
+fprintf('量化信噪比 = %.1f dB\n', snr);</pre></div>
+
+<h3>实验三：QPSK 调制与误码率曲线</h3>
+<div class="code-block"><pre class="language-matlab">N = 1e5; data = randi([0 1],N*2,1);
+symbols = bi2de(reshape(data,2,[])','left-msb');      % 比特→符号
+Map = exp(1j*pi/4*[0 2 3 1]);                         % QPSK星座
+s = Map(symbols+1);
+EbN0dB = 0:10;
+for k = 1:length(EbN0dB)
+  n = sqrt(0.5)*(randn(size(s))+1j*randn(size(s)));
+  r = s + 10^(-EbN0dB(k)/20)*sqrt(2)*n;
+  demod = argmin(abs(r(:,1)-Map(:)));                % 最近邻判决
+  ber(k) = sum(demod-1 ~= symbols)/length(symbols);
+end
+semilogy(EbN0dB, ber, 'o-'); grid on;
+hold on; semilogy(EbN0dB, 0.5*erfc(sqrt(10.^(EbN0dB/10)))); % 理论2PSK</pre></div>
+
+<h3>实验四：OFDM 收发链路</h3>
+<div class="code-block"><pre class="language-matlab">N = 64; CP = 16; M = 16;                        % 64子载波,16CP,16QAM
+bits = randi([0 1], N*log2(M), 1);
+X = qammod(bits, M, 'InputType','bit');          % 星座映射
+x = ifft(X, N);                                  % IFFT
+xs = [x(end-CP+1:end); x];                       % 加循环前缀
+% 信道: 3径衰落
+h = [1 0.5*exp(-1j*pi/6) 0.3*exp(-1j*pi/3)];
+r = filter(h,1,xs);
+r = r(CP+1:end);                                 % 去CP
+Y = fft(r, N);                                   % FFT
+H = fft(h, N);                                   % 频域信道
+Xeq = Y./H;                                      % 单抽头均衡
+bitsRx = qamdemod(Xeq, M, 'OutputType','bit');
+disp(['误比特率 = ', num2str(mean(bits~=bitsRx))]);</pre></div>
+
+<h3>实验五：眼图观察</h3>
+<div class="code-block"><pre class="language-matlab">% 升余弦滤波后观察眼图
+sps = 16; N = 2000;
+b = rcosdesign(0.35, 8, sps, 'sqrt');
+data = 2*randi([0 1],N,1)-1; dataU = upsample(data, sps)';
+tx = filter(b,1,dataU);
+eyediagram(tx(2000:end), 2*sps, sps);  % 每屏2个码元</pre></div>
+
+<div class="alert alert-success">✅ <strong>学习建议</strong>：通信原理公式多，务必"每章配一个仿真"。亲手把眼图、星座图、误码率曲线跑出来，比背十遍公式有效。MATLAB Communication Toolbox 或 Python（commpy/numpy）均可实现全部本页实验。</div>
+
+<div class="section" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;text-align:center;">
+  <h2 style="color:#fff;border-color:#fff;">🎯 学习目标检查</h2>
+  <p>完成本章后你应该能够：</p>
+  <ul style="list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;text-align:left;">
+    <li>✅ 画出数字通信系统框图并解释每级作用</li>
+    <li>✅ 用香农公式估算信道容量</li>
+    <li>✅ 推导 AM/DSB/SSB 频谱与带宽</li>
+    <li>✅ 说明卡森公式与 FM 带宽换信噪比</li>
+    <li>✅ 计算抽样、量化、PCM 码率（64k 话音由来）</li>
+    <li>✅ 判断无码间串扰的奈奎斯特准则</li>
+    <li>✅ 对比 ASK/FSK/PSK/QAM 性能并看懂星座图</li>
+    <li>✅ 解释汉明码/CRC/卷积码/LDPC/Polar 的定位</li>
+    <li>✅ 描述 OFDM 原理与 CP 的作用</li>
+    <li>✅ 用 MATLAB 完成 AM/PCM/QPSK/OFDM 仿真</li>
+  </ul>
+</div>
+
+</main>
+</div>
+
+<footer class="site-footer">
+  <p>© 2026 通信工程学习站 · 仿菜鸟教程风格 · 仅供本科学习用途</p>
+  <p>本文档基于 CC BY-SA 4.0 协议，欢迎分享、传播并署名</p>
+  <p><a href="index.html">← 返回首页</a> · <a href="#top">↑ 回到顶部</a></p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/search-data.js"></script>
+<script src="js/search.js"></script>
+</body>
+</html>

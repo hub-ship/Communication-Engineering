@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>操作系统与Linux管理 - 通信工程学习站</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="site-header">
+  <div class="site-header-inner">
+    <a href="index.html" class="brand"><span class="b1">通信工程</span><span class="b2">.CN</span></a>
+    <div class="search-box" data-search-host>
+      <input type="search" placeholder="搜索本课程章节……" aria-label="搜索">
+      <div class="search-results" id="header-search-results" hidden></div>
+    </div>
+  </div>
+</div>
+
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="os-linux.html" class="active">操作系统 + Linux</a>
+    <div class="nav-dropdown">
+      <a class="dropdown-toggle" tabindex="0">全部教程</a>
+      <ul class="dropdown-menu">
+        <li class="dd-cat">基础课</li>
+        <li><a href="c-programming.html">💻 C 语言程序设计</a></li>
+        <li><a href="signal-system.html">📊 信号与系统</a></li>
+        <li class="dd-cat">专业核心</li>
+        <li><a href="comm-principle.html">📡 通信原理</a></li>
+        <li><a href="mcu.html">🔧 单片机原理与应用</a></li>
+        <li><a href="data-network.html">🌐 数据通信与网络</a></li>
+        <li><a href="mobile-comm.html">📶 移动通信</a></li>
+        <li class="dd-cat">工具与平台</li>
+        <li><a href="os-linux.html">🐧 操作系统与 Linux</a></li>
+      </ul>
+    </div>
+    <a href="index.html#roadmap">学习路线</a>
+    <a href="index.html#tools">工具推荐</a>
+    <a href="index.html#howto">用户笔记</a>
+    <a href="index.html#quiz">期末自测</a>
+    <a href="index.html">Linux</a>
+  </div>
+</nav>
+
+
+<div class="layout-2col">
+<aside class="sidebar"><div class="sidebar-title"><span class="icon">≡</span> 操作系统与 Linux 管理 目录</div>
+  
+  <ul>
+    <li><a href="#ch1">1. 操作系统概述</a></li>
+    <li><a href="#ch2">2. 进程与线程</a></li>
+    <li><a href="#ch3">3. CPU调度算法</a></li>
+    <li><a href="#ch4">4. 进程同步与死锁</a></li>
+    <li><a href="#ch5">5. 内存管理</a></li>
+    <li><a href="#ch6">6. 文件系统</a></li>
+    <li><a href="#ch7">7. Linux入门与常用命令</a></li>
+    <li><a href="#ch8">8. 用户与权限管理</a></li>
+    <li><a href="#ch9">9. Shell脚本编程</a></li>
+    <li><a href="#ch10">10. 进程与网络实战</a></li>
+    <li><a href="#ch11">11. 习题与思考</a></li>
+    <li><a href="#ch12">12. 实验指导</a></li>
+    <li><a href="#ch13">13. 推荐资源</a></li>
+  </ul>
+</aside>
+
+<main class="main">
+
+    <div class="course-intro">
+      <div class="title-row">
+        <h1>🐧 操作系统与 Linux 管理</h1>
+        <span class="version-tag">Linux.x</span>
+      </div>
+      <p>操作系统原理（进程/线程/同步/内存/文件系统） · Linux 命令与权限 · Shell 脚本 · 网络与服务管理。</p>
+      <p style="font-size:12px;color:var(--text-muted);">📚 建议顺序：从第一章开始依次学习 · 每章后附带习题与实验</p>
+    </div>
+
+<!-- ============================ 第一章 ============================ -->
+<section class="section" id="ch1">
+<h2>第一章 操作系统概述</h2>
+
+<h3>1.1 什么是操作系统</h3>
+<p>操作系统（Operating System, OS）是<strong>管理计算机硬件与软件资源</strong>、为用户提供交互接口的系统软件。它是计算机系统的"内核"，位于硬件与应用之间。</p>
+
+<h3>1.2 操作系统的五大功能</h3>
+<table>
+  <tr><th>功能</th><th>说明</th><th>举例</th></tr>
+  <tr><td>进程管理</td><td>进程的创建、调度、销毁</td><td>task / ps / kill</td></tr>
+  <tr><td>内存管理</td><td>内存分配、回收、虚拟内存</td><td>malloc / 分页 / swap</td></tr>
+  <tr><td>文件系统</td><td>文件的存储、组织、保护</td><td>ext4 / NTFS / FAT32</td></tr>
+  <tr><td>设备管理</td><td>外部设备的驱动与调度</td><td>键盘 / 网卡 / 磁盘</td></tr>
+  <tr><td>用户接口</td><td>提供命令行(CLI)与图形(GUI)</td><td>bash / GNOME</td></tr>
+</table>
+
+<h3>1.3 操作系统的发展史</h3>
+<ul>
+  <li><strong>无操作系统</strong>（1940s-50s早期）：直接操作硬件，ENIAC时代</li>
+  <li><strong>批处理系统</strong>：把任务攒一批交给计算机串行执行</li>
+  <li><strong>多道程序系统</strong>：内存中同时放多道程序，CPU切换提升利用率</li>
+  <li><strong>分时系统</strong>：多个用户通过终端共享一台机器（UNIX雏形）</li>
+  <li><strong>实时系统</strong>：RTOS，通信基站、工业控制常用</li>
+  <li><strong>现代OS</strong>：微内核（QNX/HarmonyOS）、宏内核（Linux）、混合（Windows/macOS）</li>
+</ul>
+
+<div class="alert alert-info">
+  <strong>💡 通信工程视角</strong>
+  通信系统中很多设备运行的是实时操作系统：基站用Linux + RT补丁，核心交换设备用VXWorks，嵌入式终端常用FreeRTOS/RT-Thread。理解OS内核对学习通信协议栈实现大有裨益。
+</div>
+
+<h3>1.4 操作系统的特征</h3>
+<ul>
+  <li><strong>并发</strong>：多个事件在同一时间间隔内交替进行</li>
+  <li><strong>共享</strong>：资源供多个并发进程共同使用（互斥/同时）</li>
+  <li><strong>虚拟</strong>：把一个物理实体映射成多个逻辑实体（如虚拟内存）</li>
+  <li><strong>异步</strong>：进程执行走走停停，速度不可预知但结果可重现</li>
+</ul>
+
+</section>
+
+<!-- ============================ 第二章 ============================ -->
+<section class="section" id="ch2">
+<h2>第二章 进程与线程</h2>
+
+<h3>2.1 进程的概念</h3>
+<p><strong>进程（Process）</strong>是程序在某数据集合上的一次动态执行过程，是OS进行资源分配和调度的基本单位。</p>
+<p>进程 = <strong>程序代码 + 当前活动（PC、寄存器、堆栈等） + 数据段 + 资源</strong>。</p>
+
+<p>PCB（Process Control Block）是内核为每个进程维护的数据结构，保存进程状态、PID、寄存器值、内存指针、打开的文件描述符等。</p>
+
+<h3>2.2 进程的状态转换</h3>
+<div class="formula">
+新建 (New) → 就绪 (Ready) ⇄ 运行 (Running) → 阻塞 (Blocked) → 退出 (Exit)
+</div>
+
+<table>
+  <tr><th>状态</th><th>含义</th></tr>
+  <tr><td>新建 New</td><td>进程刚被创建，PCB未初始化完</td></tr>
+  <tr><td>就绪 Ready</td><td>已具备运行条件，等待CPU调度</td></tr>
+  <tr><td>运行 Running</td><td>正在CPU上执行</td></tr>
+  <tr><td>阻塞 Blocked</td><td>等待某事件（如I/O完成）而无法运行</td></tr>
+  <tr><td>退出 Exit</td><td>进程执行结束，资源待回收</td></tr>
+</table>
+
+<h3>2.3 进程控制块 PCB</h3>
+<p>Linux 中 PCB 由 <code class="code-inline">task_struct</code> 结构体表示（<code class="code-inline">include/linux/sched.h</code>），关键字段：</p>
+<div class="code-block"><span class="lang">c</span><pre><code>struct task_struct {
+    pid_t               pid;            // 进程ID
+    pid_t               tgid;           // 线程组ID（主线程同PID）
+    volatile long       state;          // 进程状态
+    struct mm_struct   *mm;             // 内存描述符
+    struct files_struct *files;         // 打开的文件描述符
+    struct signal_struct *signal;       // 信号相关
+    struct thread_struct thread;        // CPU寄存器上下文
+    int                 prio;           // 动态优先级
+    int                 static_prio;    // 静态优先级
+    /* …… 还有很多字段 …… */
+};</code></pre></div>
+
+<h3>2.4 线程的概念</h3>
+<p><strong>线程（Thread）</strong>是进程内的执行单元，是CPU调度的基本单位。一个进程可以包含多个线程，它们共享进程的地址空间、文件描述符、堆等资源，但各自拥有独立的栈和寄存器。</p>
+
+<table>
+  <tr><th>对比项</th><th>进程</th><th>线程</th></tr>
+  <tr><td>资源拥有</td><td>独立地址空间</td><td>共享所属进程资源</td></tr>
+  <tr><td>切换开销</td><td>大（页表、缓存都要换）</td><td>小（同进程内切换）</td></tr>
+  <tr><td>通信方式</td><td>IPC（管道、共享内存、socket）</td><td>直接共享全局变量</td></tr>
+  <tr><td>健壮性</td><td>一个崩溃不影响其他</td><td>线程崩溃可能拖垮进程</td></tr>
+</table>
+
+<h3>2.5 进程 vs 线程 代码示例</h3>
+<div class="code-block"><span class="lang">c</span><pre><code>// 多进程示例 — fork
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main(void) {
+    pid_t pid = fork();
+    if (pid < 0) { perror("fork"); return 1; }
+    if (pid == 0) {
+        printf("[子进程] PID=%d, PPID=%d\n", getpid(), getppid());
+        _exit(0);                                // 子进程退出
+    } else {
+        printf("[父进程] PID=%d, 子进程PID=%d\n", getpid(), pid);
+        waitpid(pid, NULL, 0);                   // 父进程等待子进程
+    }
+    return 0;
+}</code></pre></div>
+
+<div class="code-block"><span class="lang">c</span><pre><code>// 多线程示例 — pthread
+#include <stdio.h>
+#include <pthread.h>
+
+void* worker(void* arg) {
+    int id = *(int*)arg;
+    printf("线程 %d 开始执行\n", id);
+    return NULL;
+}
+
+int main(void) {
+    pthread_t tids[4];
+    int ids[4] = {1, 2, 3, 4};
+    for (int i = 0; i < 4; i++)
+        pthread_create(&tids[i], NULL, worker, &ids[i]);
+    for (int i = 0; i < 4; i++)
+        pthread_join(tids[i], NULL);
+    return 0;
+}</code></pre></div>
+
+<div class="alert alert-warn">
+  <strong>⚠️ 易错点</strong>
+  <ul>
+    <li>fork 后父子进程执行顺序不确定，需要用 IPC 协调</li>
+    <li>主线程返回 <code class="code-inline">return</code> 或调用 <code class="code-inline">pthread_exit</code> 都会结束整个进程</li>
+    <li>多线程共享变量需加锁，避免 race condition</li>
+  </ul>
+</div>
+
+</section>
+
+<!-- ============================ 第三章 ============================ -->
+<section class="section" id="ch3">
+<h2>第三章 CPU调度算法</h2>
+
+<h3>3.1 调度层次</h3>
+<ul>
+  <li><strong>高级调度（作业调度）</strong>：决定把外存上哪些作业调入内存</li>
+  <li><strong>中级调度（内存调度）</strong>：决定把哪些进程挂起到磁盘、对换</li>
+  <li><strong>低级调度（进程调度）</strong>：决定就绪队列中哪个进程获得CPU</li>
+</ul>
+
+<h3>3.2 主要算法对比</h3>
+<table>
+  <tr><th>算法</th><th>思想</th><th>优点</th><th>缺点</th></tr>
+  <tr><td>FCFS 先来先服务</td><td>按到达顺序</td><td>简单公平</td><td>平均等待时间长</td></tr>
+  <tr><td>SJF 短作业优先</td><td>优先跑时间短的</td><td>平均周转最优</td><td>长作业饥饿</td></tr>
+  <tr><td>时间片轮转 RR</td><td>轮流执行，固定时间片</td><td>响应快、交互友好</td><td>上下文切换开销</td></tr>
+  <tr><td>优先级调度</td><td>高优先级先跑</td><td>灵活</td><td>低优先级饥饿</td></tr>
+  <tr><td>多级反馈队列 MLFQ</td><td>动态调整优先级</td><td>综合最优</td><td>实现复杂</td></tr>
+</table>
+
+<h3>3.3 时间片轮转示例</h3>
+<p>假设时间片 q = 4，到达与运行时间如下：</p>
+<table>
+  <tr><th>进程</th><th>到达时间</th><th>服务时间</th></tr>
+  <tr><td>P1</td><td>0</td><td>7</td></tr>
+  <tr><td>P2</td><td>2</td><td>4</td></tr>
+  <tr><td>P3</td><td>4</td><td>1</td></tr>
+</table>
+<p>执行甘特图：</p>
+<div class="formula">
+[0–4] P1 → [4–5] P3 → [5–8] P2 → [8–11] P1
+</div>
+<p>平均等待时间 = (0 + 4 + 1) / 3 ≈ 1.67</p>
+
+<div class="alert alert-info">
+  <strong>💡 Linux 的 CFS 调度器</strong>
+  Linux 默认调度器 <strong>CFS</strong>（Completely Fair Scheduler）基于"虚拟运行时间" vruntime，红黑树维护，运行时间越少越优先。本质就是加权公平的 RR + 多级反馈。
+</div>
+
+</section>
+
+<!-- ============================ 第四章 ============================ -->
+<section class="section" id="ch4">
+<h2>第四章 进程同步与死锁</h2>
+
+<h3>4.1 临界区问题</h3>
+<p>一段访问共享资源的代码称为<strong>临界区</strong>。解决临界区问题需满足：</p>
+<ul>
+  <li><strong>互斥</strong>：一次只有一个进程在临界区</li>
+  <li><strong>前进</strong>：临界区外的进程不能阻止其他进程进入</li>
+  <li><strong>有限等待</strong>：进入请求不能无限等待</li>
+</ul>
+
+<h3>4.2 同步工具</h3>
+<table>
+  <tr><th>工具</th><th>原理</th><th>使用场景</th></tr>
+  <tr><td>互斥锁 mutex</td><td>同一时刻只能一个线程持有</td><td>保护临界区</td></tr>
+  <tr><td>读写锁 rwlock</td><td>读共享、写互斥</td><td>读多写少</td></tr>
+  <tr><td>信号量 semaphore</td><td>计数器，经典 PV 操作</td><td>生产者消费者</td></tr>
+  <tr><td>条件变量 cond</td><td>阻塞等待某条件成立</td><td>事件通知</td></tr>
+  <tr><td>自旋锁 spinlock</td><td>忙等待不阻塞</td><td>中断/短临界区</td></tr>
+</table>
+
+<h3>4.3 生产者-消费者模型代码</h3>
+<div class="code-block"><span class="lang">c</span><pre><code>#include <pthread.h>
+#include <stdio.h>
+#include <unistd.h>
+
+#define N 5
+
+int  buffer[N];
+int   in = 0, out = 0, count = 0;
+pthread_mutex_t mtx = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t  not_full  = PTHREAD_COND_INITIALIZER;
+pthread_cond_t  not_empty = PTHREAD_COND_INITIALIZER;
+
+void put(int x) {
+    pthread_mutex_lock(&mtx);
+    while (count == N)                        // 满则阻塞
+        pthread_cond_wait(&not_full, &mtx);
+    buffer[in] = x; in = (in+1) % N; count++;
+    pthread_cond_signal(&not_empty);
+    pthread_mutex_unlock(&mtx);
+}
+
+int get(void) {
+    pthread_mutex_lock(&mtx);
+    while (count == 0)                        // 空则阻塞
+        pthread_cond_wait(&not_empty, &mtx);
+    int x = buffer[out]; out = (out+1) % N; count--;
+    pthread_cond_signal(&not_full);
+    pthread_mutex_unlock(&mtx);
+    return x;
+}</code></pre></div>
+
+<h3>4.4 死锁的四个必要条件</h3>
+<ol>
+  <li><strong>互斥</strong>：资源一次只允许一个进程使用</li>
+  <li><strong>占有并等待</strong>：持有资源又申请新资源</li>
+  <li><strong>不可剥夺</strong>：资源只能主动释放，不能被抢</li>
+  <li><strong>循环等待</strong>：进程间形成环路等待</li>
+</ol>
+
+<div class="alert alert-success">
+  <strong>✅ 死锁处理策略</strong>
+  <ul>
+    <li><strong>预防</strong>：破坏四个条件之一（如一次性申请所有资源）</li>
+    <li><strong>避免</strong>：银行家算法（检测是否进入不安全状态）</li>
+    <li><strong>检测</strong>：资源分配图 + 等待图环路检测</li>
+    <li><strong>解除</strong>：剥夺资源、回滚进程</li>
+  </ul>
+</div>
+
+<h3>4.5 银行家算法伪代码</h3>
+<div class="code-block"><span class="lang">text</span><pre><code>// 安全性算法
+Work = Available
+Finish[i] = false for all i
+
+存在 i:
+    Finish[i] == false 且 Need[i] ≤ Work
+    Work = Work + Allocation[i]
+    Finish[i] = true
+    goto 开始
+
+如果所有 Finish[i] == true 则安全</code></pre></div>
+
+</section>
+
+<!-- ============================ 第五章 ============================ -->
+<section class="section" id="ch5">
+<h2>第五章 内存管理</h2>
+
+<h3>5.1 内存管理的目标</h3>
+<ul>
+  <li><strong>地址保护</strong>：进程只能访问自己的地址空间</li>
+  <li><strong>地址共享</strong>：让多进程共享物理页（如共享库）</li>
+  <li><strong>空间扩展</strong>：虚拟地址空间大于物理内存</li>
+  <li><strong>存储抽象</strong>：给进程一个干净的"独占"视图</li>
+</ul>
+
+<h3>5.2 连续分配</h3>
+<ul>
+  <li><strong>单一连续</strong>：早期单用户，简单但浪费</li>
+  <li><strong>固定分区</strong>：内存在启动时划好若干区</li>
+  <li><strong>动态分区</strong>：按需分配，会产生<strong>外部碎片</strong>，用首次适配/最佳适配等策略</li>
+</ul>
+
+<h3>5.3 分页存储管理（核心）</h3>
+<p>分页把进程的<strong>逻辑地址空间</strong>和<strong>物理内存</strong>都划分为大小相等的"页/页框"。</p>
+<div class="formula">
+逻辑地址 = 页号(P) + 页内偏移(W)
+物理地址 = 页框号(f) × 页大小 + W
+</div>
+
+<p><strong>页表</strong>（Page Table）记录页号→页框号的映射。为了加速，引入了<strong>TLB</strong>（快表）作为缓存。</p>
+
+<h3>5.4 多级页表与缺页中断</h3>
+<p>32位系统4KB页：1M 个页条目，单级页表要4MB。Linux 采用二级页表，节省内存。</p>
+
+<p>如果访问的页不在内存中，会触发<strong>缺页中断（Page Fault）</strong>，OS 把页从磁盘调入内存。如果内存满则按页面置换算法淘汰一页：</p>
+<ul>
+  <li><strong>FIFO</strong> 先进先出：简单但性能不佳</li>
+  <li><strong>LRU</strong> 最近最久未使用：理论最优，实现近似（Clock算法）</li>
+  <li><strong>LFU</strong> 最不经常使用</li>
+  <li><strong>OPT</strong> 最佳置换（理论参考，不可实现）</li>
+</ul>
+
+<div class="alert alert-info">
+  <strong>💡 Belady 异常</strong>
+  FIFO 在某些访问序列下，增加页框反而增加缺页次数（Belady Anomaly）。LRU 和 LFU 都不会发生。
+</div>
+
+<h3>5.5 段式管理</h3>
+<p>按程序的逻辑结构（代码段、数据段、堆栈段）划分。<strong>段号 + 段内偏移</strong>，便于保护与共享。</p>
+
+</section>
+
+<!-- ============================ 第六章 ============================ -->
+<section class="section" id="ch6">
+<h2>第六章 文件系统</h2>
+
+<h3>6.1 文件的概念</h3>
+<p>文件是一组带名字的相关信息的集合。文件系统负责：</p>
+<ul>
+  <li>创建/删除文件</li>
+  <li>组织目录</li>
+  <li>按名存取、保护</li>
+  <li>提供一致的访问接口（open/read/write/close）</li>
+</ul>
+
+<h3>6.2 文件的逻辑结构</h3>
+<ul>
+  <li>无结构（流式）</li>
+  <li>有结构（记录式，顺序/索引）</li>
+  <li>B+ 树索引（数据库常用）</li>
+</ul>
+
+<h3>6.3 物理结构（分配方式）</h3>
+<table>
+  <tr><th>方式</th><th>特点</th></tr>
+  <tr><td>连续分配</td><td>顺序访问快，有外部碎片</td></tr>
+  <tr><td>链接分配</td><td>消碎片，但只能顺序访问</td></tr>
+  <tr><td>索引分配</td><td>随机访问快；可多级索引</td></tr>
+</table>
+
+<h3>6.4 FAT 与 inode</h3>
+<p>Linux 的 <strong>ext4</strong>、经典的 <strong>UNIX FS</strong> 都用 <strong>inode</strong>：每个文件一个 inode，记录元数据与数据块指针（12直接+1间接+2二级）。</p>
+<div class="code-block"><span class="lang">bash</span><pre><code>$ stat /etc/hosts
+  File: /etc/hosts
+  Size: 234            Blocks: 8          IO Block: 4096   regular file
+Device: 802h/2050d     Inode: 131073      Links: 1
+Access: (0644/-rw-r--r--)  Uid: (    0/    root)
+Modify: 2026/05/12 14:33:00</code></pre></div>
+
+<h3>6.5 虚拟文件系统 VFS</h3>
+<p>Linux 的 VFS 层对上层应用屏蔽差异，统一提供 <code class="code-inline">open/read/write/stat</code> 接口。它把底层差异（ext4、xfs、nfs、tmpfs）通过统一的 <code class="code-inline">inode_operations</code> 等结构体呈现。</p>
+
+</section>
+
+<!-- ============================ 第七章 ============================ -->
+<section class="section" id="ch7">
+<h2>第七章 Linux入门与常用命令</h2>
+
+<h3>7.1 Linux 发行版介绍</h3>
+<table>
+  <tr><th>发行版</th><th>包管理器</th><th>特点</th></tr>
+  <tr><td>Ubuntu</td><td>apt</td><td>最友好的桌面/服务器</td></tr>
+  <tr><td>Debian</td><td>apt</td><td>稳定，适合服务器</td></tr>
+  <tr><td>CentOS / RHEL</td><td>yum / dnf</td><td>企业级主流</td></tr>
+  <tr><td>Fedora</td><td>dnf</td><td>新特性先行</td></tr>
+  <tr><td>Arch</td><td>pacman</td><td>滚动更新，最新</td></tr>
+  <tr><td>Kali</td><td>apt</td><td>安全渗透专用</td></tr>
+</table>
+
+<p>Windows 上学习 Linux 最简便的方式是装 <strong>WSL2</strong> 或虚拟机（VMware/VirtualBox）跑 Ubuntu。</p>
+
+<h3>7.2 文件与目录操作</h3>
+<div class="code-block"><span class="lang">bash</span><pre><code>pwd                        # 显示当前路径
+ls -al                     # 列表（含隐藏文件、详细属性）
+cd /etc                    # 切换目录
+mkdir -p a/b/c            # 递归创建
+rmdir a                   # 删空目录
+rm -rf a                  # 强制递归删除（⚠️ 慎用）
+cp src dst                # 复制
+mv src dst                # 改名或移动
+touch file                # 创建空文件 / 更新时间戳
+ln -s target link         # 创建软链接
+
+# 通配符
+ls *.c                    # 以 .c 结尾
+ls file[0-9].txt         # file0.txt ~ file9.txt
+ls {a,b,c}.txt           # a.txt b.txt c.txt</code></pre></div>
+
+<h3>7.3 文件查看与处理</h3>
+<div class="code-block"><span class="lang">bash</span><pre><code>cat file                  # 整个输出
+less file                 # 分页（q 退出）
+head -n 20 file           # 前20行
+tail -n 20 file           # 后20行
+tail -f /var/log/syslog   # 实时跟踪日志
+
+wc -l file                # 行数
+sort file | uniq -c       # 排序去重并统计
+diff a b                  # 比较
+grep -rn "error" .        # 递归搜索
+find / -name "*.conf"     # 按名查找
+sed 's/old/new/g' file    # 替换
+awk '{print $1}' file     # 文本处理</code></pre></div>
+
+<h3>7.4 文件的三个时间</h3>
+<ul>
+  <li><strong>atime</strong> (Access)：最近读取时间</li>
+  <li><strong>mtime</strong> (Modify)：最近修改内容时间</li>
+  <li><strong>ctime</strong> (Change)：最近修改属性（权限/inode）时间</li>
+</ul>
+
+<h3>7.5 软硬链接区别</h3>
+<table>
+  <tr><th>维度</th><th>硬链接</th><th>软链接（符号链接）</th></tr>
+  <tr><td>本质</td><td>同一个 inode 的多个名字</td><td>指向文件路径的"快捷方式"</td></tr>
+  <tr><td>跨文件系统</td><td>否</td><td>是</td></tr>
+  <tr><td>指向目录</td><td>不允许</td><td>允许</td></tr>
+  <tr><td>删源文件</td><td>仍可访问</td><td>失效（红字闪烁）</td></tr>
+</table>
+
+</section>
+
+<!-- ============================ 第八章 ============================ -->
+<section class="section" id="ch8">
+<h2>第八章 用户与权限管理</h2>
+
+<h3>8.1 用户与组</h3>
+<p>Linux 是多用户系统。每个用户有 UID，每个用户至少属于一个主组 GID。常见配置文件：</p>
+<ul>
+  <li><code class="code-inline">/etc/passwd</code> — 用户基本信息</li>
+  <li><code class="code-inline">/etc/shadow</code> — 加密密码（仅 root 可读）</li>
+  <li><code class="code-inline">/etc/group</code> — 组信息</li>
+</ul>
+<div class="code-block"><span class="lang">bash</span><pre><code>$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+ubuntu:x:1000:1000:Ubuntu:/home/ubuntu:/bin/bash</code></pre></div>
+
+<p>字段含义：<code class="code-inline">用户名:密码占位:UID:GID:描述:家目录:登录shell</code></p>
+
+<h3>8.2 权限三位一体</h3>
+<div class="formula">
+-rwxr-xr--  1 root root  234 May 12 14:33 file
+</div>
+<p>第一位是文件类型（<code class="code-inline">-</code>=普通 <code class="code-inline">d</code>=目录 <code class="code-inline">l</code>=链接 <code class="code-inline">b/c/p/s</code>=设备）。</p>
+<p>后 9 位分三组：</p>
+<table>
+  <tr><th>位</th><th>含义</th></tr>
+  <tr><td>rwx (owner)</td><td>属主：读/写/执行</td></tr>
+  <tr><td>r-x (group)</td><td>同组：读/不可写/执行</td></tr>
+  <tr><td>r-- (other)</td><td>其他：只读</td></tr>
+</table>
+
+<h3>8.3 数字权限与修改</h3>
+<div class="code-block"><span class="lang">bash</span><pre><code>chmod 755 file                  # rwxr-xr-x
+chmod u+x,g-w file              # 属主加执行、同组去掉写
+chown alice:dev file            # 改属主+属组
+chgrp dev file                  # 仅改组
+umask 022                       # 默认权限掩码：新文件 644，目录 755
+
+# 特殊位
+chmod u+s file                  # SUID：执行时拥有属主权限（如 /usr/bin/passwd）
+chmod g+s dir                   # SGID：新建文件继承目录属组
+chmod +t /tmp                   # Sticky：只有属主能删（/tmp 用到）</code></pre></div>
+
+<h3>8.4 ACL 与 sudo</h3>
+<div class="code-block"><span class="lang">bash</span><pre><code>getfacl file                    # 查看 ACL
+setfacl -m u:alice:rwx file     # 给 alice 设 ACL
+setfacl -m g:dev:rx file        # 给 dev 组设 ACL
+setfacl -x u:alice file         # 移除
+setfacl -b file                 # 清空
+
+# 编辑 sudoers（务必用 visudo 检查语法）
+sudo visudo
+alice   ALL=(ALL)   NOPASSWD: ALL
+%dev    ALL=(ALL)   /usr/bin/apt, /usr/sbin/nginx</code></pre></div>
+
+<div class="alert alert-warn">
+  <strong>⚠️ 安全提示</strong>
+  <ul>
+    <li>密码散列在 <code class="code-inline">/etc/shadow</code>，权限 <code class="code-inline">640</code>，root 才能读</li>
+    <li>不要给非运维人员 <code class="code-inline">NOPASSWD: ALL</code>，用具体命令白名单</li>
+    <li><code class="code-inline">chmod 777</code> 在生产环境是危险品，按需最小原则给权限</li>
+  </ul>
+</div>
+
+</section>
+
+<!-- ============================ 第九章 ============================ -->
+<section class="section" id="ch9">
+<h2>第九章 Shell脚本编程</h2>
+
+<h3>9.1 Bash 基础</h3>
+<p><strong>Bash</strong>（Bourne Again Shell）是 Linux 默认 shell。脚本首行必须是 shebang：</p>
+<div class="code-block"><span class="lang">bash</span><pre><code>#!/usr/bin/env bash
+set -euo pipefail              # 严格模式：错即退、未定义变量即退、管道任一错即错
+
+echo "Hello, $(whoami)!"
+today=$(date +%Y-%m-%d)
+log=/var/log/myscript_${today}.log
+echo "日志写到 $log"</code></pre></div>
+
+<h3>9.2 变量与字符串</h3>
+<div class="code-block"><span class="lang">bash</span><pre><code>name="alice"
+greet="Hello, ${name}!"        # 字符串内插
+len=${#name}                   # 字符串长度
+slice=${name:0:2}               # "al"
+
+# 数字（默认字符串，需 (( )) 或 $(( )) 运算）
+a=10; b=3
+echo $((a + b))                 # 13
+echo $((a % b))                 # 1</code></pre></div>
+
+<h3>9.3 流程控制</h3>
+<div class="code-block"><span class="lang">bash</span><pre><code># if 分支
+if [[ -d /tmp/run ]]; then
+    echo "目录存在"
+elif [[ -f /tmp/run ]]; then
+    echo "是个文件"
+else
+    echo "不存在"
+fi
+
+# for 循环
+for i in {1..5}; do
+    echo "iteration $i"
+done
+
+for f in *.log; do
+    echo "处理 $f"
+done
+
+# while 读取文件
+while IFS= read -r line; do
+    echo ">> $line"
+done < input.txt
+
+# case
+case "$1" in
+    start)   systemctl start myapp ;;
+    stop)    systemctl stop myapp ;;
+    restart) systemctl restart myapp ;;
+    *)       echo "用法: $0 {start|stop|restart}"; exit 1 ;;
+esac</code></pre></div>
+
+<h3>9.4 函数与参数</h3>
+<div class="code-block"><span class="lang">bash</span><pre><code>log_msg() {
+    local level=$1
+    shift
+    echo "[$(date +%H:%M:%S)] [$level] $*"
+}
+
+log_msg INFO "服务启动"
+log_msg ERROR "连接超时" 1
+
+# 参数：$1,$2,... $@ 所有 $* 整体 $# 数量
+# 特殊：$0 脚本名 $? 上条命令退出码 $$ 当前PID</code></pre></div>
+
+<h3>9.5 实战：自动巡检脚本</h3>
+<div class="code-block"><span class="lang">bash</span><pre><code>#!/usr/bin/env bash
+# system_audit.sh - 系统巡检
+set -euo pipefail
+REPORT=/tmp/audit_$(date +%Y%m%d_%H%M).txt
+exec &> >(tee "$REPORT")
+
+echo "===== 系统巡检报告 $(date) ====="
+echo
+echo "--- 主机 ---"
+hostnamectl
+echo
+echo "--- CPU 负载 ---"
+uptime
+echo
+echo "--- 内存 ---"
+free -h
+echo
+echo "--- 磁盘 ---"
+df -h | grep -v tmpfs
+echo
+echo "--- 网络连接数 ---"
+ss -s
+echo
+echo "--- 最近 50 行内核日志 ---"
+dmesg | tail -n 50 || true
+echo
+echo "===== 结束 ====="
+echo "报告已保存到 $REPORT"</code></pre></div>
+
+<p>进阶用法：<code class="code-inline">trap</code> 捕获信号、<code class="code-inline">getopts</code> 解析选项、<code class="code-inline">awk</code>+<code class="code-inline">sed</code> 处理文本、<code class="code-inline">xargs</code> 并行执行、<code class="code-inline">crontab</code> 定时任务。</p>
+
+</section>
+
+<!-- ============================ 第十章 ============================ -->
+<section class="section" id="ch10">
+<h2>第十章 进程、网络与服务管理</h2>
+
+<h3>10.1 进程查看</h3>
+<div class="code-block"><span class="lang">bash</span><pre><code>ps aux                          # BSD 风格，经典
+ps -ef                          # System V
+top / htop                      # 动态
+pgrep -f nginx                  # 按名字查 PID
+pkill -TERM -f "my_old_server"  # 优雅杀
+
+# 进程状态 STAT：
+# R 运行, S 可中断睡眠, D 不可中断睡眠（IO）, Z 僵尸, T 停止, s 会话首进程, + 前台进程组</code></pre></div>
+
+<h3>10.2 后台任务与 nohup</h3>
+<div class="code-block"><span class="lang">bash</span><pre><code>./long_job &                     # 后台运行
+jobs -l                          # 查看后台任务
+fg %1                            # 拉到前台
+Ctrl+Z                           # 暂停当前任务（SIGTSTP）
+bg %1                            # 继续后台
+
+# 永久后台（即便 SIGHUP 也不退出）
+nohup ./long_job > out.log 2>&1 &
+
+# 开机自启
+sudo systemctl enable myapp.service
+sudo systemctl start myapp</code></pre></div>
+
+<h3>10.3 systemd 单元文件</h3>
+<div class="code-block"><span class="lang">ini</span><pre><code># /etc/systemd/system/myapp.service
+[Unit]
+Description=My App Daemon
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/myapp
+ExecStart=/usr/bin/python3 /opt/myapp/server.py
+Restart=on-failure
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target</code></pre></div>
+
+<h3>10.4 网络基础命令</h3>
+<div class="code-block"><span class="lang">bash</span><pre><code>ip addr                          # 查看 IP（旧：ifconfig）
+ip route                         # 路由表
+ss -tulnp                        # 监听端口
+ping -c 4 8.8.8.8
+traceroute baidu.com
+nslookup baidu.com
+dig +short baidu.com
+curl -v https://api.example.com
+wget -c URL                      # 断点续传
+scp file user@host:/path         # 安全拷贝
+rsync -avz src/ dst/             # 增量同步
+ssh user@host                    # 远程登录</code></pre></div>
+
+<h3>10.5 防火墙与抓包</h3>
+<div class="code-block"><span class="lang">bash</span><pre><code># ufw (Ubuntu)
+sudo ufw allow 22/tcp
+sudo ufw allow 80,443/tcp
+sudo ufw enable
+
+# firewalld (CentOS)
+sudo firewall-cmd --permanent --add-port=80/tcp
+sudo firewall-cmd --reload
+
+# 抓包
+sudo tcpdump -i any -nn port 80
+sudo tcpdump -i any -w cap.pcap host 1.1.1.1
+# Wireshark 打开 cap.pcap 分析</code></pre></div>
+
+<h3>10.6 性能监控三剑客</h3>
+<table>
+  <tr><th>工具</th><th>作用</th></tr>
+  <tr><td>vmstat</td><td>虚拟内存/CPU/IO 概览</td></tr>
+  <tr><td>iostat</td><td>磁盘 I/O 性能</td></tr>
+  <tr><td>sar</td><td>系统活动采样与历史</td></tr>
+</table>
+<div class="code-block"><span class="lang">bash</span><pre><code>vmstat 1 5          # 每秒采样，共5次
+iostat -x 1         # 详细磁盘指标
+sar -u 1 5          # CPU使用历史
+
+# top 字段解读
+# %CPU>80% 注意；%MEM>50% 注意；load average 三值反映1/5/15分钟负载，应小于 CPU 核数</code></pre></div>
+
+</section>
+
+<!-- ============================ 第十一章 习题 ============================ -->
+<section class="section" id="ch11">
+<h2>第十一章 习题与思考</h2>
+
+<h3>一、选择题</h3>
+<div class="quiz">
+  <div class="q">1. 进程和线程的本质区别是？</div>
+  A. 进程是动态的，线程是静态的<br>
+  B. 进程是资源分配单位，线程是CPU调度单位<br>
+  C. 线程共享地址空间，进程独立地址空间<br>
+  D. 进程有PCB，线程没有<br>
+  <details><summary>查看答案</summary>
+  <div class="answer">B、C 均正确，但 B 是教材定义性表述，C 是结果性表述。<strong>答案：B</strong>。</div></details>
+</div>
+
+<div class="quiz">
+  <div class="q">2. 下列哪个调度算法不会产生 Belady 异常？</div>
+  A. FIFO &nbsp; B. LRU &nbsp; C. 二次机会法 &nbsp; D. 以上都不<br>
+  <details><summary>查看答案</summary>
+  <div class="answer"><strong>答案：B</strong>。FIFO 是栈式算法会出现 Belady 异常；二次机会本质 FIFO。</div></details>
+</div>
+
+<div class="quiz">
+  <div class="q">3. /etc/shadow 文件权限是？</div>
+  <details><summary>查看答案</summary>
+  <div class="answer"><code class="code-inline">-rw-r-----</code> 即 <code class="code-inline">640</code>，属主 root，属组 shadow，仅这两者可访问。</div></details>
+</div>
+
+<h3>二、简答题</h3>
+<div class="quiz">
+  <div class="q">Q1. 描述死锁的四个必要条件，举出一个生活化例子。</div>
+  <details><summary>查看答案</summary>
+  <div class="answer">
+    ① 互斥 ② 占有并等待 ③ 不可剥夺 ④ 循环等待。<br>
+    例子：马路十字路口四辆车互不相让——每辆车占有一段路（占有并等待），且路段不能被抢（不可剥夺），四辆车之间形成循环等待（每辆车都等前面那辆让行）。<br>
+    解法：交通信号灯破坏循环等待，互让规则打破占有并等待。
+  </div>
+</details>
+</div>
+
+<div class="quiz">
+  <div class="q">Q2. 为什么需要虚拟内存？</div>
+  <details><summary>查看答案</summary>
+  <div class="answer">
+    ① 让进程看到比物理内存大的地址空间（空间扩展）。<br>
+    ② 多进程共享物理内存，提高利用率。<br>
+    ③ 进程之间内存相互隔离，提供保护。<br>
+    ④ 与文件系统一起，支撑 fork 等高级特性（写时复制 COW）。
+  </div>
+</details>
+</div>
+
+<div class="quiz">
+  <div class="q">Q3. 硬链接和软链接的区别，举例。</div>
+  <details><summary>查看答案</summary>
+  <div class="answer">
+    硬链接共享 inode，本质同一文件多个名字，不能跨文件系统、不能指向目录。<br>
+    软链接是路径"快捷方式"，保存的是目标文件名，inode 不同，可跨文件系统，源文件删除后失效。<br>
+    例：<code class="code-inline">ln a.txt b.txt</code> 硬链接；<code class="code-inline">ln -s a.txt b.txt</code> 软链接。删 a.txt 后，b.txt 还能读（硬），但 b.txt 会标红闪烁（软）。
+  </div>
+</details>
+</div>
+
+<h3>三、计算题</h3>
+<div class="quiz">
+  <div class="q">Q1. 页面访问序列为：7,0,1,2,0,3,0,4,2,3,0,3,2,1,2,0,1，当物理页框数为 3 时，分别用 FIFO 和 LRU 计算缺页次数。</div>
+  <details><summary>查看答案</summary>
+  <div class="answer">
+    <strong>FIFO 缺页 12 次，LRU 缺页 12 次</strong>（实际此序列两者结果相同，常见题型"页面序列 + 算法"）。<br>
+    排查法：<br>
+    FIFO 队列：开始[7,0,1] → 2 替换 7 → [0,1,2] → 3 替换 0 → [1,2,3] → 0 替换 1 → [2,3,0] → 4 替换 2 → [3,0,4] → 2 替换 3 → [0,4,2] → 3 替换 0 → [4,2,3] → 0 替换 4 → [2,3,0] → 3 命中 → 2 命中 → 1 替换 2 → [3,0,1] → 2 替换 3 → [0,1,2] → 0 命中 → 1 命中。<br>
+    缺页 = 12。<br>
+    LRU 类似追踪访问时间排序，得出 12 次。
+  </div>
+</details>
+</div>
+
+</section>
+
+<!-- ============================ 第十二章 实验 ============================ -->
+<section class="section" id="ch12">
+<h2>第十二章 实验指导</h2>
+
+<h3>实验1：Linux 环境搭建与基础命令</h3>
+<ol>
+  <li>在 VMware 装 Ubuntu 22.04 LTS</li>
+  <li>练习：ls/cd/mkdir/rm/cat/less/grep/find 各完成 5 个不同用法</li>
+  <li>用 <code class="code-inline">ps aux | grep ssh</code> 找到 sshd 进程</li>
+  <li>查看 /proc 下的进程信息，体会"一切皆文件"</li>
+</ol>
+
+<h3>实验2：用户与权限</h3>
+<ol>
+  <li>创建用户 alice、bob，加入 dev 组</li>
+  <li>创建 /tmp/dev_project，权限 770，属组 dev</li>
+  <li>验证 alice 写入，bob 读取，guest 用户被拒绝</li>
+  <li>用 ACL 给 charlie 单独开写权限</li>
+</ol>
+
+<h3>实验3：Shell 脚本</h3>
+<ol>
+  <li>写脚本 <code class="code-inline">backup.sh</code>：备份 /etc 到 /var/backup/YYYY-MM-DD.tar.gz</li>
+  <li>写脚本 <code class="code-inline">ping_check.sh</code>：扫描 C 段所有主机是否存活</li>
+  <li>写脚本 <code class="code-inline">port_killer.sh</code>：根据端口号杀进程（用 lsof）</li>
+</ol>
+
+<h3>实验4：进程观察</h3>
+<div class="code-block"><span class="lang">c</span><pre><code>// fork_demo.c：父子进程并发计数
+#include <stdio.h>
+#include <unistd.h>
+
+int main(void) {
+    setbuf(stdout, NULL);
+    pid_t pid = fork();
+    for (int i = 0; i < 5; i++) {
+        if (pid == 0) printf("[child %d] tick %d\n", getpid(), i);
+        else          printf("[parent %d] tick %d\n", getpid(), i);
+        usleep(200000);
+    }
+    return 0;
+}
+</code></pre></div>
+<ol>
+  <li>编译 <code class="code-inline">gcc -o fork_demo fork_demo.c</code></li>
+  <li>运行观察输出顺序，体会"并发"</li>
+  <li>加 <code class="code-inline">waitpid</code> 让父等子，再观察</li>
+</ol>
+
+<h3>实验5：网络与抓包</h3>
+<ol>
+  <li>查看网卡 IP：<code class="code-inline">ip addr</code></li>
+  <li>ping 网关与外网</li>
+  <li>tcpdump 抓一次 HTTP 请求 <code class="code-inline">tcpdump -i any -A -nn port 80</code></li>
+  <li>curl 下载一张图分析三次握手/数据/四次挥手</li>
+</ol>
+
+</section>
+
+<!-- ============================ 第十三章 资源 ============================ -->
+<section class="section" id="ch13">
+<h2>第十三章 推荐学习资源</h2>
+
+<h3>📚 教材</h3>
+<ul>
+  <li>汤子瀛《计算机操作系统》（第四版）— 原理经典教材</li>
+  <li>鸟哥的 Linux 私房菜（基础/服务器篇）— Linux 实操圣经</li>
+  <li>《UNIX 编程艺术》Eric S. Raymond — 文化与哲学</li>
+  <li>《Operating Systems: Three Easy Pieces》— 免费英文在线，Remzi Arpaci-Dusseau</li>
+  <li>《Linux Kernel Development》Robert Love — 内核开发入门</li>
+</ul>
+
+<h3>🎥 视频</h3>
+<ul>
+  <li>哈工大李志军《操作系统》— MOOC 经典</li>
+  <li>南京大学蒋炎岩《操作系统：设计与实现》— 含实验</li>
+  <li>Linux Foundation 官方课程 LFCS/LFCE</li>
+</ul>
+
+<h3>🌐 在线实验环境</h3>
+<ul>
+  <li>https://bellard.org/jslinux/ — 浏览器跑 Linux</li>
+  <li>https://www.jslint.org/playground/linux</li>
+  <li>https://labs.play-with-docker.com/ — 容器化 Linux</li>
+  <li>OverTheWire <code class="code-inline">Bandit</code> — 命令闯关</li>
+</ul>
+
+<h3>🛠️ 工具</h3>
+<ul>
+  <li><code class="code-inline">tldr</code>：简化 man 手册</li>
+  <li><code class="code-inline">explainshell.com</code>：解析复杂命令</li>
+  <li><code class="code-inline">cheat.sh</code>：cheat sheet 终端版</li>
+  <li><code class="code-inline">htop</code> / <code class="code-inline">glances</code>：美化 top</li>
+</ul>
+
+</section>
+
+<div class="section" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;text-align:center;">
+  <h2 style="color:#fff;border-color:#fff;">🎯 学习目标检查</h2>
+  <p>完成本章后你应该能够：</p>
+  <ul style="list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;text-align:left;">
+    <li>✅ 解释 OS 的五大功能与四大特征</li>
+    <li>✅ 区分进程与线程，给出代码示例</li>
+    <li>✅ 列举与对比常见调度算法</li>
+    <li>✅ 用 PV 操作与互斥锁解决同步问题</li>
+    <li>✅ 描述虚拟内存与页面置换算法</li>
+    <li>✅ 熟练掌握至少 30 个常用 Linux 命令</li>
+    <li>✅ 读懂文件权限 rwx 与 chmod 数字模式</li>
+    <li>✅ 编写不少于 50 行的 Bash 脚本</li>
+    <li>✅ 使用 systemctl 管理服务、tcpdump 抓包</li>
+  </ul>
+</div>
+
+</main>
+</div>
+
+<footer class="site-footer">
+  <p>© 2026 通信工程学习站 · 仿菜鸟教程风格 · 仅供本科学习用途</p>
+  <p>本文档基于 CC BY-SA 4.0 协议，欢迎分享、传播并署名</p>
+  <p><a href="index.html">← 返回首页</a> · <a href="#top">↑ 回到顶部</a></p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/search-data.js"></script>
+<script src="js/search.js"></script>
+</body>
+</html>
