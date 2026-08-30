@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通信工程专业介绍 - 通信工程.CN</title>
+<meta name="description" content="全面介绍通信工程专业：学科定义、课程体系、就业方向、行业最新动态、技术发展趋势、学习路线与资源">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ========== 顶部 Logo + 搜索 ========== -->
+<div class="site-header">
+  <div class="site-header-inner">
+    <a href="index.html" class="brand"><span class="b1">通信工程</span><span class="b2">.CN</span></a>
+    <div class="search-box">
+      <input type="search" placeholder="搜索 5G、信号、TCP/IP、MIMO ……" aria-label="搜索">
+    </div>
+  </div>
+</div>
+
+<!-- ========== 绿色横向导航条 ========== -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="active">首页</a>
+    <div class="nav-dropdown">
+      <a class="dropdown-toggle" tabindex="0">全部教程</a>
+      <ul class="dropdown-menu">
+        <li class="dd-cat">基础课</li>
+        <li><a href="c-programming.html">💻 C 语言程序设计</a></li>
+        <li><a href="signal-system.html">📊 信号与系统</a></li>
+        <li class="dd-cat">专业核心</li>
+        <li><a href="comm-principle.html">📡 通信原理</a></li>
+        <li><a href="mcu.html">🔧 单片机原理与应用</a></li>
+        <li><a href="data-network.html">🌐 数据通信与网络</a></li>
+        <li><a href="mobile-comm.html">📶 移动通信</a></li>
+        <li class="dd-cat">工具与平台</li>
+        <li><a href="os-linux.html">🐧 操作系统与 Linux</a></li>
+      </ul>
+    </div>
+    <a href="#four-year">学习路线</a>
+    <a href="#career">就业方向</a>
+    <a href="#news">行业资讯</a>
+    <a href="#trend">技术趋势</a>
+    <a href="#faq">常见问题</a>
+  </div>
+</nav>
+
+<!-- ========== 主页内容（全宽，无侧栏） ========== -->
+<main class="home-wrap">
+
+  <!-- ========== Hero 区 ========== -->
+  <section class="home-hero">
+    <div class="hero-logo">📡</div>
+    <div class="hero-text">
+      <h1>通信工程 · 从这里开始</h1>
+      <p>从 1G 的模拟语音，到 5G-A 的万物互联，再到 6G 的通感智一体化 ——</p>
+      <p>通信工程是研究<strong>信息传输、交换、处理与网络设计</strong>的工科主干专业。</p>
+      <p>本页帮助你用 5 分钟了解：学什么、未来做什么、行业正发生什么。</p>
+      <a href="comm-principle.html" class="hero-cta">从通信原理开始学习 →</a>
+    </div>
+  </section>
+
+  <!-- ========== 关键数据 KPI ========== -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <span class="num">080713</span>
+      <div class="label">本科专业代码</div>
+    </div>
+    <div class="kpi">
+      <span class="num">7 门</span>
+      <div class="label">本教程核心课程</div>
+    </div>
+    <div class="kpi">
+      <span class="num">100+ 章</span>
+      <div class="label">教材级章节</div>
+    </div>
+    <div class="kpi">
+      <span class="num">5G→6G</span>
+      <div class="label">覆盖的技术代际</div>
+    </div>
+  </div>
+
+  <!-- ========== 1. 什么是通信工程 ========== -->
+  <div class="section-block" id="what-is">
+    <div class="section-header"><span class="icon">≡</span> 一、什么是通信工程？</div>
+    <div class="section-body">
+
+      <div class="home-grid-2">
+        <div>
+          <h4>📖 专业定义</h4>
+          <p>通信工程（<strong>Electronic Information Engineering / Telecommunications Engineering</strong>）是电子信息类下的核心工科专业，专业代码 <code class="code-inline">080713</code>。它研究信息的产生、传输、交换、处理与存储，覆盖<strong>电路与系统、信号处理、通信网络、无线传输、光通信、卫星通信</strong>等领域。</p>
+          <p>一句话概括：<em style="color:#5d8a2a;">让信息以最快、最稳、最省资源的方式，从 A 点抵达 B 点</em> —— 这是通信工程永恒的命题。</p>
+        </div>
+        <div>
+          <h4>🎯 培养目标</h4>
+          <ul>
+            <li>掌握<strong>通信系统</strong>（调制解调、信道编码、同步、组网）理论基础</li>
+            <li>具备<strong>软硬件协同</strong>开发能力（C / 嵌入式 / FPGA / Python）</li>
+            <li>理解<strong>主流标准</strong>（3GPP / IEEE 802.11 / TCP-IP）</li>
+            <li>拥有<strong>工程实践</strong>能力（仿真、SDR、5G 基站、协议分析）</li>
+            <li>具备<strong>持续学习</strong>能力（行业每 10 年一次代际跃迁）</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="alert alert-info" style="margin-top:14px;">
+        <strong>💡 一句话区分</strong>
+        <p><strong>通信工程</strong>侧重"信号/网络从 A 到 B"；<strong>电子信息工程</strong>更宽（含电路/电磁/雷达/图像处理）；<strong>信息工程</strong>更偏系统与算法；<strong>光电信息</strong>偏光器件。本站聚焦通信工程的<strong>系统与网络</strong>主线。</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== 2. 专业课程体系 ========== -->
+  <div class="section-block" id="curriculum" style="margin-top:16px;">
+    <div class="section-header"><span class="icon">≡</span> 二、本科课程体系（四年 8 学期）</div>
+    <div class="section-body">
+      <table class="kb-table">
+        <tr>
+          <th style="width:14%">阶段</th>
+          <th style="width:16%">学期</th>
+          <th>主要课程</th>
+          <th style="width:14%">本站对应教程</th>
+        </tr>
+        <tr>
+          <td rowspan="2"><strong>通识 + 基础</strong></td>
+          <td>大一下 - 大二上</td>
+          <td>高等数学、线性代数、概率统计、大学物理、电路分析、模拟电子技术、数字电子技术</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>大二下 - 大三</td>
+          <td>C 语言程序设计、信号与系统、复变函数与积分变换、电磁场与电磁波、微机原理、单片机原理</td>
+          <td><a href="c-programming.html">C 语言</a> · <a href="signal-system.html">信号与系统</a> · <a href="mcu.html">单片机</a></td>
+        </tr>
+        <tr>
+          <td><strong>专业核心</strong></td>
+          <td>大三 - 大四上</td>
+          <td><strong>通信原理</strong>、<strong>数据通信与计算机网络</strong>、<strong>移动通信</strong>、数字信号处理 (DSP)、信息论与编码、光纤通信、卫星通信</td>
+          <td><a href="comm-principle.html">通信原理</a> · <a href="data-network.html">数据通信</a> · <a href="mobile-comm.html">移动通信</a></td>
+        </tr>
+        <tr>
+          <td><strong>实践 + 综合</strong></td>
+          <td>大四</td>
+          <td>操作系统与 Linux、嵌入式系统、MATLAB/Simulink/SystemVue 仿真、SDR 软件无线电、毕业设计</td>
+          <td><a href="os-linux.html">OS &amp; Linux</a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ========== 3. 学习路线（四年 4 步）========== -->
+  <div class="section-block" id="four-year" style="margin-top:16px;">
+    <div class="section-header"><span class="icon">≡</span> 三、通信工程 · 四年学习路线图</div>
+    <div class="section-body">
+      <div class="roadmap">
+        <div class="roadmap-step">
+          <h4><span class="num">1</span> 大一大二 / 基础层</h4>
+          <p>高数 / 线代 / 概率 + C 语言 + 电路 + 模电 + 数电 → 打好数学与硬件语言底子</p>
+        </div>
+        <div class="roadmap-step">
+          <h4><span class="num">2</span> 大二下 / 信号底座</h4>
+          <p>信号与系统（卷积 / 三大变换 / 滤波器）→ 通信原理必须的前置课</p>
+        </div>
+        <div class="roadmap-step">
+          <h4><span class="num">3</span> 大三 / 专业核心</h4>
+          <p>通信原理 → 单片机（嵌入式） → 数据通信与网络 → 移动通信，4 门课形成系统级闭环</p>
+        </div>
+        <div class="roadmap-step">
+          <h4><span class="num">4</span> 大四 / 方向分化 + 毕设</h4>
+          <p>选 1-2 个方向深挖：无线通信 / 嵌入式 / 协议栈 / 算法 → 毕业设计与就业对齐</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 4. 就业方向 ========== -->
+  <div class="section-block" id="career" style="margin-top:16px;">
+    <div class="section-header"><span class="icon">≡</span> 四、就业方向 · 主流去向与代表企业</div>
+    <div class="section-body">
+
+      <div class="home-grid-3">
+        <div class="field-card">
+          <div class="fc-icon">📡</div>
+          <h4>通信设备商</h4>
+          <p>研发 5G/5G-A 基站、核心网、传输、终端芯片。做协议栈 / 物理层算法 / 嵌入式开发。</p>
+          <div class="fc-tags"><span>华为</span><span>中兴</span><span>爱立信</span><span>诺基亚</span><span>三星</span></div>
+        </div>
+
+        <div class="field-card">
+          <div class="fc-icon">📱</div>
+          <h4>手机与终端厂商</h4>
+          <p>基带 / 射频 / 天线 / 协议 / 操作系统调优。是通信工程+计算机交叉最密的去向。</p>
+          <div class="fc-tags"><span>小米</span><span>OPPO</span><span>vivo</span><span>荣耀</span><span>Apple</span></div>
+        </div>
+
+        <div class="field-card">
+          <div class="fc-icon">🌐</div>
+          <h4>运营商</h4>
+          <p>中国移动 / 电信 / 联通 / 中国广电及海外运营商网络规划、优化、运维、技术研究。</p>
+          <div class="fc-tags"><span>中国移动</span><span>中国电信</span><span>中国联通</span><span>中国广电</span></div>
+        </div>
+
+        <div class="field-card">
+          <div class="fc-icon">💻</div>
+          <h4>互联网 & 芯片</h4>
+          <p>云服务 / 数据中心 / 边缘计算 / AI 加速 / 自研芯片（CPU/GPU/NPU/DPU），通信背景做底层基础架构有优势。</p>
+          <div class="fc-tags"><span>阿里</span><span>字节</span><span>腾讯</span><span>紫光</span><span>寒武纪</span></div>
+        </div>
+
+        <div class="field-card">
+          <div class="fc-icon">🛰️</div>
+          <h4>卫星 / 航天 / 军工</h4>
+          <p>卫星互联网（如千帆、GW）、北斗、测控、雷达、电子对抗。体制内 + 高稳定性的方向。</p>
+          <div class="fc-tags"><span>航天科技</span><span>航天科工</span><span>中电科</span><span>中科院</span></div>
+        </div>
+
+        <div class="field-card">
+          <div class="fc-icon">🎓</div>
+          <h4>升学 / 出国 / 事业编</h4>
+          <p>读研方向：通信 / 信号 / 计算机 / 电磁场 / 光电。公务员/选调生/电网/烟草/银行也是常见出路。</p>
+          <div class="fc-tags"><span>考研</span><span>申请留学</span><span>公务员</span><span>选调生</span></div>
+        </div>
+      </div>
+
+      <div class="alert alert-success" style="margin-top:14px;">
+        <strong>📊 行业现状</strong>
+        <p>2024-2026 通信工程本科就业率约 <strong>90%+</strong>。硬件方向（射频/天线/基带）紧缺，软件方向（协议栈/嵌入式）需求最广，研究生起薪普遍比本科高 30-50%。</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== 5. 行业最新动态 ========== -->
+  <div class="section-block" id="news" style="margin-top:16px;">
+    <div class="section-header"><span class="icon">≡</span> 五、行业最新动态 · 2024-2026</div>
+    <div class="section-body">
+
+      <div class="news-list">
+
+        <div class="news-item">
+          <div class="news-date">11 月<br><span>2025</span></div>
+          <div>
+            <div class="news-title">5G-A 正式商用，万兆与通感一体加速落地</div>
+            <div class="news-desc">国内三大运营商在 100+ 城市开通 5G-Advanced（5.5G），峰值速率突破 10Gbps，"通感一体（ISAC）"在低空经济与车联网试商用。</div>
+          </div>
+          <div class="news-source">新华社</div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-date">09 月<br><span>2025</span></div>
+          <div>
+            <div class="news-title">"千帆星座"与"国网"星座加速组网，低轨卫星互联网进入爆发期</div>
+            <div class="news-desc">国内 GW 星座与千帆星座在轨卫星合计破 200 颗，太赫兹、星上 AI、波束赋形、激光星间链路是 2026 届毕设热门方向。</div>
+          </div>
+          <div class="news-source">航天科技集团</div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-date">07 月<br><span>2025</span></div>
+          <div>
+            <div class="news-title">Wi-Fi 7 (802.11be) 终端规模化普及，320MHz + MLO 成标配</div>
+            <div class="news-desc">Wi-Fi 7 在手机、路由器、AR/VR 头显普及。MLO 多链路操作、EHT MU-MIMO、320MHz 信道是新一代家庭与园区网络核心。</div>
+          </div>
+          <div class="news-source">IEEE 802</div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-date">05 月<br><span>2025</span></div>
+          <div>
+            <div class="news-title">3GPP Release 19 / 20 冻结，AI/ML 原生空口进入标准</div>
+            <div class="news-desc">3GPP 把 AI/ML 引入 NR 物理层、Beam Management、CSI 反馈，AI 原生网络（AI-Native Air Interface）成为 6G 研究的明确路线。</div>
+          </div>
+          <div class="news-source">3GPP</div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-date">03 月<br><span>2025</span></div>
+          <div>
+            <div class="news-title">国产 5G 基站射频芯片规模商用，国产替代进入深水区</div>
+            <div class="news-desc">PA、LNA、Filter、Transceiver 多家国产厂商进入主设备供应链，射频前端 RFFE 国产化率突破 50%。</div>
+          </div>
+          <div class="news-source">半导体行业协会</div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-date">01 月<br><span>2025</span></div>
+          <div>
+            <div class="news-title">"6G 推进组"发布《6G 总体愿景与潜在关键技术》白皮书</div>
+            <div class="news-desc">提出"数字孪生、智慧泛在、超能传输、绿色低碳"四大场景，THz、超大规模 MIMO、通感算一体化是 6G 候选技术。</div>
+          </div>
+          <div class="news-source">IMT-2030 (6G) 推进组</div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-date">11 月<br><span>2024</span></div>
+          <div>
+            <div class="news-title">RISC-V 走向通信芯片主流，多家厂商发布 RISC-V 基带原型</div>
+            <div class="news-desc">RISC-V 在嵌入式 / 基带 / Wi-Fi 芯片渗透加速，对学通信/嵌入式的同学意味着新的指令集与工具链需要掌握。</div>
+          </div>
+          <div class="news-source">RISC-V 国际基金会</div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-date">09 月<br><span>2024</span></div>
+          <div>
+            <div class="news-title">生成式 AI 推动数据通信网络架构再设计：智算网络 / RDMA / 高带宽低延迟成为热点</div>
+            <div class="news-desc">智算中心、万卡 GPU 集群驱动 InfiniBand / RoCE / 光通信需求暴涨，AI-Native Data Center 成为高薪赛道。</div>
+          </div>
+          <div class="news-source">通信世界</div>
+        </div>
+
+      </div>
+
+      <div class="alert alert-warn" style="margin-top:14px;">
+        <strong>📰 行业号 / 信息源推荐（关注即可）</strong>
+        <p>C114 通信网 · 通信世界 · IEEE Spectrum · 鲜枣课堂 · 3GPP 官网 · IMT-2030 (6G) 推进组 · 华为 / 中兴官方公众号 · 学术：IEEE ComMag / IEEE JSAC / IEEE TWC。</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== 6. 技术发展趋势 ========== -->
+  <div class="section-block" id="trend" style="margin-top:16px;">
+    <div class="section-header"><span class="icon">≡</span> 六、六大技术发展趋势（2025-2030）</div>
+    <div class="section-body">
+
+      <div class="home-grid-3">
+        <div class="field-card">
+          <div class="fc-icon">📶</div>
+          <h4>5G-A / 5.5G → 6G</h4>
+          <p>峰值速率 10Gbps → 100Gbps，时延 ms → sub-ms。通感一体、空天地海、AI 原生空口是核心演进方向。</p>
+          <div class="fc-tags"><span>3GPP R18-R21</span><span>THz</span><span>ISAC</span></div>
+        </div>
+
+        <div class="field-card">
+          <div class="fc-icon">🛰️</div>
+          <h4>卫星互联网（NTN）</h4>
+          <p>低轨巨型星座 + 星间激光链路 + 5G NTN / 6G NTN 融合。手机直连卫星正在普及。</p>
+          <div class="fc-tags"><span>千帆</span><span>GW</span><span>Starlink</span></div>
+        </div>
+
+        <div class="field-card">
+          <div class="fc-icon">🤖</div>
+          <h4>AI × 通信</h4>
+          <p>AI 优化波束、信道估计、资源调度；大模型进入网管 / 计费 / 安全运维。通信 + AI 是 2026 届最热的交叉方向。</p>
+          <div class="fc-tags"><span>AI-Native RAN</span><span>LLM4Net</span></div>
+        </div>
+
+        <div class="field-card">
+          <div class="fc-icon">📡</div>
+          <h4>Massive MIMO &amp; RIS</h4>
+          <p>超大规模天线阵列 (ELAA) 走向 256/1024 通道；可重构智能表面 (RIS) 重塑无线传播环境。</p>
+          <div class="fc-tags"><span>ELAA</span><span>RIS</span><span>Beamforming</span></div>
+        </div>
+
+        <div class="field-card">
+          <div class="fc-icon">💡</div>
+          <h4>光通信 &amp; 硅光</h4>
+          <p>800G/1.6T 光模块商用，硅光 CPO/LPO 演进，AI 集群催生光 I/O 杀手级应用。</p>
+          <div class="fc-tags"><span>800G</span><span>硅光</span><span>CPO</span></div>
+        </div>
+
+        <div class="field-card">
+          <div class="fc-icon">🔐</div>
+          <h4>内生安全 &amp; PQC</h4>
+          <p>量子通信 / 量子密钥分发 (QKD) 与后量子密码 (PQC) 推动通信网络安全架构升级。</p>
+          <div class="fc-tags"><span>QKD</span><span>PQC</span><span>零信任</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== 7. 薪资与前景 ========== -->
+  <div class="section-block" id="salary" style="margin-top:16px;">
+    <div class="section-header"><span class="icon">≡</span> 七、薪资与岗位前景（参考：智联 / BOSS 2025 数据）</div>
+    <div class="section-body">
+      <table class="kb-table">
+        <tr>
+          <th>岗位方向</th>
+          <th>学历</th>
+          <th>月薪范围（一线）</th>
+          <th>典型岗位</th>
+          <th>难度</th>
+        </tr>
+        <tr>
+          <td>通信协议 / 物理层算法</td>
+          <td>硕士及以上</td>
+          <td>25K - 60K</td>
+          <td>5G/6G 基带算法、Beamforming、信道估计</td>
+          <td>★★★★★</td>
+        </tr>
+        <tr>
+          <td>嵌入式 / 单片机 / 驱动</td>
+          <td>本科及以上</td>
+          <td>12K - 30K</td>
+          <td>嵌入式 Linux 驱动、RTOS、BSP</td>
+          <td>★★★★☆</td>
+        </tr>
+        <tr>
+          <td>协议栈 / L2/L3 / 网管</td>
+          <td>本科及以上</td>
+          <td>15K - 35K</td>
+          <td>5G 协议栈、TCP/IP、SDN/NFV</td>
+          <td>★★★★☆</td>
+        </tr>
+        <tr>
+          <td>射频 / 天线 / 硬件</td>
+          <td>硕士优先</td>
+          <td>15K - 40K</td>
+          <td>射频工程师、天线设计、EMC</td>
+          <td>★★★★★</td>
+        </tr>
+        <tr>
+          <td>互联网后端（网络方向）</td>
+          <td>本科及以上</td>
+          <td>18K - 50K</td>
+          <td>基础架构、网络安全、SRE</td>
+          <td>★★★★☆</td>
+        </tr>
+        <tr>
+          <td>运维 / 网络规划 / 优化</td>
+          <td>本科</td>
+          <td>8K - 18K</td>
+          <td>运营商网络优化、设备维保</td>
+          <td>★★★☆☆</td>
+        </tr>
+        <tr>
+          <td>AI × 通信交叉</td>
+          <td>硕士</td>
+          <td>25K - 70K</td>
+          <td>AI-Native RAN、智算网络、大模型通信</td>
+          <td>★★★★★+</td>
+        </tr>
+      </table>
+      <div class="alert alert-info" style="margin-top:14px;">
+        <strong>📈 经验法则</strong>
+        <p>本科毕业 3 年内主要比拼 <strong>项目 + 编码</strong>；5 年以上拼 <strong>系统能力 + 标准理解</strong>；8 年以上拼 <strong>架构 + 行业判断</strong>。通信是"慢热型"工科，工龄越长越值钱。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 8. 常见问题 ========== -->
+  <div class="section-block" id="faq" style="margin-top:16px;">
+    <div class="section-header"><span class="icon">≡</span> 八、常见问题 · 新生 &amp; 转行答疑</div>
+    <div class="section-body">
+      <div class="section">
+        <h3>❓ 通信工程是不是"天坑"？</h3>
+        <p>不是。通信工程就业面比想象中宽 —— 因为<strong>所有硬件都要"通信"</strong>，从手机、芯片、智能车到机器人、卫星、雷达都离不开。本科阶段扎实学好<strong>数学 + C 语言 + 通信原理 + 信号与系统</strong>，就能在大多数方向上站稳，再读个研就能进核心算法岗。</p>
+
+        <h3>❓ 通信工程 vs 计算机 / 电子信息 / 自动化怎么选？</h3>
+        <p>想搞<strong>算法 / 软件 / AI</strong>：可考虑计算机或通信+AI 双背景；想搞<strong>芯片 / 射频 / 硬件</strong>：通信或电子信息更对口；想搞<strong>控制 / 机器人</strong>：自动化/机器人。通信工程的<strong>最大优势</strong>是横跨"软硬件 + 算法"，兼容性最高。</p>
+
+        <h3>❓ 数学/物理不好能学通信工程吗？</h3>
+        <p>高中数学/物理中等以上即可。本科阶段高数、线代、概率、复变是核心工具。建议<strong>把数学当成工具而非负担</strong>，多在 MATLAB / Python 里"算"出图像来理解，效率远高于死记硬背。</p>
+
+        <h3>❓ 要不要考研？</h3>
+        <p>如果目标是<strong>设备商研发 / 芯片公司 / 算法岗 / 高薪方向</strong>，几乎必须读研（专硕 2-3 年性价比最高）。如果目标是<strong>互联网后端 / 运维 / 国企 / 公务员</strong>，本科就业也很顺畅，没有"必须读研"的说法。</p>
+
+        <h3>❓ 自学路线怎么走？</h3>
+        <p>本站的<strong>7 门核心课程</strong>已对应通信工程本科最核心的知识点。建议按 <a href="#four-year">学习路线图</a> 顺序：<a href="c-programming.html">C 语言</a> → <a href="signal-system.html">信号与系统</a> → <a href="comm-principle.html">通信原理</a> → <a href="mcu.html">单片机</a> → <a href="data-network.html">数据通信与网络</a> → <a href="mobile-comm.html">移动通信</a> → <a href="os-linux.html">OS &amp; Linux</a>。每门课配 <strong>MATLAB / Python 仿真</strong>，务必动手做。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 9. 7 门课程快速入口 ========== -->
+  <div class="section-block" id="start" style="margin-top:16px;">
+    <div class="section-header"><span class="icon">≡</span> 九、立即开始学习 · 7 门核心课程入口</div>
+    <div class="section-body">
+
+      <div class="start-grid">
+        <a class="start-card" href="c-programming.html">
+          <div class="sc-num">1</div>
+          <div class="sc-body"><strong>C 语言程序设计</strong><span>基础语法 · 指针 · 链表</span></div>
+        </a>
+        <a class="start-card" href="signal-system.html">
+          <div class="sc-num">2</div>
+          <div class="sc-body"><strong>信号与系统</strong><span>三大变换 · 卷积 · 滤波器</span></div>
+        </a>
+        <a class="start-card" href="comm-principle.html">
+          <div class="sc-num">3</div>
+          <div class="sc-body"><strong>通信原理</strong><span>调制解调 · 编码 · 同步</span></div>
+        </a>
+        <a class="start-card" href="mcu.html">
+          <div class="sc-num">4</div>
+          <div class="sc-body"><strong>单片机原理与应用</strong><span>51 · C51 · 中断 · 总线</span></div>
+        </a>
+        <a class="start-card" href="data-network.html">
+          <div class="sc-num">5</div>
+          <div class="sc-body"><strong>数据通信与网络</strong><span>OSI · TCP · Socket · 抓包</span></div>
+        </a>
+        <a class="start-card" href="mobile-comm.html">
+          <div class="sc-num">6</div>
+          <div class="sc-body"><strong>移动通信</strong><span>2G→6G · MIMO · OFDM</span></div>
+        </a>
+        <a class="start-card" href="os-linux.html">
+          <div class="sc-num">7</div>
+          <div class="sc-body"><strong>操作系统 &amp; Linux</strong><span>进程 · Shell · 运维实战</span></div>
+        </a>
+        <a class="start-card" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="cursor:pointer;">
+          <div class="sc-num">↑</div>
+          <div class="sc-body"><strong>回到本页顶部</strong><span>浏览更多专题</span></div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== 10. 资源 / 友情链接 ========== -->
+  <div class="section-block" style="margin-top:16px;">
+    <div class="section-header"><span class="icon">≡</span> 十、推荐资源 · 持续学习入口</div>
+    <div class="section-body">
+      <div class="home-grid-2">
+        <div>
+          <h4>📚 教材与参考书</h4>
+          <ul>
+            <li>《通信原理》（樊昌信）· 通信原理圣经级教材</li>
+            <li>《信号与系统》（奥本海姆） · 国际通用教材</li>
+            <li>《C Primer Plus》 · C 语言入门经典</li>
+            <li>《计算机网络：自顶向下方法》 · 数据通信首选</li>
+            <li>《移动通信》· 廖青松 / Theodore Rappaport</li>
+          </ul>
+        </div>
+        <div>
+          <h4>🧰 工具与平台</h4>
+          <ul>
+            <li><strong>MATLAB / Simulink</strong> · 通信/信号仿真标配</li>
+            <li><strong>Python + NumPy + SciPy</strong> · 免费替代方案</li>
+            <li><strong>GNU Radio + USRP / HackRF</strong> · 软件无线电 SDR</li>
+            <li><strong>Wireshark</strong> · 网络协议分析</li>
+            <li><strong>VS Code + Keil + Linux 终端</strong> · 全栈开发环境</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4 style="margin-top:14px;">🌍 在线社区</h4>
+      <ul class="tool-list">
+        <li><strong>📘 3GPP</strong> · 移动通信标准最权威来源（3gpp.org）</li>
+        <li><strong>📗 IEEE Xplore</strong> · 学术论文与会议（IEEE ICC/Globecom）</li>
+        <li><strong>📙 C114 通信网</strong> · 中文通信行业新闻</li>
+        <li><strong>📕 知乎通信专栏 / bilibili 通信 UP 主</strong> · 学习讨论</li>
+        <li><strong>📓 GitHub Awesome Lists</strong> · 搜索 "awesome communications" / "awesome 5G"</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+
+<!-- ========== 底部 ========== -->
+<footer class="site-footer">
+  <p>© 2026 通信工程.CN · 仿菜鸟教程风格 · 本资料仅供本科学习用途</p>
+  <p>本站内容基于 CC BY-SA 4.0 协议，欢迎分享、传播并署名</p>
+  <p><a href="index.html">↑ 回到顶部</a> · <a href="comm-principle.html">从通信原理开始学习 →</a></p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

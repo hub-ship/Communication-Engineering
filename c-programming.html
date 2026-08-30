@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C语言程序设计 - 通信工程学习站</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="site-header">
+  <div class="site-header-inner">
+    <a href="index.html" class="brand"><span class="b1">通信工程</span><span class="b2">.CN</span></a>
+    <div class="search-box">
+      <input type="search" placeholder="搜索本课程章节……" aria-label="搜索">
+    </div>
+  </div>
+</div>
+
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="c-programming.html" class="active">C 语言</a>
+    <div class="nav-dropdown">
+      <a class="dropdown-toggle" tabindex="0">全部教程</a>
+      <ul class="dropdown-menu">
+        <li class="dd-cat">基础课</li>
+        <li><a href="c-programming.html">💻 C 语言程序设计</a></li>
+        <li><a href="signal-system.html">📊 信号与系统</a></li>
+        <li class="dd-cat">专业核心</li>
+        <li><a href="comm-principle.html">📡 通信原理</a></li>
+        <li><a href="mcu.html">🔧 单片机原理与应用</a></li>
+        <li><a href="data-network.html">🌐 数据通信与网络</a></li>
+        <li><a href="mobile-comm.html">📶 移动通信</a></li>
+        <li class="dd-cat">工具与平台</li>
+        <li><a href="os-linux.html">🐧 操作系统与 Linux</a></li>
+      </ul>
+    </div>
+    <a href="index.html#roadmap">学习路线</a>
+    <a href="index.html#tools">工具推荐</a>
+    <a href="index.html#howto">用户笔记</a>
+    <a href="index.html#quiz">期末自测</a>
+    <a href="index.html">C语言</a>
+  </div>
+</nav>
+
+
+<div class="layout-2col">
+<aside class="sidebar"><div class="sidebar-title"><span class="icon">≡</span> C 语言程序设计 目录</div>
+  
+  <ul>
+    <li><a href="#ch1">1. C语言概述与开发环境</a></li>
+    <li><a href="#ch2">2. 数据类型与运算符</a></li>
+    <li><a href="#ch3">3. 输入输出</a></li>
+    <li><a href="#ch4">4. 控制结构</a></li>
+    <li><a href="#ch5">5. 数组</a></li>
+    <li><a href="#ch6">6. 函数与作用域</a></li>
+    <li><a href="#ch7">7. 指针（核心）</a></li>
+    <li><a href="#ch8">8. 字符串处理</a></li>
+    <li><a href="#ch9">9. 结构体/共用体/枚举</a></li>
+    <li><a href="#ch10">10. 文件操作</a></li>
+    <li><a href="#ch11">11. 链表与数据结构入门</a></li>
+    <li><a href="#ch12">12. 预处理与多文件工程</a></li>
+    <li><a href="#ch13">13. 调试技巧与常见错误</a></li>
+    <li><a href="#ch14">14. 习题与思考</a></li>
+  </ul>
+</aside>
+
+<main class="main">
+
+    <div class="course-intro">
+      <div class="title-row">
+        <h1>💻 C 语言程序设计</h1>
+        <span class="version-tag">C语言.x</span>
+      </div>
+      <p>基础语法、指针与内存、数组/函数/结构体、链表与常用算法、文件 IO、调试技巧。</p>
+      <p style="font-size:12px;color:var(--text-muted);">📚 建议顺序：从第一章开始依次学习 · 每章后附带习题与实验</p>
+    </div>
+
+<!-- ============================ 第一章 ============================ -->
+<section class="section" id="ch1">
+<h2>第一章 C语言概述与开发环境</h2>
+
+<h3>1.1 为什么通信工程必须学好C</h3>
+<ul>
+  <li>单片机/嵌入式（51、STM32、DSP）几乎全部用 C 开发</li>
+  <li>Linux 内核、TCP/IP 协议栈、驱动程序均为 C</li>
+  <li>理解指针 = 理解内存 = 理解计算机的工作方式</li>
+</ul>
+
+<h3>1.2 开发环境搭建</h3>
+<table>
+  <tr><th>平台</th><th>推荐工具</th><th>编译器</th></tr>
+  <tr><td>Windows</td><td>VS Code + MinGW / Dev-C++ / Visual Studio</td><td>gcc / MSVC</td></tr>
+  <tr><td>Linux</td><td>gcc + vim / VS Code</td><td>gcc</td></tr>
+  <tr><td>在线</td><td>colab / onlinegdb / 菜鸟教程RUN</td><td>gcc</td></tr>
+</table>
+
+<h3>1.3 第一个程序</h3>
+<div class="code-block"><pre class="language-c">#include &lt;stdio.h&gt;   /* 预处理指令：引入标准输入输出头文件 */
+
+int main(void)        /* main是程序入口，int是返回类型 */
+{
+    printf("Hello, Communication Engineering!\n");  /* \n换行 */
+    return 0;         /* 返回0表示程序正常结束 */
+}</pre></div>
+<div class="code-block"><pre class="language-bash"># 命令行编译运行（必须掌握，不能只会点按钮）
+gcc hello.c -o hello    # 编译
+./hello                 # 运行
+gcc -Wall -g hello.c -o hello   # 推荐：显示所有警告+带调试信息</pre></div>
+
+<h3>1.4 C程序开发流程</h3>
+<div class="code-block"><pre>编辑(.c) → 预处理(展开宏/头文件, gcc -E) → 编译(.s汇编, gcc -S)
+→ 汇编(.o目标文件, gcc -c) → 链接(库+目标文件, gcc) → 可执行文件</pre></div>
+</section>
+
+<!-- ============================ 第二章 ============================ -->
+<section class="section" id="ch2">
+<h2>第二章 数据类型与运算符</h2>
+
+<h3>2.1 基本数据类型</h3>
+<table>
+  <tr><th>类型</th><th>字节数(典型)</th><th>取值范围</th><th>格式符</th></tr>
+  <tr><td>char</td><td>1</td><td>-128 ~ 127</td><td>%c</td></tr>
+  <tr><td>short</td><td>2</td><td>-32768 ~ 32767</td><td>%hd</td></tr>
+  <tr><td><strong>int</strong></td><td>4</td><td>±21亿</td><td>%d</td></tr>
+  <tr><td>long long</td><td>8</td><td>±9.2×10¹⁸</td><td>%lld</td></tr>
+  <tr><td><strong>float</strong></td><td>4</td><td>6~7位有效数字</td><td>%f</td></tr>
+  <tr><td><strong>double</strong></td><td>8</td><td>15~16位有效数字</td><td>%lf</td></tr>
+  <tr><td>unsigned int</td><td>4</td><td>0 ~ 42亿</td><td>%u</td></tr>
+</table>
+<div class="alert alert-warning">⚠️ <strong>浮点数陷阱</strong>：float 是二进制浮点，0.1 无法精确表示！判断浮点相等要用 fabs(a-b) &lt; 1e-6，永远不要写 a==0.1。整数溢出同样无警告：2147483647+1 = -2147483648。</div>
+
+<h3>2.2 类型转换</h3>
+<div class="code-block"><pre class="language-c">/* 自动转换：char→int→long→double（低精度→高精度安全） */
+int a = 3, b = 2;
+double r = a / b;        /* 错! a/b先按int算得1，再转1.0 */
+double r2 = (double)a / b; /* 对! 强制转换a为3.0，结果1.5 */</pre></div>
+
+<h3>2.3 运算符优先级要点</h3>
+<ul>
+  <li>逻辑运算符<strong>短路特性</strong>：`a && b` 中 a 为假时 b 不执行 —— 常用于保护：`if (p != NULL && p->x > 0)`</li>
+  <li>自增：`i++`（先用后加）vs `++i`（先加后用）</li>
+  <li>位运算（通信/嵌入式高频！）：`&amp; 与 | 或 ^ 异或 ~ 取反 &lt;&lt; 左移 &gt;&gt; 右移`</li>
+</ul>
+<div class="code-block"><pre class="language-c">unsigned char reg = 0xA5;      /* 1010 0101 */
+reg |= 0x01;    /* 置位第0位: 1010 0101 | 0000 0001 */
+reg &amp;= ~0x02;   /* 清零第1位: 与上 1111 1101 */
+reg ^= 0x04;    /* 翻转第2位 */
+if (reg &amp; 0x08) {/* 测试第3位是否为1 */}   /* 单片机寄存器操作三大件 */</pre></div>
+</section>
+
+<!-- ============================ 第三章 ============================ -->
+<section class="section" id="ch3">
+<h2>第三章 输入输出</h2>
+
+<h3>3.1 printf 格式化输出</h3>
+<div class="code-block"><pre class="language-c">printf("%d %5d %-5d| %f %.2f %e %x %o %c %%\n",
+        42, 42, 42, 3.14159, 3.14159, 3.14159, 255, 255, 'A');
+/* %5d:宽5右对齐  %-5d:左对齐  %.2f:保留2位小数  %x:十六进制FF  %o:八进制 */</pre></div>
+
+<h3>3.2 scanf 输入</h3>
+<div class="code-block"><pre class="language-c">int age; float score; char name[20];
+scanf("%d %f", &amp;age, &amp;score);    /* 必须传地址(&amp;)! 常见错误:漏&amp; */
+scanf("%19s", name);              /* 字符数组名本身是地址,不加&amp; */
+/* scanf返回成功读取的项数,检查返回值是好习惯 */
+if (scanf("%d", &amp;age) != 1) { fprintf(stderr, "输入错误\n"); }</pre></div>
+
+<h3>3.3 字符级 I/O 与缓冲区</h3>
+<div class="code-block"><pre class="language-c">int c = getchar();     /* 读一个字符(返回int以容纳EOF=-1) */
+putchar(c);
+/* 清空输入缓冲区残留(如scanf后的回车) */
+while ((c = getchar()) != '\n' &amp;&amp; c != EOF) ;</pre></div>
+</section>
+
+<!-- ============================ 第四章 ============================ -->
+<section class="section" id="ch4">
+<h2>第四章 控制结构</h2>
+
+<h3>4.1 分支</h3>
+<div class="code-block"><pre class="language-c">if (score >= 90)       grade = 'A';
+else if (score >= 80)  grade = 'B';
+else                   grade = 'C';
+
+switch (cmd) {              /* switch只能比较整型/字符 */
+    case 'a': add();  break;    /* 不写break会"贯穿"到下一case */
+    case 'd': del();  break;
+    default:  help(); break;
+}</pre></div>
+
+<h3>4.2 循环</h3>
+<div class="code-block"><pre class="language-c">for (int i = 0; i < n; i++) { ... }   /* 已知次数首选 */
+while (scanf("%d", &amp;x) == 1) { ... }  /* 条件循环/哨兵控制 */
+do { menu(); } while (choice != 0);   /* 至少执行一次(菜单) */
+/* break:跳出整个循环   continue:跳过本次进入下一次 */</pre></div>
+
+<h3>4.3 经典例题：判断素数 + 九九乘法表</h3>
+<div class="code-block"><pre class="language-c">int is_prime(int n) {
+    if (n < 2) return 0;
+    for (int i = 2; i * i <= n; i++)   /* 只试到√n,效率关键 */
+        if (n % i == 0) return 0;
+    return 1;
+}
+for (int i = 1; i <= 9; i++) {
+    for (int j = 1; j <= i; j++)
+        printf("%d*%d=%-4d", j, i, i*j);
+    printf("\n");
+}</pre></div>
+</section>
+
+<!-- ============================ 第五章 ============================ -->
+<section class="section" id="ch5">
+<h2>第五章 数组</h2>
+
+<h3>5.1 一维数组</h3>
+<div class="code-block"><pre class="language-c">int a[10] = {1, 2, 3};           /* 未初始化元素自动为0 */
+int b[] = {5, 4, 3, 2, 1};       /* 长度自动确定为5 */
+int n = sizeof(b) / sizeof(b[0]);/* 求数组元素个数的惯用法 */
+/* C不检查下标越界! a[10]是未定义行为,可能静默破坏内存 */</pre></div>
+
+<h3>5.2 二维数组</h3>
+<div class="code-block"><pre class="language-c">int m[3][4] = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
+/* 按行优先存储; 矩阵转置/相乘是通信矩阵运算的基础 */
+for (int i = 0; i < 3; i++)
+    for (int j = 0; j < 4; j++)
+        printf("%d ", m[i][j]);</pre></div>
+
+<h3>5.3 经典算法：排序与查找</h3>
+<div class="code-block"><pre class="language-c">/* 冒泡排序 */
+void bubble(int a[], int n) {
+    for (int i = 0; i < n-1; i++)
+        for (int j = 0; j < n-1-i; j++)
+            if (a[j] > a[j+1]) { int t=a[j]; a[j]=a[j+1]; a[j+1]=t; }
+}
+/* 折半查找(必须有序) */
+int binsearch(int a[], int n, int key) {
+    int lo = 0, hi = n - 1;
+    while (lo <= hi) {
+        int mid = lo + (hi - lo) / 2;   /* 防溢出写法 */
+        if (a[mid] == key) return mid;
+        a[mid] < key ? (lo = mid+1) : (hi = mid-1);
+    }
+    return -1;
+}</pre></div>
+</section>
+
+<!-- ============================ 第六章 ============================ -->
+<section class="section" id="ch6">
+<h2>第六章 函数与作用域</h2>
+
+<h3>6.1 函数定义与调用</h3>
+<div class="code-block"><pre class="language-c">/* 函数声明(原型)写在main前或头文件中 */
+double power(double base, int exp);
+
+int main(void) {
+    printf("%f\n", power(2.0, 10));   /* 1024 */
+    return 0;
+}
+double power(double base, int exp) {  /* 定义 */
+    double r = 1;
+    for (int i = 0; i < exp; i++) r *= base;
+    return r;
+}</pre></div>
+
+<h3>6.2 值传递 —— C函数参数的本质</h3>
+<div class="alert alert-info">💡 <strong>C语言只有值传递！</strong>形参是实参的副本。想在函数内修改外部变量，必须传<strong>地址</strong>（指针）。这是理解指针意义的钥匙。</div>
+<div class="code-block"><pre class="language-c">void swap_wrong(int a, int b) { int t=a; a=b; b=t; }  /* 换了个寂寞 */
+void swap(int *a, int *b) { int t=*a; *a=*b; *b=t; }   /* 正确 */
+int x=1, y=2;
+swap(&amp;x, &amp;y);      /* x=2, y=1 */</pre></div>
+
+<h3>6.3 递归</h3>
+<div class="code-block"><pre class="language-c">long long fib(int n) {
+    if (n <= 1) return n;              /* 递归出口,必须有! */
+    return fib(n-1) + fib(n-2);        /* 递归式(此写法O(2^n),实际用循环) */
+}
+/* 递归=分治思想; 汉诺塔/快速排序/树遍历都靠它 */</pre></div>
+
+<h3>6.4 作用域与生存期</h3>
+<table>
+  <tr><th></th><th>局部变量(auto)</th><th>static局部</th><th>全局变量</th><th>static全局</th></tr>
+  <tr><td>作用域</td><td>本函数</td><td>本函数</td><td>整个工程</td><td>本文件</td></tr>
+  <tr><td>生存期</td><td>函数调用期间</td><td>整个程序</td><td>整个程序</td><td>整个程序</td></tr>
+  <tr><td>初值</td><td>不确定!</td><td>编译期初始化一次</td><td>自动置0</td><td>自动置0</td></tr>
+</table>
+</section>
+
+<!-- ============================ 第七章 ============================ -->
+<section class="section" id="ch7">
+<h2>第七章 指针（核心中的核心）</h2>
+
+<h3>7.1 指针的概念</h3>
+<div class="code-block"><pre class="language-c">int a = 10;
+int *p = &amp;a;      /* p存储a的地址; *p就是a本身 */
+
+printf("%d %p\n", a, p);     /* 10, 地址 */
+printf("%d %p\n", *p, &amp;a);   /* 10, 同一地址 */
+*p = 20;                     /* 通过指针修改a → a=20 */</pre></div>
+<div class="alert alert-warning">⚠️ <strong>野指针三宗罪</strong>：①未初始化就解引用 ②free后继续使用(悬垂指针) ③返回局部变量地址。指针错误是段错误(Segmentation Fault)的头号原因。习惯：`int *p = NULL;` 起手，用前判空。</div>
+
+<h3>7.2 指针与数组</h3>
+<div class="code-block"><pre class="language-c">int a[5] = {1,2,3,4,5};
+int *p = a;              /* 数组名≈首元素地址 */
+/* a[i] ≡ *(a+i) ≡ *(p+i) ≡ p[i] 全部等价! */
+printf("%d %d %d\n", a[2], *(a+2), *(p+2));
+p++;                     /* 指针加1 = 移动一个int(4字节),不是1字节 */
+/* sizeof(a)=20(整个数组)  sizeof(p)=8(64位指针)  这是a与p的本质区别 */</pre></div>
+
+<h3>7.3 指针与函数（传址调用）</h3>
+<div class="code-block"><pre class="language-c">/* 数组作参数自动退化为指针 */
+int sum(int arr[], int n) {     /* 等价于 int *arr */
+    int s = 0;
+    for (int i = 0; i < n; i++) s += arr[i];
+    return s;
+}
+/* 输出型参数: 一级指针改值,二级指针改指针 */
+void make_node(struct Node **pp, int v);</pre></div>
+
+<h3>7.4 动态内存管理</h3>
+<div class="code-block"><pre class="language-c">#include &lt;stdlib.h&gt;
+int *arr = (int *)malloc(100 * sizeof(int));  /* 堆上分配,内容随机 */
+if (arr == NULL) { /* 分配失败必须检查 */ return -1; }
+int *brr = (int *)calloc(100, sizeof(int));   /* 自动清零 */
+arr = (int *)realloc(arr, 200 * sizeof(int)); /* 扩容 */
+free(arr);  arr = NULL;    /* 用完立即释放并置NULL,防止悬垂 */</pre></div>
+
+<h3>7.5 函数指针（回调机制）</h3>
+<div class="code-block"><pre class="language-c">int add(int a, int b) { return a + b; }
+int sub(int a, int b) { return a - b; }
+
+int apply(int (*op)(int,int), int x, int y) { return op(x, y); }
+
+int main(void) {
+    int (*fp)(int,int) = add;         /* 声明函数指针并指向add */
+    printf("%d\n", fp(3, 4));          /* 7 */
+    printf("%d\n", apply(sub, 10, 4)); /* 6, 回调 */
+}</pre></div>
+<p>函数指针是 qsort、中断向量表、状态机的灵魂，嵌入式开发天天用。</p>
+
+<h3>7.6 指针总结表</h3>
+<table>
+  <tr><th>声明</th><th>含义</th></tr>
+  <tr><td>int *p</td><td>指向int的指针</td></tr>
+  <tr><td>int *p[10]</td><td>指针数组（10个指针）</td></tr>
+  <tr><td>int (*p)[10]</td><td>数组指针（指向整行的二维数组用）</td></tr>
+  <tr><td>int **p</td><td>二级指针（指针的地址）</td></tr>
+  <tr><td>int (*p)(int)</td><td>函数指针</td></tr>
+  <tr><td>const int *p</td><td>指向常量的指针（*p不可改，p可改）</td></tr>
+  <tr><td>int *const p</td><td>常量指针（p不可改，*p可改）</td></tr>
+</table>
+</section>
+
+<!-- ============================ 第八章 ============================ -->
+<section class="section" id="ch8">
+<h2>第八章 字符串处理</h2>
+
+<h3>8.1 字符串的本质</h3>
+<div class="code-block"><pre class="language-c">char s1[] = "hello";          /* 栈上数组,6字节(含'\0'),可修改 */
+char *s2  = "hello";          /* 指向常量区字符串,不可修改s2[0] */
+/* '\0'是字符串结束标志;所有str函数依赖它,忘写会越界! */</pre></div>
+
+<h3>8.2 常用库函数（string.h）</h3>
+<table>
+  <tr><th>函数</th><th>功能</th><th>安全版本</th></tr>
+  <tr><td>strlen(s)</td><td>求长度（不含\0）</td><td>—</td></tr>
+  <tr><td>strcpy(dst,src)</td><td>复制</td><td>strncpy</td></tr>
+  <tr><td>strcat(dst,src)</td><td>拼接</td><td>strncat</td></tr>
+  <tr><td>strcmp(a,b)</td><td>比较（0相等/负/正）</td><td>strncmp</td></tr>
+  <tr><td>strstr(h,n)</td><td>找子串</td><td>—</td></tr>
+  <tr><td>strchr(s,c)</td><td>找字符</td><td>—</td></tr>
+  <tr><td>sprintf / sscanf</td><td>格式化到字符串</td><td>snprintf ⭐</td></tr>
+</table>
+
+<h3>8.3 手写字符串函数（期末高频）</h3>
+<div class="code-block"><pre class="language-c">size_t my_strlen(const char *s) {
+    const char *p = s;
+    while (*p) p++;
+    return p - s;              /* 指针相减=元素个数 */
+}
+char *my_strcpy(char *dst, const char *src) {
+    char *ret = dst;           /* 保存首地址用于返回 */
+    while ((*dst++ = *src++)) ; /* 拷贝直到'\0'(经典写法) */
+    return ret;
+}</pre></div>
+
+<h3>8.4 通信应用：解析协议报文</h3>
+<div class="code-block"><pre class="language-c">/* 解析 "AT+CSQ: 24,99\r\n" 形式的响应 */
+char resp[] = "AT+CSQ: 24,99\r\n";
+int rssi, ber;
+if (sscanf(resp, "AT+CSQ: %d,%d", &amp;rssi, &amp;ber) == 2)
+    printf("信号强度=%d dBm\n", -113 + 2*rssi);   /* GSM信号换算 */</pre></div>
+</section>
+
+<!-- ============================ 第九章 ============================ -->
+<section class="section" id="ch9">
+<h2>第九章 结构体、共用体与枚举</h2>
+
+<h3>9.1 结构体</h3>
+<div class="code-block"><pre class="language-c">struct student {
+    char name[20];
+    int  id;
+    float gpa;
+};
+struct student s1 = {"唐武程", 20230101, 3.8};   /* 初始化 */
+struct student *ps = &amp;s1;
+printf("%s %.2f\n", s1.name, ps->gpa);   /* 箭头用于指针,等价(*ps).gpa */</pre></div>
+
+<h3>9.2 结构体数组与通信帧</h3>
+<div class="code-block"><pre class="language-c">/* 用结构体+位域描述协议帧(嵌入式常用) */
+struct frame {
+    unsigned char  sync  : 8;    /* 位域:同步字 */
+    unsigned char  type  : 4;    /* 帧类型占4bit */
+    unsigned char  ver   : 4;
+    unsigned short len;          /* 载荷长度 */
+    unsigned char  payload[32];
+    unsigned short crc;          /* 校验 */
+};
+/* sizeof受对齐影响,嵌入式协议解析要#pragma pack(1)取消填充 */</pre></div>
+
+<h3>9.3 共用体（union）</h3>
+<div class="code-block"><pre class="language-c">union conv {          /* 所有成员共享同一块内存 */
+    float f;
+    unsigned int  u;  /* 4字节 */
+    unsigned char b[4];
+};
+union conv c; c.f = 1.0f;
+printf("%08X\n", c.u);        /* 查看float的IEEE754位表示 */
+/* 用途:硬件寄存器多视图、判断大小端 */</pre></div>
+
+<h3>9.4 枚举与 typedef</h3>
+<div class="code-block"><pre class="language-c">typedef enum { IDLE, CONNECTING, CONNECTED, ERROR } state_t;
+typedef struct node { int val; struct node *next; } node_t;  /* 链表节点 */
+
+state_t st = IDLE;   /* 状态机写法,比裸数字可读性强 */</pre></div>
+</section>
+
+<!-- ============================ 第十章 ============================ -->
+<section class="section" id="ch10">
+<h2>第十章 文件操作</h2>
+
+<h3>10.1 文件读写基本流程</h3>
+<div class="code-block"><pre class="language-c">FILE *fp = fopen("log.txt", "w");    /* r读 w写 a追加 rb/wb二进制 */
+if (fp == NULL) { perror("fopen"); return -1; }   /* 必须检查! */
+
+fprintf(fp, "SNR=%.2f dB\n", 25.3);  /* 文本写 */
+fwrite(&amp;data, sizeof(data), 1, fp);  /* 二进制写(采样数据常用) */
+
+fclose(fp);                            /* 必须关闭,否则缓冲区丢失 */</pre></div>
+
+<h3>10.2 逐行读取与逐块读取</h3>
+<div class="code-block"><pre class="language-c">char line[256];
+while (fgets(line, sizeof(line), fp))      /* 读整行,自动处理换行 */
+    printf("%s", line);
+
+int buf[1024], n;
+while ((n = fread(buf, sizeof(int), 1024, fp)) > 0)
+    process(buf, n);                        /* 块读,处理不定长文件 */</pre></div>
+
+<h3>10.3 实战：读取IQ采样文件</h3>
+<div class="code-block"><pre class="language-c">/* 通信工程常见任务:读取二进制复数采样 */
+struct iq { float I, Q; } sample;
+FILE *fin = fopen("samples.bin", "rb");
+while (fread(&amp;sample, sizeof(sample), 1, fin) == 1) {
+    double power = sample.I*sample.I + sample.Q*sample.Q;
+    /* 累计功率 → 计算RSSI */
+}
+fclose(fin);</pre></div>
+</section>
+
+<!-- ============================ 第十一章 ============================ -->
+<section class="section" id="ch11">
+<h2>第十一章 链表与数据结构入门</h2>
+
+<h3>11.1 单链表的实现</h3>
+<div class="code-block"><pre class="language-c">typedef struct node { int data; struct node *next; } node_t;
+
+/* 头插法建表 */
+node_t *push_front(node_t *head, int v) {
+    node_t *n = malloc(sizeof(node_t));
+    n->data = v;  n->next = head;
+    return n;                      /* 新节点成为头 */
+}
+/* 遍历 */
+for (node_t *p = head; p != NULL; p = p->next)
+    printf("%d -> ", p->data);
+/* 删除值为v的节点(注意二级指针/头节点处理) */
+node_t *delete(node_t *head, int v) {
+    node_t **pp = &amp;head;
+    while (*pp &amp;&amp; (*pp)->data != v) pp = &amp;(*pp)->next;
+    if (*pp) { node_t *t = *pp; *pp = t->next; free(t); }
+    return head;
+}
+/* 释放整表 */
+while (head) { node_t *t = head; head = head->next; free(t); }</pre></div>
+
+<h3>11.2 数组 vs 链表</h3>
+<table>
+  <tr><th></th><th>数组</th><th>链表</th></tr>
+  <tr><td>随机访问</td><td>O(1) ⭐</td><td>O(n)</td></tr>
+  <tr><td>插入删除</td><td>O(n)</td><td>O(1)（定位后）⭐</td></tr>
+  <tr><td>内存</td><td>连续、缓存友好</td><td>零散、每节点额外指针开销</td></tr>
+  <tr><td>场景</td><td>采样缓冲、查找表</td><td>数据包队列、任务链</td></tr>
+</table>
+
+<h3>11.3 其他必会结构（概览）</h3>
+<ul>
+  <li><strong>栈</strong>（函数调用栈、表达式求值）、<strong>队列</strong>（数据缓冲、生产者消费者）</li>
+  <li><strong>哈希表</strong>（O(1)查找，ARP表/IP路由表的思想来源）</li>
+  <li><strong>二叉树/堆</strong>（调度、优先队列、Huffman编码树）</li>
+</ul>
+</section>
+
+<!-- ============================ 第十二章 ============================ -->
+<section class="section" id="ch12">
+<h2>第十二章 预处理与多文件工程</h2>
+
+<h3>12.1 宏与条件编译</h3>
+<div class="code-block"><pre class="language-c">#define MAX(a,b) ((a)>(b)?(a):(b))   /* 每个参数和整体都要括号! */
+#define BUF_SIZE 1024
+#define PI 3.14159265358979
+
+#ifndef _CONFIG_H_          /* 头文件保护(防止重复包含) */
+#define _CONFIG_H_
+... 头文件内容 ...
+#endif
+
+#ifdef DEBUG
+  #define LOG(...) printf(__VA_ARGS__)
+#else
+  #define LOG(...)          /* release版日志消失 */
+#endif</pre></div>
+
+<h3>12.2 多文件工程组织</h3>
+<div class="code-block"><pre class="language-text">project/
+├── main.c        # 主逻辑
+├── uart.c        # 串口驱动实现
+├── uart.h        # 串口接口声明(extern函数/类型/宏)
+├── crc.c / crc.h # CRC校验模块
+└── Makefile
+
+/* uart.h 内容示例 */
+#ifndef _UART_H_
+#define _UART_H_
+void uart_init(int baud);
+int  uart_send(const char *buf, int len);
+#endif</pre></div>
+
+<h3>12.3 Makefile 入门</h3>
+<div class="code-block"><pre class="language-makefile">CC = gcc
+CFLAGS = -Wall -g
+app: main.o uart.o crc.o
+	$(CC) $(CFLAGS) -o app main.o uart.o crc.o
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+clean:
+	rm -f *.o app</pre></div>
+</section>
+
+<!-- ============================ 第十三章 ============================ -->
+<section class="section" id="ch13">
+<h2>第十三章 调试技巧与常见错误</h2>
+
+<h3>13.1 十大经典错误</h3>
+<table>
+  <tr><th>#</th><th>错误</th><th>症状</th></tr>
+  <tr><td>1</td><td>scanf忘写&amp;</td><td>段错误</td></tr>
+  <tr><td>2</td><td>数组越界</td><td>诡异数据/崩溃</td></tr>
+  <tr><td>3</td><td>字符串无'\0'/缓冲区溢出</td><td>乱码、越界写</td></tr>
+  <tr><td>4</td><td>用==比较浮点</td><td>条件永不成立</td></tr>
+  <tr><td>5</td><td>未初始化局部变量</td><td>结果随机</td></tr>
+  <tr><td>6</td><td>free后继续用/漏free</td><td>悬垂指针/内存泄漏</td></tr>
+  <tr><td>7</td><td>返回局部变量地址</td><td>数据失效</td></tr>
+  <tr><td>8</td><td>switch漏break</td><td>贯穿执行</td></tr>
+  <tr><td>9</td><td>整数除法误当浮点</td><td>结果截断</td></tr>
+  <tr><td>10</td><td>宏参数无括号</td><td>展开后运算优先级错乱</td></tr>
+</table>
+
+<h3>13.2 gdb 调试实战</h3>
+<div class="code-block"><pre class="language-bash">gcc -g bug.c -o bug      # -g 带调试信息
+gdb ./bug
+(gdb) break main         # 断点 b main / b bug.c:25(文件行号)
+(gdb) run                # 运行 r
+(gdb) next / step        # 单步 n不进函数 s进函数
+(gdb) print arr[3]       # 查看变量 p x
+(gdb) print *arr@10      # 打印数组前10个
+(gdb) bt                 # 崩溃后查看调用栈(定位段错误神器!)
+(gdb) quit</pre></div>
+
+<h3>13.3 printf 大法与断言</h3>
+<div class="code-block"><pre class="language-c">#include &lt;assert.h&gt;
+double avg(int *a, int n) {
+    assert(a != NULL &amp;&amp; n > 0);   /* 条件不满足立即终止并报行号 */
+    ...
+}</pre></div>
+<div class="alert alert-success">✅ <strong>调试心法</strong>：先用 bt 定位崩溃点 → 打印可疑变量 → 缩小二分注释范围。编译永远开 -Wall，把警告当错误对待，80%的bug编译器已经告诉你了。</div>
+</section>
+
+<!-- ============================ 第十四章 ============================ -->
+<section class="section" id="ch14">
+<h2>第十四章 习题与思考</h2>
+
+<div class="quiz">
+<details>
+<summary>1.（读程序）`int a[5]={1,2,3,4,5}; int *p=a;` 求 *(p+2)、*p++、(*p)++ 各是什么？</summary>
+<div class="quiz-answer">
+<p>*(p+2) = 3（p未变）；<br>
+*p++：后缀++优先，先取*p=1，然后p指向a[1]；<br>
+(*p)++：对a[0]自增，a[0]变2，p不动。三者的区别是指针运算与解引用优先级的经典考点。</p>
+</div>
+</details>
+
+<details>
+<summary>2.（改错）指出下面程序的三处错误。</summary>
+<div class="quiz-answer">
+<pre class="language-c">char *get_msg(void) {
+    char buf[64] = "hello";   /* buf是栈上局部数组 */
+    return buf;               /* ①返回局部变量地址,函数返回即失效 */
+}
+void demo(void) {
+    int *p;                   /* ②野指针未初始化 */
+    *p = 10;
+    char s[8];
+    strcpy(s, "0123456789");  /* ③缓冲区溢出,源11字节>目标8字节 */
+}</pre>
+<p>修正：buf 加 static 或由调用者传入；p = malloc 或指向已有变量；用 strncpy/加大缓冲。</p>
+</div>
+</details>
+
+<details>
+<summary>3.（编程）不用库函数，统计字符串中大写、小写、数字字符个数。</summary>
+<div class="quiz-answer">
+<pre class="language-c">void count(const char *s, int *up, int *low, int *dig) {
+    *up = *low = *dig = 0;
+    for (; *s; s++) {
+        if (*s >= 'A' &amp;&amp; *s <= 'Z') (*up)++;
+        else if (*s >= 'a' &amp;&amp; *s <= 'z') (*low)++;
+        else if (*s >= '0' &amp;&amp; *s <= '9') (*dig)++;
+    }
+}</pre>
+<p>要点：用指针遍历到 '\0'；输出参数用指针（因为 C 只有值传递）。</p>
+</div>
+</details>
+
+<details>
+<summary>4.（思考）为什么 `sizeof(数组名)` 和 `sizeof(指针)` 结果不同？数组名和指针何时等价？</summary>
+<div class="quiz-answer">
+<p>sizeof(a) 得整个数组字节数，sizeof(p) 得指针本身大小（64位系统为8）。数组名在<strong>传参</strong>和<strong>表达式</strong>中退化为首元素指针（&amp;a[0]），例外场景仅有 sizeof 和 &amp;amp;a。理解这一点就不会在函数里 sizeof 形参数组了。</p>
+</div>
+</details>
+
+<details>
+<summary>5.（编程）实现函数 `void reverse(char *s)`，原地翻转字符串。</summary>
+<div class="quiz-answer">
+<pre class="language-c">void reverse(char *s) {
+    char *e = s;
+    while (*e) e++;          /* e指向'\0' */
+    e--;                     /* e指向最后一个字符 */
+    while (s < e) {
+        char t = *s; *s = *e; *e = t;
+        s++; e--;
+    }
+}</pre>
+<p>双指针首尾交换，O(n) 时间 O(1) 空间。</p>
+</div>
+</details>
+
+<details>
+<summary>6.（思考）结构体中位域和共用体在通信协议开发中各有什么用途？</summary>
+<div class="quiz-answer">
+<p><strong>位域</strong>：按比特映射协议字段（如帧头4bit类型+4bit版本），直接读写硬件寄存器/协议位段；<br>
+<strong>共用体</strong>：同一份数据多视角访问 —— union{ unsigned int u; unsigned char b[4]; } 可同时按整数或字节序访问，用于大小端转换、数据序列化。</p>
+</div>
+</details>
+
+<details>
+<summary>7.（综合）设计一个函数，把十六进制字符串 "1A2B" 转换为整数 6699。</summary>
+<div class="quiz-answer">
+<pre class="language-c">unsigned int htoi(const char *s) {
+    unsigned int v = 0;
+    for (; *s; s++) {
+        char c = *s;
+        if (c >= '0' &amp;&amp; c <= '9')      v = v*16 + (c - '0');
+        else if (c >= 'a' &amp;&amp; c <= 'f') v = v*16 + (c - 'a' + 10);
+        else if (c >= 'A' &amp;&amp; c <= 'F') v = v*16 + (c - 'A' + 10);
+        else return 0;   /* 非法字符 */
+    }
+    return v;            /* 1*4096+10*256+2*16+11 = 6699 */
+}</pre></div>
+</details>
+</div>
+
+<div class="section" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;text-align:center;">
+  <h2 style="color:#fff;border-color:#fff;">🎯 学习目标检查</h2>
+  <p>完成本章后你应该能够：</p>
+  <ul style="list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;text-align:left;">
+    <li>✅ 命令行用 gcc 编译运行程序</li>
+    <li>✅ 熟练使用 printf/scanf 及格式符</li>
+    <li>✅ 用三种循环+分支写经典算法</li>
+    <li>✅ 手写冒泡排序与折半查找</li>
+    <li>✅ 解释值传递并正确使用指针传参</li>
+    <li>✅ 掌握 malloc/free 与内存错误防范</li>
+    <li>✅ 手写 strlen/strcpy 等字符串函数</li>
+    <li>✅ 用结构体+位域描述协议帧</li>
+    <li>✅ 实现链表的增删遍历</li>
+    <li>✅ 用 gdb 定位段错误、写简单 Makefile</li>
+  </ul>
+</div>
+
+</main>
+</div>
+
+<footer class="site-footer">
+  <p>© 2026 通信工程学习站 · 仿菜鸟教程风格 · 仅供本科学习用途</p>
+  <p>本文档基于 CC BY-SA 4.0 协议，欢迎分享、传播并署名</p>
+  <p><a href="index.html">← 返回首页</a> · <a href="#top">↑ 回到顶部</a></p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

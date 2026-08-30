@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>移动通信 - 通信工程学习站</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="site-header">
+  <div class="site-header-inner">
+    <a href="index.html" class="brand"><span class="b1">通信工程</span><span class="b2">.CN</span></a>
+    <div class="search-box">
+      <input type="search" placeholder="搜索本课程章节……" aria-label="搜索">
+    </div>
+  </div>
+</div>
+
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="mobile-comm.html" class="active">移动通信</a>
+    <div class="nav-dropdown">
+      <a class="dropdown-toggle" tabindex="0">全部教程</a>
+      <ul class="dropdown-menu">
+        <li class="dd-cat">基础课</li>
+        <li><a href="c-programming.html">💻 C 语言程序设计</a></li>
+        <li><a href="signal-system.html">📊 信号与系统</a></li>
+        <li class="dd-cat">专业核心</li>
+        <li><a href="comm-principle.html">📡 通信原理</a></li>
+        <li><a href="mcu.html">🔧 单片机原理与应用</a></li>
+        <li><a href="data-network.html">🌐 数据通信与网络</a></li>
+        <li><a href="mobile-comm.html">📶 移动通信</a></li>
+        <li class="dd-cat">工具与平台</li>
+        <li><a href="os-linux.html">🐧 操作系统与 Linux</a></li>
+      </ul>
+    </div>
+    <a href="index.html#roadmap">学习路线</a>
+    <a href="index.html#tools">工具推荐</a>
+    <a href="index.html#howto">用户笔记</a>
+    <a href="index.html#quiz">期末自测</a>
+    <a href="index.html">移动通信</a>
+  </div>
+</nav>
+
+
+<div class="layout-2col">
+<aside class="sidebar"><div class="sidebar-title"><span class="icon">≡</span> 移动通信 目录</div>
+  
+  <ul>
+    <li><a href="#ch1">1. 移动通信概述</a></li>
+    <li><a href="#ch2">2. 移动信道与电波传播</a></li>
+    <li><a href="#ch3">3. 蜂窝组网原理</a></li>
+    <li><a href="#ch4">4. 多址技术（FDMA/TDMA/CDMA/OFDMA）</a></li>
+    <li><a href="#ch5">5. 抗衰落技术</a></li>
+    <li><a href="#ch6">6. GSM 系统（2G）</a></li>
+    <li><a href="#ch7">7. 3G：WCDMA/CDMA2000/TD-SCDMA</a></li>
+    <li><a href="#ch8">8. 4G LTE 与 LTE-Advanced</a></li>
+    <li><a href="#ch9">9. 5G NR 与关键技术</a></li>
+    <li><a href="#ch10">10. 展望 6G</a></li>
+    <li><a href="#ch11">11. 行业标准与产业链</a></li>
+    <li><a href="#ch12">12. 习题与思考</a></li>
+    <li><a href="#ch13">13. 实践指南与就业方向</a></li>
+  </ul>
+</aside>
+
+<main class="main">
+
+    <div class="course-intro">
+      <div class="title-row">
+        <h1>📶 移动通信</h1>
+        <span class="version-tag">移动通信.x</span>
+      </div>
+      <p>2G→3G→4G→5G→6G 演进、蜂窝组网、多址技术、 OFDM、 MIMO、 5G NR 架构。</p>
+      <p style="font-size:12px;color:var(--text-muted);">📚 建议顺序：从第一章开始依次学习 · 每章后附带习题与实验</p>
+    </div>
+
+<!-- ============================ 第一章 ============================ -->
+<section class="section" id="ch1">
+<h2>第一章 移动通信概述</h2>
+
+<h3>1.1 什么是移动通信</h3>
+<p>通信双方<strong>至少一方在移动中</strong>进行信息交换的通信方式。核心挑战：移动性管理、无线信道时变、频谱资源有限、多用户共享。</p>
+
+<h3>1.2 移动通信的特点</h3>
+<ul>
+  <li>信道是<strong>时变的多径衰落信道</strong>（区别于有线）</li>
+  <li>频谱资源稀缺，需要频率复用与高效调制</li>
+  <li>需要对移动台进行<strong>位置管理、切换、漫游</strong></li>
+  <li>强干扰环境：邻道干扰、同频干扰、多址干扰</li>
+</ul>
+
+<h3>1.3 移动通信发展史</h3>
+<table>
+  <tr><th>代际</th><th>年代</th><th>制式</th><th>关键特征</th></tr>
+  <tr><td>1G</td><td>1980s</td><td>AMPS / TACS</td><td>模拟FM、只能语音</td></tr>
+  <tr><td>2G</td><td>1990s</td><td>GSM / IS-95</td><td>数字TDMA/CDMA、SMS</td></tr>
+  <tr><td>2.5G</td><td>2000s</td><td>GPRS / EDGE</td><td>分组数据</td></tr>
+  <tr><td>3G</td><td>2000s</td><td>WCDMA/CDMA2000/TD-SCDMA</td><td>宽带CDMA、视频</td></tr>
+  <tr><td>4G</td><td>2010s</td><td>LTE / LTE-A</td><td>OFDMA、全IP、百兆速率</td></tr>
+  <tr><td><strong>5G</strong></td><td>2019+</td><td>NR</td><td>eMBB/uRLLC/mMTC、Gbit/s ⭐</td></tr>
+</table>
+<div class="alert alert-info">💡 规律：约每 10 年一代，"语音→文本→数据→视频→万物互联"。1G~5G 本质是多址方式与信号处理的演进：FDMA→TDMA→CDMA→OFDMA。</div>
+</section>
+
+<!-- ============================ 第二章 ============================ -->
+<section class="section" id="ch2">
+<h2>第二章 移动信道与电波传播</h2>
+
+<h3>2.1 三种传播机制</h3>
+<table>
+  <tr><th>机制</th><th>现象</th><th>影响</th></tr>
+  <tr><td>反射</td><td>大物体表面（地面、墙面）</td><td>多径</td></tr>
+  <tr><td>绕射（衍射）</td><td>障碍物边缘（山体、楼角）</td><td>阴影衰落</td></tr>
+  <tr><td>散射</td><td>粗糙表面、小物体（树叶）</td><td>多径分量增多</td></tr>
+</table>
+
+<h3>2.2 路径损耗（大尺度）</h3>
+<div class="formula">自由空间：PL = 32.44 + 20lg f(MHz) + 20lg d(km) dB</div>
+<div class="formula">对数距离模型：PL(d) = PL(d₀) + 10n·lg(d/d₀)，n 为路径损耗指数（市区3~4）</div>
+
+<h3>2.3 三种衰落（必考概念）</h3>
+<table>
+  <tr><th>类型</th><th>尺度</th><th>成因</th><th>分布/对策</th></tr>
+  <tr><td>路径损耗</td><td>km级</td><td>能量扩散</td><td>功率预算</td></tr>
+  <tr><td>阴影衰落（慢）</td><td>几十米</td><td>障碍物遮挡</td><td>对数正态分布/功率控制+裕量</td></tr>
+  <tr><td><strong>多径衰落（快）</strong></td><td>半波长级</td><td>多径相干叠加</td><td>瑞利(无直射)/莱斯(有直射)分布</td></tr>
+</table>
+<div class="alert alert-warning">⚠️ 900MHz 下半波长仅约 16.7cm —— 手机挪动十几厘米信号可能剧烈起伏，这就是瑞利衰落的真实体验。</div>
+
+<h3>2.4 多普勒频移与相干时间</h3>
+<div class="formula">f<sub>d</sub> = (v/λ)·cosθ　　相干时间 T<sub>c</sub> ≈ 0.423/f<sub>d</sub></div>
+<p>移动速度越快、频率越高，多普勒越大，信道变化越快 —— 高铁场景 350km/h 的信道估计是 5G 难题之一。</p>
+
+<h3>2.5 时延扩展与相干带宽</h3>
+<div class="formula">相干带宽 B<sub>c</sub> ≈ 1/(5·σ<sub>τ</sub>)（相关系数0.5定义）</div>
+<p>信号带宽 &lt; B<sub>c</sub> 平坦衰落；&gt; B<sub>c</sub> 频率选择性衰落（需均衡/OFDM/Rake）。</p>
+</section>
+
+<!-- ============================ 第三章 ============================ -->
+<section class="section" id="ch3">
+<h2>第三章 蜂窝组网原理</h2>
+
+<h3>3.1 蜂窝思想（移动通信最伟大的发明）</h3>
+<p>用<strong>小功率基站覆盖六边形小区</strong>，相距足够远的小区<strong>复用同一频率</strong> → 用频率空间复用突破频谱瓶颈，系统容量随小区缩小而增大（"小区分裂"）。</p>
+
+<h3>3.2 频率复用与簇</h3>
+<div class="formula">同频复用距离 D = √(3N)·R，N 为簇大小（N=1,3,4,7,12…）</div>
+<p>同频干扰 C/I 是容量与质量的核心权衡：N 大干扰小但频谱利用率低；N=1（完全复用）必须靠 CDMA/OFDMA 干扰协调技术。</p>
+
+<h3>3.3 切换（Handover）</h3>
+<table>
+  <tr><th>类型</th><th>机制</th><th>系统</th></tr>
+  <tr><td>硬切换</td><td>先断旧后连新（break-before-make）</td><td>GSM</td></tr>
+  <tr><td>软切换</td><td>同时与多个基站保持链路</td><td>CDMA（宏分集增益）</td></tr>
+  <tr><td>无缝/接力切换</td><td>上行先切、下行后切</td><td>TD-SCDMA</td></tr>
+</table>
+
+<h3>3.4 位置管理与漫游</h3>
+<div class="code-block"><pre>位置区(LA)/跟踪区(TA): 基站广播位置区号,手机跨区才上报更新
+寻呼: 来话时在登记的TA内全网寻呼(Paging)
+切换判决: 基于测量报告(信号强度/质量),含迟滞余量防乒乓切换</pre></div>
+</section>
+
+<!-- ============================ 第四章 ============================ -->
+<section class="section" id="ch4">
+<h2>第四章 多址技术</h2>
+
+<h3>4.1 四大多址方式</h3>
+<table>
+  <tr><th>方式</th><th>正交维度</th><th>代表系统</th><th>特点</th></tr>
+  <tr><td>FDMA</td><td>频率</td><td>1G AMPS</td><td>简单，容量小</td></tr>
+  <tr><td>TDMA</td><td>时隙</td><td>GSM</td><td>频率复用+时间复用</td></tr>
+  <tr><td>CDMA</td><td>扩频码</td><td>IS-95 / 3G</td><td>N=1复用、软容量、软切换</td></tr>
+  <tr><td><strong>OFDMA</strong></td><td>时频二维</td><td>LTE/5G NR ⭐</td><td>子载波级精细调度</td></tr>
+</table>
+
+<h3>4.2 GSM 的 FDMA+TDMA 混合</h3>
+<div class="code-block"><pre>每载波200kHz,划分8个时隙(TS0~TS7)
+1个TDMA帧 = 8时隙 × 0.577ms = 4.615ms
+语音: 全速率信道占1时隙/帧 → 一载波8路语音
+复帧/超帧/超超帧构成层次帧结构
+GPRS: 动态占用多个时隙传分组数据</pre></div>
+
+<h3>4.3 CDMA 原理要点</h3>
+<ul>
+  <li>数据与<strong>正交/伪随机扩频码</strong>相乘，带宽展宽 W 倍</li>
+  <li>处理增益 G = W/R<sub>b</sub>，抗干扰、保密、软容量</li>
+  <li>功率控制至关重要（远近效应）：开环+闭环 800Hz/1500Hz 调整</li>
+  <li>前向用 Walsh 码正交，反向用 PN 长码区分用户</li>
+</ul>
+
+<h3>4.4 OFDMA 调度</h3>
+<div class="code-block"><pre>时域: 每TTI(LTE=1ms)一次调度
+频域: 每个用户分配若干"资源块RB"(12子载波×7符号)
+调度器按CQI反馈做频率选择性调度 → 多用户分集增益
+LTE上行SC-FDMA: 单载波频分,降低PAPR(省手机功放)</pre></div>
+</section>
+
+<!-- ============================ 第五章 ============================ -->
+<section class="section" id="ch5">
+<h2>第五章 抗衰落技术</h2>
+
+<h3>5.1 分集技术</h3>
+<p>多条独立衰落路径同时传输，"不把鸡蛋放一个篮子"。</p>
+<table>
+  <tr><th>分集方式</th><th>实现</th></tr>
+  <tr><td>空间分集</td><td>多天线间隔&gt;10λ（MIMO基础）</td></tr>
+  <tr><td>时间分集</td><td>交织+重传（时间上分开）</td></tr>
+  <tr><td>频率分集</td><td>跳频/扩频/频率选择性调度</td></tr>
+  <tr><td>极化分集</td><td>±45°双极化天线</td></tr>
+  <tr><td>多径分集</td><td>Rake接收机（CDMA）/OFDM频域均衡</td></tr>
+</table>
+
+<h3>5.2 合并方式</h3>
+<div class="code-block"><pre>选择式合并(SC): 挑最强支路
+最大比合并(MRC): 加权系数∝信号幅度,理论最优 ⭐
+等增益合并(EGC): 等权相加
+2支路MRC平均信噪比增益约3dB,且深度衰落概率大幅下降</pre></div>
+
+<h3>5.3 信道编码+交织</h3>
+<div class="code-block"><pre>交织: 把突发错误打散成随机错误,让纠错码有的放矢
+深度交织块: GSM对角交织 / LTE交织跨多TTI
+现代系统: Turbo/LDPC + HARQ(纠错+重传混合)</pre></div>
+
+<h3>5.4 均衡</h3>
+<ul>
+  <li>时域均衡：线性均衡器(ZF/MMSE)、判决反馈(DFE)</li>
+  <li>频域均衡（FDE）：单载波系统高效方案</li>
+  <li>MLSE（最大似然序列估计）：性能最优复杂度高</li>
+</ul>
+
+<h3>5.5 功率控制与 MIMO 预览</h3>
+<p>CDMA/5G 上行功率控制抵消远近效应并省电；MIMO 利用空间维度实现分集/复用/波束赋形（详见 5G 章）。</p>
+</section>
+
+<!-- ============================ 第六章 ============================ -->
+<section class="section" id="ch6">
+<h2>第六章 GSM 系统（2G）</h2>
+
+<h3>6.1 系统架构</h3>
+<div class="code-block"><pre>MS(手机: ME+SIM) ←无线接口Um→ BTS(基站)
+    ↕ Abis
+BSC(基站控制器) ←A→ MSC(移动交换中心)
+                 ↕      ↕        ↕
+      HLR(归属位置寄存器) VLR(拜访) AUC(鉴权) EIR(设备识别)
+核心网电路域 + GPRS分组域(SGSN/GGSN)</pre></div>
+
+<h3>6.2 GSM 空口关键参数</h3>
+<table>
+  <tr><th>参数</th><th>数值</th></tr>
+  <tr><td>频段</td><td>900/1800MHz（EGSM 890~915上行）</td></tr>
+  <tr><td>双工方式</td><td>FDD（收发相差45MHz）</td></tr>
+  <tr><td>载波带宽/多址</td><td>200kHz，TDMA 8时隙</td></tr>
+  <tr><td>调制</td><td>GMSK（BT=0.3）</td></tr>
+  <tr><td>语音编码</td><td>RPE-LTP 13kbps</td></tr>
+  <tr><td>信道编码</td><td>卷积码 + 交织</td></tr>
+</table>
+
+<h3>6.3 逻辑信道</h3>
+<div class="code-block"><pre>业务信道 TCH(语音/数据)
+控制信道:
+  广播: BCCH(系统信息)/FCCH(频率校正)/SCH(同步)
+  公共: PCH(寻呼)/RACH(随机接入)/AGCH(接入允许)
+  专用: SDCCH(独立专用)/SACCH/FACCH(随路)
+开机流程: 搜频→FCCH/SCH同步→读BCCH→位置更新→待机</pre></div>
+
+<h3>6.4 安全机制</h3>
+<p>鉴权三元组（RAND/SRES/Kc）→ 临时身份 TMSI 防跟踪 → A5 加密。注意 GSM 加密算法已被破解（安全性历史教训）。</p>
+</section>
+
+<!-- ============================ 第七章 ============================ -->
+<section class="section" id="ch7">
+<h2>第七章 3G 系统</h2>
+
+<h3>7.1 三大国际标准</h3>
+<table>
+  <tr><th>标准</th><th>主导</th><th>码片速率</th><th>带宽</th><th>双工</th></tr>
+  <tr><td>WCDMA</td><td>欧洲</td><td>3.84Mcps</td><td>5MHz</td><td>FDD（异步）</td></tr>
+  <tr><td>CDMA2000 1x EV-DO</td><td>美国</td><td>1.2288Mcps</td><td>1.25MHz</td><td>FDD（同步）</td></tr>
+  <tr><td>TD-SCDMA</td><td>中国 ⭐</td><td>1.28Mcps</td><td>1.6MHz</td><td>TDD</td></tr>
+</table>
+
+<h3>7.2 WCDMA 关键技术</h3>
+<ul>
+  <li>扰码区分小区 / 信道化码(OVSF)区分信道与用户</li>
+  <li>快速功率控制（1500Hz）、软切换、Rake接收</li>
+  <li>HSPA：HSDPA(下行14Mbps, 引入自适应调制AMC+HARQ+快速调度) / HSUPA</li>
+</ul>
+
+<h3>7.3 TD-SCDMA 的中国创新</h3>
+<ul>
+  <li>TDD 双工：上下行共用频率，适合不对称业务，频谱利用率高</li>
+  <li><strong>智能天线</strong>（波束赋形雏形）+ 上行同步</li>
+  <li>接力切换、低码片速率低成本</li>
+  <li>历史意义：中国首次拥有完整自主知识产权的国际通信标准</li>
+</ul>
+</section>
+
+<!-- ============================ 第八章 ============================ -->
+<section class="section" id="ch8">
+<h2>第八章 4G LTE 与 LTE-Advanced</h2>
+
+<h3>8.1 LTE 设计理念</h3>
+<div class="code-block"><pre>全IP扁平化架构: 取消电路域,语音走VoLTE
+eNodeB直连核心网(EPC),时延大幅降低
+下行OFDMA / 上行SC-FDMA
+MIMO多天线 / 自适应调制编码AMC / 快速调度 / HARQ</pre></div>
+
+<h3>8.2 LTE 关键参数</h3>
+<table>
+  <tr><th>参数</th><th>数值</th></tr>
+  <tr><td>载波带宽</td><td>1.4/3/5/10/15/20 MHz 可变</td></tr>
+  <tr><td>子载波间隔</td><td>15kHz</td></tr>
+  <tr><td>TTI</td><td>1ms（子帧）</td></tr>
+  <tr><td>调制</td><td>QPSK/16QAM/64QAM</td></tr>
+  <tr><td>峰值速率</td><td>下行150M/上行50M(20MHz 2×2MIMO)</td></tr>
+  <tr><td>频段双工</td><td>FDD 与 TDD(LTE-TDD/TD-LTE)</td></tr>
+</table>
+
+<h3>8.3 LTE-A 增强（4G+）</h3>
+<ul>
+  <li><strong>载波聚合 CA</strong>：捆绑多载波扩带宽（如3×20MHz=300M）</li>
+  <li><strong>高阶 MIMO</strong>：4×4/8×8</li>
+  <li>CoMP 协作多点、中继 Relay、异构网络 HetNet</li>
+</ul>
+
+<h3>8.4 EPC 核心网</h3>
+<div class="code-block"><pre>UE → eNB → MME(移动性管理) / S-GW(数据网关) → P-GW(接入外网)
+→ HSS(用户数据库) + PCRF(策略计费)
+S1-MME/S1-U接口, X2(eNB间切换)接口</pre></div>
+</section>
+
+<!-- ============================ 第九章 ============================ -->
+<section class="section" id="ch9">
+<h2>第九章 5G NR 与关键技术</h2>
+
+<h3>9.1 5G 三大应用场景</h3>
+<table>
+  <tr><th>场景</th><th>指标</th><th>应用</th></tr>
+  <tr><td><strong>eMBB</strong> 增强移动宽带</td><td>峰值10Gbps</td><td>超高清视频、VR/AR</td></tr>
+  <tr><td><strong>uRLLC</strong> 超可靠低时延</td><td>时延&lt;1ms，可靠性99.999%</td><td>自动驾驶、远程手术、工业控制</td></tr>
+  <tr><td><strong>mMTC</strong> 海量机器通信</td><td>100万连接/km²</td><td>物联网、智慧城市</td></tr>
+</table>
+
+<h3>9.2 5G 关键性能指标（IMT-2020）</h3>
+<div class="code-block"><pre>峰值速率 10~20Gbps | 用户体验速率 100Mbps+
+时延 1ms(空口) | 连接密度 100万/km²
+移动性 500km/h | 频谱效率 3~5× 4G | 能效/成本效率 100×</pre></div>
+
+<h3>9.3 关键技术</h3>
+<ul>
+  <li><strong>灵活参数集（Numerology）</strong>：子载波间隔 15×2ⁿ kHz（15~240k），适配低时延（大子载波短符号）与广覆盖（小子载波）</li>
+  <li><strong>Massive MIMO</strong>：64/128/256 阵子大规模天线阵列</li>
+  <li><strong>波束赋形 Beamforming</strong>：能量对准用户而非全向发射，覆盖+容量+干扰控制</li>
+  <li><strong>毫米波 mmWave</strong>：24~52GHz，带宽数百MHz，覆盖小需密集组网</li>
+  <li><strong>网络切片</strong>：一张物理网切出多张逻辑网（切片=子网+SLA），运营商变现关键</li>
+  <li><strong>边缘计算 MEC</strong>：算力下沉到基站侧，降低业务时延</li>
+  <li><strong>NFV/SDN</strong>：网元软件化、控制转发分离</li>
+</ul>
+
+<h3>9.4 5G 组网模式</h3>
+<table>
+  <tr><th>模式</th><th>说明</th></tr>
+  <tr><td>NSA 非独立组网</td><td>锚定4G核心网，初期快速部署（Option3x）</td></tr>
+  <tr><td><strong>SA 独立组网</strong></td><td>5G核心网(5GC)，支持切片/uRLLC ⭐</td></tr>
+</table>
+<p>频段：<strong>Sub-6GHz（3.5GHz为主，n78）</strong>兼顾覆盖容量（中国主力）；毫米波（n257/258/260）热点补充。</p>
+
+<h3>9.5 R16/R17 演进</h3>
+<p>R16：免许可频段NR-U、车联网V2X、工业物联网增强；R17：RedCap轻量终端、NTN非地面（卫星）5G → <strong>星地融合</strong>成为现实方向。</p>
+</section>
+
+<!-- ============================ 第十章 ============================ -->
+<section class="section" id="ch10">
+<h2>第十章 展望 6G</h2>
+
+<h3>10.1 6G 愿景（2030年前后商用）</h3>
+<div class="code-block"><pre>指标(畅想): 峰值Tbps级 | 时延0.1ms | 覆盖海陆空天
+关键词: 沉浸式XR、数字孪生、全域覆盖、通感一体化(ISAC)、
+       AI原生空口、零功耗/无源物联网</pre></div>
+
+<h3>10.2 候选关键技术</h3>
+<table>
+  <tr><th>技术</th><th>要点</th></tr>
+  <tr><td>太赫兹通信</td><td>0.1~10THz，超大带宽，超短距</td></tr>
+  <tr><td>智能超表面 RIS</td><td>可编程反射电磁波，低成本覆盖补盲</td></tr>
+  <tr><td>星地融合（NTN）</td><td>低轨卫星星座与地面网络一体化</td></tr>
+  <tr><td>通感一体化</td><td>通信信号兼做感知（测距/成像）</td></tr>
+  <tr><td>AI原生网络</td><td>AI驱动的空口调度与网络自治</td></tr>
+</table>
+<div class="alert alert-info">💡 作为在校生：6G 研究热点（RIS、NTN、ISAC、语义通信）正是读研选题富矿，可关注 IEEE 通信学会与国内 IMT-2030 推进组白皮书。</div>
+</section>
+
+<!-- ============================ 第十一章 ============================ -->
+<section class="section" id="ch11">
+<h2>第十一章 标准与产业链</h2>
+
+<h3>11.1 标准化组织</h3>
+<table>
+  <tr><th>组织</th><th>角色</th></tr>
+  <tr><td>ITU</td><td>需求与频谱划分（IMT-2000/2020）</td></tr>
+  <tr><td>3GPP</td><td>制定具体规范（GSM→5G，会员制）⭐</td></tr>
+  <tr><td>GSMA</td><td>运营商联盟（频谱政策、eSIM）</td></tr>
+  <tr><td>CCSA</td><td>中国通信标准化协会</td></tr>
+</table>
+
+<h3>11.2 产业链地图（就业导航）</h3>
+<div class="code-block"><pre>芯片: 高通/联发科/紫光展锐/华为海思
+设备: 华为/中兴/爱立信/诺基亚(基站系统)
+运营商: 移动/电信/联通/广电(网络规划建设优化)
+终端: 手机厂商/模组厂商(移远/广和通)
+测试: 罗德与施茨/是德/星河亮点
+垂直行业: 车联网/工业互联网/卫星互联网</pre></div>
+
+<h3>11.3 岗位方向</h3>
+<table>
+  <tr><th>岗位</th><th>技能侧重</th></tr>
+  <tr><td>无线网络优化工程师</td><td>路测/信令分析/覆盖优化</td></tr>
+  <tr><td>基站/核心网研发</td><td>C/C++、协议栈、Linux</td></tr>
+  <tr><td>射频工程师</td><td>天线、滤波器、射频链路</td></tr>
+  <tr><td>5G行业解决方案</td><td>切片/MEC/专网+行业知识</td></tr>
+</table>
+</section>
+
+<!-- ============================ 第十二章 ============================ -->
+<section class="section" id="ch12">
+<h2>第十二章 习题与思考</h2>
+
+<div class="quiz">
+<details>
+<summary>1.（计算）900MHz 信号，手机车速 108km/h，最大多普勒频移与相干时间是多少？</summary>
+<div class="quiz-answer">
+<p>v = 108km/h = 30m/s，λ = 3×10⁸/9×10⁸ = 0.333m。<br>
+f<sub>d</sub> = v/λ = 30/0.333 = <strong>90Hz</strong>；<br>
+T<sub>c</sub> ≈ 0.423/90 ≈ <strong>4.7ms</strong>。<br>
+含义：信道约每 5ms 就明显变化，信道估计/导频密度必须与之匹配。</p>
+</div>
+</details>
+
+<details>
+<summary>2.（概念）蜂窝系统中"小区分裂"为什么能扩容？代价是什么？</summary>
+<div class="quiz-answer">
+<p>容量由"每小区可用信道数×小区数"决定。分裂使小区半径减半、单位面积小区数×4，在频率复用模式不变时，单位面积容量约×4。代价：基站数×4（成本剧增）、切换更频繁、同频干扰规划更复杂、边缘用户增多。</p>
+</div>
+</details>
+
+<details>
+<summary>3.（思考）CDMA 为什么必须功率控制？说明开环与闭环的作用。</summary>
+<div class="quiz-answer">
+<p>CDMA 所有用户同频同频共用，<strong>远近效应</strong>使近端强信号淹没远端弱信号（互相关非理想时）。<br>
+开环：手机根据接收总功率粗调自身发射功率（ms级，抗慢衰落）；<br>
+闭环：基站测量每手机信号 Eb/N₀，下发功控指令 ±1dB/1.25ms(IS-95) 精调。目标：到达基站功率基本一致，容量最大化。</p>
+</div>
+</details>
+
+<details>
+<summary>4.（对比）GSM 硬切换与 CDMA 软切换的优劣？</summary>
+<div class="quiz-answer">
+<p>硬切换"先断后切"有几十ms中断，可能掉话，但实现简单、不占双份资源；软切换同时维持 2~3 条链路，宏分集提升上行 2~3dB，切换无缝，但占用额外信道资源（降容量 20~30%），实现复杂。LTE 恢复硬切换但通过测量配置/TTI短把中断降到几十μs。</p>
+</div>
+</details>
+
+<details>
+<summary>5.（计算）LTE 20MHz 载波，100 个 RB，TDD 配比 DL:UL=4:1，每 RB 平均 6bit/符号(64QAM≈)×7符号×11子帧，粗估下行峰值吞吐量。</summary>
+<div class="quiz-answer">
+<p>简化估算：100RB×12子载波×7符号/ms ≈ 8400 符号/ms；64QAM 6bit + 2×2MIMO×2 ≈ 8400×6×2 bit/ms ≈ <strong>100Mbps 量级</strong>，再按 4:1 时隙占比与非满配开销打折，与标准"20MHz 2×2 MIMO 下行 150Mbps（FDD）"一致。体会"带宽×频谱效率"的估算思路即可。</p>
+</div>
+</details>
+
+<details>
+<summary>6.（思考）5G 为什么在 Sub-6GHz 用 3.5GHz 建网为主，而非直接上毫米波？</summary>
+<div class="quiz-answer">
+<p>覆盖-容量折中：3.5GHz 传播损耗可控（路损公式 20lgf 项比 28GHz 低约 18dB），单站覆盖数百米，可与 4G 站址共址快速建网；毫米波绕射/穿透差、覆盖百米级、受雨衰树叶影响大，只适合热点容量补充（体育场、FWA）。中国选择"Sub-6 广覆盖打底 + 毫米波热点补充"路线，美国初期毫米波部署受阻反证了这一点。</p>
+</div>
+</details>
+
+<details>
+<summary>7.（综合）说明网络切片如何支撑"智能电网差动保护"这类 uRLLC 业务。</summary>
+<div class="quiz-answer">
+<p>电网差动保护要求 ms 级时延与 99.999% 可靠性：①在共享 5G 物理网上切出专属"切片"（含无线侧资源预留/更高调度优先级参数集 + 专用 UPF 下沉变电站）；②端到端 QoS（5QI=1级）保障 + 冗余传输（双连接/PDCP复制）；③SLA 监控隔离故障域。同一张网同时服务 eMBB（巡检视频）与 mMTC（抄表）互不干扰 —— 这就是切片的商业价值。</p>
+</div>
+</details>
+</div>
+</section>
+
+<!-- ============================ 第十三章 ============================ -->
+<section class="section" id="ch13">
+<h2>第十三章 实践指南与就业方向</h2>
+
+<h3>13.1 仿真与实践工具</h3>
+<table>
+  <tr><th>工具</th><th>用途</th></tr>
+  <tr><td>MATLAB 5G Toolbox</td><td>NR 链路级仿真、波形生成</td></tr>
+  <tr><td>Python + sionna/commpy</td><td>链路仿真开源替代</td></tr>
+  <tr><td>ns-3 / OMNeT++</td><td>网络级仿真（切换、调度算法）</td></tr>
+  <tr><td>QXDM/QCAT、Wireshark</td><td>终端信令/协议分析</td></tr>
+  <tr><td>手机工程模式（*#*#4636#*#*）</td><td>直观查看小区/信号/制式</td></tr>
+</table>
+
+<h3>13.2 课程衔接与学习路线</h3>
+<div class="code-block"><pre>通信原理(调制编码) + 信号与系统(变换) → 移动通信(系统观)
+数据网络(协议栈) → 5G核心网/网络切片
+C语言 → 协议栈/基站软件方向
+建议顺序: 信道→多址→GSM→3G→LTE→5G, 对照学,抓"演进的必然性"</pre></div>
+
+<h3>13.3 证书与进阶</h3>
+<ul>
+  <li>华为 HCIA/HCIP-5G、中兴 ZCE 认证（运营商与设备商认可）</li>
+  <li>软考中级"通信工程师"（体制内评职称有用）</li>
+  <li>考研方向：通信与信息系统、信号处理、信息与通信工程</li>
+  <li>关注：3GPP Release 时间线、IMT-2030(6G)白皮书</li>
+</ul>
+
+<div class="section" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;text-align:center;">
+  <h2 style="color:#fff;border-color:#fff;">🎯 学习目标检查</h2>
+  <p>完成本章后你应该能够：</p>
+  <ul style="list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;text-align:left;">
+    <li>✅ 说出1G~5G代际演进主线</li>
+    <li>✅ 区分路径损耗/阴影/多径三种衰落</li>
+    <li>✅ 计算多普勒频移与相干时间</li>
+    <li>✅ 解释蜂窝频率复用与小区分裂</li>
+    <li>✅ 对比FDMA/TDMA/CDMA/OFDMA</li>
+    <li>✅ 画出GSM架构并描述开机入网流程</li>
+    <li>✅ 说明LTE OFDMA调度与CA/MIMO增强</li>
+    <li>✅ 阐述5G三大场景与Massive MIMO/切片</li>
+    <li>✅ 了解NSA/SA组网差异与频段策略</li>
+    <li>✅ 规划自己在无线通信方向的就业路径</li>
+  </ul>
+</div>
+
+</main>
+</div>
+
+<footer class="site-footer">
+  <p>© 2026 通信工程学习站 · 仿菜鸟教程风格 · 仅供本科学习用途</p>
+  <p>本文档基于 CC BY-SA 4.0 协议，欢迎分享、传播并署名</p>
+  <p><a href="index.html">← 返回首页</a> · <a href="#top">↑ 回到顶部</a></p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
