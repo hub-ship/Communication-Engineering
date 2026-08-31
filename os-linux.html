@@ -83,7 +83,8 @@
           <span><strong>作者</strong>汤小丹 等</span>
           <span><strong>出版社</strong>人民邮电出版社</span>
           <span><strong>ISBN</strong>9787115686572</span>
-        </div>
+        
+        <div class="tb-guide">📘 <strong>小白读法：</strong>国内经典考研教材。前六章（进程/调度/内存/文件）是重中之重，每章的图务必亲手画一遍；第七章起的 Linux 命令部分建议边敲边记，光看不练等于没学。</div></div>
       </div>
     </div>
 
@@ -128,6 +129,13 @@
   <li><strong>异步</strong>：进程执行走走停停，速度不可预知但结果可重现</li>
 </ul>
 
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>操作系统 = 硬件的"大管家"：管理 CPU（调度）、内存（分配回收）、文件、设备，同时给应用程序提供好用的接口（系统调用）。有了它，多个程序才能在一台机器上"和平共处"。</p>
+  <p><strong>📝 例子/口诀：</strong>分时系统的贡献：CPU 切时间片轮流伺候各终端用户，"一人一机"的错觉由此而来——Unix 因此称霸。</p>
+  <p><strong>⚠️ 易错点：</strong>① 系统调用 vs 库函数：printf 是库函数，底层最终才调用 write 系统调用；② 并发 ≠ 并行：单核时间片切换叫并发，多核同时执行才叫并行；③ 用户态/内核态切换是有代价的（现场保存/恢复），频繁切换会拖慢系统。</p>
+  <p><strong>⭐ 学习重点：</strong>OS 四大管理功能各一句话、系统调用的作用、用户态与内核态的切换时机（系统调用/中断/异常）。</p>
+</div>
 </section>
 
 <!-- ============================ 第二章 ============================ -->
@@ -228,6 +236,13 @@ int main(void) {
   </ul>
 </div>
 
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>进程 = 程序的一次执行过程（活的），程序 = 磁盘上的死文件。PCB 是进程的"户口本"（PID、状态、优先级、寄存器现场），创建进程本质就是创建 PCB。</p>
+  <p><strong>📝 例子/口诀：</strong>五状态模型背图：新建→就绪→运行→（等待事件）阻塞→（事件到来）就绪→运行→终止。就绪等的是 CPU，阻塞等的是事件（如 IO 完成）——两者绝对不能混。</p>
+  <p><strong>⚠️ 易错点：</strong>① 线程 = 进程内的执行流，共享进程的地址空间和资源，只私有栈和寄存器——所以线程切换比进程切换快得多；② IPC 四种方式对比：管道（父子进程）、消息队列（内核中转）、共享内存（最快，需配信号量同步）、信号（异步通知）；③ "进程与线程的区别"是出现率最高的简答题，从资源、切换开销、通信方式三个维度答。</p>
+  <p><strong>⭐ 学习重点：</strong>五状态转换图（画箭头标触发条件，必考）、进程与线程全方位对比、各 IPC 方式的适用场景。</p>
+</div>
 </section>
 
 <!-- ============================ 第三章 ============================ -->
@@ -270,6 +285,13 @@ int main(void) {
   Linux 默认调度器 <strong>CFS</strong>（Completely Fair Scheduler）基于"虚拟运行时间" vruntime，红黑树维护，运行时间越少越优先。本质就是加权公平的 RR + 多级反馈。
 </div>
 
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>CPU 调度 = 决定就绪队列里谁下一个上 CPU。评价维度：周转时间（到达→完成）、带权周转（周转/服务时间）、等待时间、响应时间。</p>
+  <p><strong>📝 例子/口诀：</strong>算法一览：FCFS 先来先服务（简单但对短作业不公平）、SJF 短作业优先（平均周转最优但长作业可能饿死）、RR 时间片轮转（交互体验好）、优先级（会饿，需老化 aging 补救）、多级反馈队列（动态综合，最接近真实系统）。</p>
+  <p><strong>⚠️ 易错点：</strong>① 时间片太大退化成 FCFS、太小则上下文切换开销吞掉 CPU——适中才是美；② SJF 的可抢占版本叫 SRTF，才是理论最优；③ 计算题套路：列表格按时间轴逐个推演，注意新进程到达时是否抢占。</p>
+  <p><strong>⭐ 学习重点：</strong>给定作业表计算各算法的完成时间/周转/带权周转——必考大题，务必动手画甘特图。</p>
+</div>
 </section>
 
 <!-- ============================ 第四章 ============================ -->
@@ -357,6 +379,13 @@ Finish[i] = false for all i
 
 如果所有 Finish[i] == true 则安全</code></pre></div>
 
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>多个进程竞争共享资源需要"排队规则"——这就是同步。信号量是万能工具：P 操作（wait）申请资源可能阻塞、V 操作（signal）释放资源必唤醒等待者。</p>
+  <p><strong>📝 例子/口诀：</strong>死锁四条件：互斥、持有并等待、不可剥夺、循环等待——<strong>同时成立才会死锁，破坏任意一个即可预防</strong>。银行家算法思想：借钱前先验证"借出后大家都能顺利还清"才借。</p>
+  <p><strong>⚠️ 易错点：</strong>① 经典死锁场景——生产者消费者：两个 P 操作顺序颠倒就死锁，口诀"对多个互斥资源的 P 要按统一顺序"；② 信号量初值的含义：资源数量（互斥信号量初值 1，同步信号量初值 0 或资源数）；③ 死锁的三个层次：预防（静态破坏条件）&gt; 避免（银行家动态检查）&gt; 检测恢复（发生后处理）。</p>
+  <p><strong>⭐ 学习重点：</strong>生产者-消费者代码填空（信号量定义+P/V 位置，高频题型）、银行家算法的安全性序列判断、死锁四条件及对策。</p>
+</div>
 </section>
 
 <!-- ============================ 第五章 ============================ -->
@@ -406,6 +435,13 @@ Finish[i] = false for all i
 <h3>5.5 段式管理</h3>
 <p>按程序的逻辑结构（代码段、数据段、堆栈段）划分。<strong>段号 + 段内偏移</strong>，便于保护与共享。</p>
 
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>内存管理演进史就是与"碎片"斗争的历史：连续分配（外碎片）→分页（固定大小页框，内碎片小）→虚拟内存（程序可以比物理内存大，缺页时按需调入）。</p>
+  <p><strong>📝 例子/口诀：</strong>地址换算模板：逻辑地址 = 页号 × 页大小 + 页内偏移；查页表得物理页框号，物理地址 = 页框号 × 页大小 + 页内偏移。例：页 1KB，逻辑地址 2500 → 第 2 页（2500/1024=2）偏移 452。</p>
+  <p><strong>⚠️ 易错点：</strong>① FIFO 可能出现 Belady 异常——分配的页框变多、缺页反而变多（LRU 不会）；② 缺页 ≠ 页面失效，缺页中断处理后可以继续执行；③ 抖动（thrashing）：进程太多、内存装不下工作集，CPU 全在换页不干正事。</p>
+  <p><strong>⭐ 学习重点：</strong>给页面访问序列算 FIFO/LRU/Optimal 的缺页次数对比（必考计算题）、逻辑地址→物理地址换算、工作集概念。</p>
+</div>
 </section>
 
 <!-- ============================ 第六章 ============================ -->
@@ -448,6 +484,13 @@ Modify: 2026/05/12 14:33:00</code></pre></div>
 <h3>6.5 虚拟文件系统 VFS</h3>
 <p>Linux 的 VFS 层对上层应用屏蔽差异，统一提供 <code class="code-inline">open/read/write/stat</code> 接口。它把底层差异（ext4、xfs、nfs、tmpfs）通过统一的 <code class="code-inline">inode_operations</code> 等结构体呈现。</p>
 
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>文件系统回答"数据如何在磁盘上组织与寻址"。核心角色：inode 存文件元数据（大小、权限、数据块指针），目录本质是"文件名→inode 编号"的映射表。</p>
+  <p><strong>📝 例子/口诀：</strong>UNIX 的多级索引：inode 里直接块 + 一级间接 + 二级间接 + 三级间接指针——小文件快（直接块）、大文件能扩展（间接块），兼顾两头。</p>
+  <p><strong>⚠️ 易错点：</strong>① inode 里<strong>没有文件名</strong>——文件名在目录项里，同一 inode 多个名字就是硬链接；软链接是独立文件、内容是路径（删原文件后软链接悬空、硬链接仍有效）；② 硬链接不能跨文件系统（inode 编号是局部的）、不能链接目录；③ EXT4 的日志先记后改，掉电后能快速恢复一致性。</p>
+  <p><strong>⭐ 学习重点：</strong>inode 多级索引的最大文件计算题、硬链接 vs 软链接对比、文件存储三种分配方式（连续/链接/索引）优劣。</p>
+</div>
 </section>
 
 <!-- ============================ 第七章 ============================ -->
@@ -515,6 +558,13 @@ awk '{print $1}' file     # 文本处理</code></pre></div>
   <tr><td>删源文件</td><td>仍可访问</td><td>失效（红字闪烁）</td></tr>
 </table>
 
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>Linux 目录结构先记五个：/etc 配置、/home 用户、/var 日志、/proc 进程与内核信息（虚拟的）、/dev 设备。命令分类记最省力：看（ls/cat/less/head/tail/grep）、动（cd/cp/mv/rkdir）、找（find）。</p>
+  <p><strong>📝 例子/口诀：</strong>管道 | 把前一个命令的输出喂给后一个命令：ls -l | grep ".c" | wc -l 统计 .c 文件数——三个简单命令拼出复杂功能，这是 Unix 哲学。</p>
+  <p><strong>⚠️ 易错点：</strong>① rm -rf 是删库跑路按钮，目标路径多看一眼再回车；② &gt; 覆盖重定向、&gt;&gt; 追加重定向，覆盖前文件内容就没了；③ tab 补全和 ↑ 历史是效率神器；④ /proc/loadavg、/proc/cpuinfo 等文件是排查性能问题的入口。</p>
+  <p><strong>⭐ 学习重点：</strong>必背十连：ls cd cp mv rm mkdir cat less grep find + 管道与重定向；进程三件套 ps/top/kill；磁盘 df/du。</p>
+</div>
 </section>
 
 <!-- ============================ 第八章 ============================ -->
@@ -581,6 +631,13 @@ alice   ALL=(ALL)   NOPASSWD: ALL
   </ul>
 </div>
 
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>Linux 权限三元组 rwx 分别值 4/2/1，三组对象 owner/group/others。chmod 755 = 属主可读写执行、其他人可读可执行（网站目录的标准姿势）。</p>
+  <p><strong>📝 例子/口诀：</strong>看懂 ls -l 第一列：-rwxr-xr-- 拆成类型位 + 三组权限位，一眼判断"我是谁、我能干啥"。</p>
+  <p><strong>⚠️ 易错点：</strong>① 目录的 x 是"能否进入目录"，r 只是"能否 ls 列出名字"——没 x 有 r 看得见进不去；② 脚本要有 x 权限才能直接 ./运行，或者用 bash xxx.sh 绕过；③ chmod 数字法（755）与符号法（u+x）要都会；chown 改属主、chgrp 改属组。</p>
+  <p><strong>⭐ 学习重点：</strong>权限数字与符号互换、目录权限与文件权限的差异、sudo 的意义与 /etc/sudoers。</p>
+</div>
 </section>
 
 <!-- ============================ 第九章 ============================ -->
@@ -685,6 +742,13 @@ echo "报告已保存到 $REPORT"</code></pre></div>
 
 <p>进阶用法：<code class="code-inline">trap</code> 捕获信号、<code class="code-inline">getopts</code> 解析选项、<code class="code-inline">awk</code>+<code class="code-inline">sed</code> 处理文本、<code class="code-inline">xargs</code> 并行执行、<code class="code-inline">crontab</code> 定时任务。</p>
 
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>Shell 脚本 = 命令的"批处理文件"：把日常重复操作写成文件一次执行。三板斧语法：变量、if/for/while、函数，加上管道重定向就能干大部分活。</p>
+  <p><strong>📝 例子/口诀：</strong>第一个实用脚本：自动备份——tar 打包 + 日期后缀 $(date +%F).tar.gz + find 清理 7 天前的旧备份。</p>
+  <p><strong>⚠️ 易错点：</strong>① a=1 等号两边<strong>不能有空格</strong>（有空格就成了运行命令 a）；② 条件测试 [ $a = $b ] 中括号两边必须有空格、字符串比较用 = 而数字用 -eq；③ $1 $2 是位置参数、$# 是个数、$() 或反引号取命令输出；④ 变量取值 $a，字符串里有空格要 "$a" 加引号。</p>
+  <p><strong>⭐ 学习重点：</strong>变量与位置参数、if/for/while 三大结构、写一个批量改名或备份脚本就算入门。</p>
+</div>
 </section>
 
 <!-- ============================ 第十章 ============================ -->
@@ -776,6 +840,13 @@ sar -u 1 5          # CPU使用历史
 # top 字段解读
 # %CPU>80% 注意；%MEM>50% 注意；load average 三值反映1/5/15分钟负载，应小于 CPU 核数</code></pre></div>
 
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>Linux 下管服务：systemctl start/stop/status/enable（开机自启）是统一入口；管进程：ps aux 看全貌、top 动态监视、kill 发信号（-15 先礼后兵、-9 直接击毙）。</p>
+  <p><strong>📝 例子/口诀：</strong>网络排查四板斧按序走：ping（通不通）→ ip addr（网卡配对没）→ ss -tlnp（端口在监听吗、被谁占）→ journalctl / /var/log（日志里说什么）。</p>
+  <p><strong>⚠️ 易错点：</strong>① kill -15 给进程清理机会、-9 可能丢数据——先 15 后 9 是礼貌；② 服务起不来九成是端口被占或配置文件语法错——journalctl -xe 一看便知；③ 防火墙（firewalld/ufw）挡掉端口是最常见的"服务明明起了却连不上"元凶。</p>
+  <p><strong>⭐ 学习重点：</strong>"服务起不来"标准排查路径：状态→日志→端口→防火墙；ss/netstat 查端口占用；df/du 定位磁盘爆满。</p>
+</div>
 </section>
 
 <!-- ============================ 第十一章 习题 ============================ -->

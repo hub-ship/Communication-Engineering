@@ -84,7 +84,8 @@
           <span><strong>作者</strong>谭浩强</span>
           <span><strong>出版社</strong>清华大学出版社</span>
           <span><strong>ISBN</strong>9787302653721</span>
-        </div>
+        
+        <div class="tb-guide">📘 <strong>小白读法：</strong>经典入门书，例题即模板：每章先读概念，再把例题全部手敲运行一遍。第 7 章指针至少精读三遍——这是全书分水岭，过了它后面一马平川；课后题挑基础部分必做。</div></div>
       </div>
     </div>
 
@@ -124,6 +125,13 @@ gcc -Wall -g hello.c -o hello   # 推荐：显示所有警告+带调试信息</p
 <h3>1.4 C程序开发流程</h3>
 <div class="code-block"><pre>编辑(.c) → 预处理(展开宏/头文件, gcc -E) → 编译(.s汇编, gcc -S)
 → 汇编(.o目标文件, gcc -c) → 链接(库+目标文件, gcc) → 可执行文件</pre></div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>C 是"离硬件最近的通用语言"——学它就是为了搞懂内存和指针，后面的单片机、数据结构、操作系统全踩在这块地基上。</p>
+  <p><strong>📝 例子/口诀：</strong>第一个程序背到肌肉记忆：#include &lt;stdio.h&gt; / int main(){ printf("hello"); return 0; }。开发四步：写 .c → 编译成 .obj → 链接成 .exe → 运行。</p>
+  <p><strong>⚠️ 易错点：</strong>① 每条语句结尾分号、main 别拼成 mian；② 文件保存为 .c 不是 .cpp（两者编译规则不同）；③ 分清"编译错误"（语法不过，看行号）和"运行错误"（逻辑/内存问题，编译器帮不了你）。</p>
+  <p><strong>⭐ 学习重点：</strong>工具链跑通（Dev-C++ 或 VS Code+MinGW 均可）、C 程序从源码到执行的四阶段：预处理→编译→汇编→链接。</p>
+</div>
 </section>
 
 <!-- ============================ 第二章 ============================ -->
@@ -160,6 +168,13 @@ reg |= 0x01;    /* 置位第0位: 1010 0101 | 0000 0001 */
 reg &amp;= ~0x02;   /* 清零第1位: 与上 1111 1101 */
 reg ^= 0x04;    /* 翻转第2位 */
 if (reg &amp; 0x08) {/* 测试第3位是否为1 */}   /* 单片机寄存器操作三大件 */</pre></div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>数据类型决定"这个格子占几个字节、按什么规则解读"。类型系统是 C 一切行为（溢出、截断、隐式转换）的源头。</p>
+  <p><strong>📝 例子/口诀：</strong>背硬数字：char 1 字节、int 4、float 4、double 8；char 存 128 变 −128（有符号回绕）。</p>
+  <p><strong>⚠️ 易错点：</strong>① 5/2=2（整数除法砍尾）而 5.0/2=2.5、5%2=1——这组对比是第一大坑；② = 是赋值、== 才是相等，if(a=0) 永远为假且悄悄改了 a；③ 优先级记主干：! &gt; 算术 &gt; 关系 &gt; &amp;&amp; &gt; || &gt; 赋值，拿不准就加括号。</p>
+  <p><strong>⭐ 学习重点：</strong>隐式类型转换方向（char→int→float→double）、自增 i++ 与 ++i 的"先用后加/先加后用"区别。</p>
+</div>
 </section>
 
 <!-- ============================ 第三章 ============================ -->
@@ -183,6 +198,13 @@ if (scanf("%d", &amp;age) != 1) { fprintf(stderr, "输入错误\n"); }</pre></di
 putchar(c);
 /* 清空输入缓冲区残留(如scanf后的回车) */
 while ((c = getchar()) != '\n' &amp;&amp; c != EOF) ;</pre></div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>printf/scanf 是程序"与外界说话的窗口"。格式符是翻译官：%d 整数、%f 浮点输出、%lf 给 double 的 scanf 用、%c 字符、%s 字符串。</p>
+  <p><strong>📝 例子/口诀：</strong>printf("%.2f", 3.14159) 输出 3.14——".2"控制小数位数；scanf("%d", &amp;a) 里 &amp; 是"把 a 的地址告诉它"。</p>
+  <p><strong>⚠️ 易错点：</strong>① scanf 变量前忘写 &amp; 是段错误的头号元凶；② scanf("%d") 后回车残留在缓冲区，紧接着 scanf("%c") 会读到那个回车——用 getchar() 清一下；③ %f 与 %lf 在 printf 里通用、在 scanf 里不通用。</p>
+  <p><strong>⭐ 学习重点：</strong>格式符全家桶、混合输入时的缓冲区管理、getchar/putchar 与 scanf 的搭配。</p>
+</div>
 </section>
 
 <!-- ============================ 第四章 ============================ -->
@@ -218,6 +240,13 @@ for (int i = 1; i <= 9; i++) {
         printf("%d*%d=%-4d", j, i, i*j);
     printf("\n");
 }</pre></div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>程序再复杂也只有三种结构：顺序、分支、循环——这叫结构化程序设计。先把这章练到"不假思索"，后面写任何算法都不慌。</p>
+  <p><strong>📝 例子/口诀：</strong>循环选择口诀：知道循环次数用 for、至少要执行一次用 do-while、其余用 while。九九乘法表是双重循环的最佳入门题。</p>
+  <p><strong>⚠️ 易错点：</strong>① else 永远匹配最近的、未配对的 if——多层嵌套时务必加大括号明确归属；② while(a=1) 是死循环（赋值恒真）；③ switch 的 case 不加 break 会"贯穿"执行到下一个 case，除非你就是想要贯穿。</p>
+  <p><strong>⭐ 学习重点：</strong>嵌套循环执行次数的手算、break（跳出一层）与 continue（跳过本次）的区别、switch 的经典菜单程序。</p>
+</div>
 </section>
 
 <!-- ============================ 第五章 ============================ -->
@@ -254,6 +283,13 @@ int binsearch(int a[], int n, int key) {
     }
     return -1;
 }</pre></div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>数组是内存里"连续排列的同类型格子"。数组名代表首地址，下标从 0 开始——a[10] 的合法下标是 0~9。</p>
+  <p><strong>📝 例子/口诀：</strong>int a[10]={0} 一句把 10 个元素全部清零；但 {1} 只有第一个是 1、其余为 0。字符数组末尾必须有 &#39;\0&#39; 占一格。</p>
+  <p><strong>⚠️ 易错点：</strong>① 越界访问编译器不报错，但会悄悄毁掉别的变量——最难查的 bug 之一；② 数组不能整体赋值（a=b 非法），只能循环逐个拷贝或用 strcpy/memcpy；③ 二维数组 a[i][j] 按"行优先"存内存。</p>
+  <p><strong>⭐ 学习重点：</strong>冒泡与选择排序（手写到能默写）、二分查找（前提：必须有序）、数组作函数参数时"退化为指针、sizeof 失效"。</p>
+</div>
 </section>
 
 <!-- ============================ 第六章 ============================ -->
@@ -295,6 +331,13 @@ swap(&amp;x, &amp;y);      /* x=2, y=1 */</pre></div>
   <tr><td>生存期</td><td>函数调用期间</td><td>整个程序</td><td>整个程序</td><td>整个程序</td></tr>
   <tr><td>初值</td><td>不确定!</td><td>编译期初始化一次</td><td>自动置0</td><td>自动置0</td></tr>
 </table>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>函数是"积木"：把一段逻辑打包命名，随时复用。C 程序 = 一个 main + 若干函数的调用关系图。</p>
+  <p><strong>📝 例子/口诀：</strong>C 只有<strong>值传递</strong>（拷贝一份）：想在函数里修改外面的变量，必须把地址传进去（传指针）。经典的 swap(int *a,int *b) 就是为此而生。</p>
+  <p><strong>⚠️ 易错点：</strong>① 函数定义在调用之后必须先写原型声明；② 数组作参数退化为指针，函数内 sizeof(arr)/sizeof(arr[0]) 拿不到长度，长度要单独传；③ return 带回的是"局部变量的副本"可以，但返回局部变量的<strong>地址</strong>不行（函数退出即销毁）。</p>
+  <p><strong>⭐ 学习重点：</strong>递归两要素（终止条件+递推式）用阶乘和斐波那契练熟、static 局部变量跨调用保值、传值 vs 传地址的对比题。</p>
+</div>
 </section>
 
 <!-- ============================ 第七章 ============================ -->
@@ -360,6 +403,13 @@ int main(void) {
   <tr><td>const int *p</td><td>指向常量的指针（*p不可改，p可改）</td></tr>
   <tr><td>int *const p</td><td>常量指针（p不可改，*p可改）</td></tr>
 </table>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>指针是"存地址的变量"。类比：指针=门牌号，*p=按门牌号去取屋里的东西。C 语言的强大和危险都源于它。</p>
+  <p><strong>📝 例子/口诀：</strong>* 有两副面孔：定义时（int *p）表示"这是个指针"；使用时（*p=5）表示"取/写该地址的内容"。p+1 实际前进 sizeof(类型) 个字节——指针类型决定步长。</p>
+  <p><strong>⚠️ 易错点：</strong>① 野指针：int *p; *p=1; ——未初始化就解引用，段错误；② &amp; 只能作用于变量，不能 &amp;(a+b)；③ a[i] 完全等价于 *(a+i)，函数参数里的 int a[] 本质就是 int *a；④ malloc 的内存必须 free，且 free 后把指针置 NULL 防悬空。</p>
+  <p><strong>⭐ 学习重点：</strong>指针与数组的关系互换写法、用指针参数实现 swap、malloc/free 配对、二级指针 int **p 的用途（在函数内修改指针本身）。</p>
+</div>
 </section>
 
 <!-- ============================ 第八章 ============================ -->
@@ -401,6 +451,13 @@ char resp[] = "AT+CSQ: 24,99\r\n";
 int rssi, ber;
 if (sscanf(resp, "AT+CSQ: %d,%d", &amp;rssi, &amp;ber) == 2)
     printf("信号强度=%d dBm\n", -113 + 2*rssi);   /* GSM信号换算 */</pre></div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>C 没有真正的"字符串类型"，字符串 = 字符数组 + 结尾 &#39;\0&#39;。所有字符串函数都靠扫描到 &#39;\0&#39; 才停。</p>
+  <p><strong>📝 例子/口诀：</strong>四件套：strlen 求长度、strcpy 拷贝、strcat 拼接、strcmp 比较。手写"字符串反转"是检验功力的经典题。</p>
+  <p><strong>⚠️ 易错点：</strong>① strlen 不数 &#39;\0&#39;、sizeof 数——"abc" 的 strlen=3、sizeof=4；② strcmp 相等返回 <strong>0</strong> 不是 1，所以判断相等要写 if(strcmp(a,b)==0)；③ gets 不检查长度已被淘汰，用 fgets（注意它会连换行符一起读入）。</p>
+  <p><strong>⭐ 学习重点：</strong>字符与 ASCII（&#39;0&#39;=48、&#39;a&#39;=97、&#39;A&#39;=65）做大小写转换和数字字符互转、手写 strlen/strcpy/反转的实现。</p>
+</div>
 </section>
 
 <!-- ============================ 第九章 ============================ -->
@@ -444,6 +501,13 @@ printf("%08X\n", c.u);        /* 查看float的IEEE754位表示 */
 typedef struct node { int val; struct node *next; } node_t;  /* 链表节点 */
 
 state_t st = IDLE;   /* 状态机写法,比裸数字可读性强 */</pre></div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>结构体把不同类型打包成一个新类型（学生=姓名+学号+成绩），是"造出自己的数据类型"的工具，也是链表、树等地基。</p>
+  <p><strong>📝 例子/口诀：</strong>两个访问符号一句话：变量用点（s.age）、指针用箭头（p-&gt;age）。typedef struct 起别名后声明不用再写 struct。</p>
+  <p><strong>⚠️ 易错点：</strong>① 结构体不能整体用 == 比较，只能逐成员比或 memcmp；② 结构体大小受<strong>字节对齐</strong>影响：char 后跟 int 时编译器会填充空隙，sizeof 可能比你手算的大；③ 链表节点 struct Node{int data; struct Node *next;} 是"自己包含指向自己的指针"的递归定义。</p>
+  <p><strong>⭐ 学习重点：</strong>结构体数组+指针遍历、结构体作函数参数（大结构体传指针省拷贝）、typedef 的用法。</p>
+</div>
 </section>
 
 <!-- ============================ 第十章 ============================ -->
@@ -477,6 +541,13 @@ while (fread(&amp;sample, sizeof(sample), 1, fin) == 1) {
     /* 累计功率 → 计算RSSI */
 }
 fclose(fin);</pre></div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>文件让数据"活过程序退出"——落盘持久化。固定流程：fopen → 读/写 → fclose，忘了 fclose 数据可能还躺在缓冲区没写进硬盘。</p>
+  <p><strong>📝 例子/口诀：</strong>打开模式记三点："r" 读（文件不存在则失败）、"w" 写（清空重建！）、"a" 追加（永远写在末尾）。</p>
+  <p><strong>⚠️ 易错点：</strong>① 判断结尾的正确姿势是检查读取函数的返回值（fgets 返回 NULL / fscanf 返回 EOF），while(!feof(fp)) 会对最后一行多读一次；② 文本模式与二进制模式在 Windows 上有换行符转换差异，二进制文件必须用 "rb"/"wb"；③ fprintf/fscanf 与 printf/scanf 用法一一对应，只是多一个 FILE* 参数。</p>
+  <p><strong>⭐ 学习重点：</strong>按行读文本（fgets + fputs）、fread/fwrite 读写结构体块、文件复制小程序的实现。</p>
+</div>
 </section>
 
 <!-- ============================ 第十一章 ============================ -->
@@ -520,6 +591,13 @@ while (head) { node_t *t = head; head = head->next; free(t); }</pre></div>
   <li><strong>哈希表</strong>（O(1)查找，ARP表/IP路由表的思想来源）</li>
   <li><strong>二叉树/堆</strong>（调度、优先队列、Huffman编码树）</li>
 </ul>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>链表 = 用指针把结构体"串成珠链"。与数组互补：数组随机访问 O(1) 但插删要搬移；链表插删 O(1) 但访问必须从头走。</p>
+  <p><strong>📝 例子/口诀：</strong>链表题的万能三件套：<strong>画图 + 临时指针 + 先接后断</strong>。任何插入删除，先画节点箭头图再动笔，比盯着代码想快十倍。</p>
+  <p><strong>⚠️ 易错点：</strong>① 删除节点必须先用临时指针保存 p-&gt;next 再 free(p)，否则断链；② 遍历用 while(p!=NULL) 还是 while(p-&gt;next!=NULL)，取决于你是否需要对最后一个节点做操作；③ malloc(sizeof(struct Node)) 忘写 sizeof、或分配后不判 NULL 都是隐患。</p>
+  <p><strong>⭐ 学习重点：</strong>头插法/尾插法建表、遍历与查找、单链表反转（三指针 prev/cur/next 滚动）、快慢指针找中点。</p>
+</div>
 </section>
 
 <!-- ============================ 第十二章 ============================ -->
@@ -566,6 +644,13 @@ app: main.o uart.o crc.o
 	$(CC) $(CFLAGS) -c $< -o $@
 clean:
 	rm -f *.o app</pre></div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>预处理发生在编译之前：#include 就是"把头文件原样粘贴进来"，#define 宏是"纯文本替换"——不懂这一点就会被宏坑。</p>
+  <p><strong>📝 例子/口诀：</strong>#define SQR(x) x*x，则 SQR(1+2) 展开成 1+2*1+2=5 而不是 9！必须写成 #define SQR(x) ((x)*(x))。</p>
+  <p><strong>⚠️ 易错点：</strong>① 头文件放"声明"（函数原型、宏、extern），.c 放"实现"，否则重复定义报错；② #ifndef/#define/#endif 三件套防止头文件被重复包含；③ 宏定义末尾不加分号（它不是 C 语句）。</p>
+  <p><strong>⭐ 学习重点：</strong>带参宏与函数的区别（无类型检查、无调用开销但可能 side-effect）、extern 与 static 修饰全局符号的作用域控制、多文件工程的组织。</p>
+</div>
 </section>
 
 <!-- ============================ 第十三章 ============================ -->
@@ -605,6 +690,13 @@ double avg(int *a, int n) {
     ...
 }</pre></div>
 <div class="alert alert-success">✅ <strong>调试心法</strong>：先用 bt 定位崩溃点 → 打印可疑变量 → 缩小二分注释范围。编译永远开 -Wall，把警告当错误对待，80%的bug编译器已经告诉你了。</div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>调试是"程序员的第二职业技能"。核心心法：小步编译（写一点编一次）+ 变量初始化 + 出错先看第一个错误（后面的可能是连环误报）。</p>
+  <p><strong>📝 例子/口诀：</strong>printf 大法永远是最快的调试器：在可疑处打印变量值和标记，二分缩小范围。段错误（Segmentation fault）九成是野指针/越界/空指针解引用。</p>
+  <p><strong>⚠️ 易错点：</strong>① 编译错误看行号时注意：报错行可能是"上一行缺分号"的连带；② 不要用"注释掉大段代码"来调试时忘了恢复；③ 学会读警告：编译器 warning 往往就是未来崩溃的现场。</p>
+  <p><strong>⭐ 学习重点：</strong>IDE 断点/单步调试的基本操作、二分定位法、常见错误对照表（未初始化/越界/==与=/悬空指针）。</p>
+</div>
 </section>
 
 <!-- ============================ 第十四章 ============================ -->
@@ -718,6 +810,7 @@ void demo(void) {
   </ul>
 </div>
 
+</section>
 </main>
 </div>
 

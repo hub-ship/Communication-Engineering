@@ -84,7 +84,8 @@
           <span><strong>作者</strong>黄克亚</span>
           <span><strong>出版社</strong>清华大学出版社</span>
           <span><strong>ISBN</strong>9787302538615</span>
-        </div>
+        
+        <div class="tb-guide">📘 <strong>小白读法：</strong>全书围绕 STM32F103 实例展开。建议先通读前三章建立概念，之后按"点亮 LED→按键中断→定时器→串口→ADC"的顺序边看边烧录，每个例程都在板子上跑通再往下走。</div></div>
       </div>
     </div>
 
@@ -116,6 +117,13 @@
   <tr><td>AVR</td><td>8位RISC</td><td>Arduino御用</td><td>创客</td></tr>
   <tr><td>RISC-V</td><td>开源指令集</td><td>自主可控新势力</td><td>国产MCU</td></tr>
 </table>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>单片机 = 把 CPU、内存、IO、外设集成在一个芯片上的"微型计算机"。它和电脑的本质区别：没有操作系统、程序直接控制硬件。家电、仪表、玩具里凡是"按键+显示+控制"的都是它。</p>
+  <p><strong>📝 例子/口诀：</strong>为什么先学 51：它的结构简单到能看懂每一个寄存器，是理解一切现代 MCU（STM32、ESP32）的"骨架"。</p>
+  <p><strong>⚠️ 易错点：</strong>① 分清三个概念：CPU 是芯片、单片机是芯片级小系统、嵌入式系统是"单片机+软件+专用电路"的整机概念；② 看到任何新单片机先问三件事：多少位、主频多少、片上 ROM/RAM 多大。</p>
+  <p><strong>⭐ 学习重点：</strong>单片机 vs 微机 vs 嵌入式的层级关系、MCS-51 基本组成框图、数制与码制基础（BCD/补码）。</p>
+</div>
 </section>
 
 <!-- ============================ 第二章 ============================ -->
@@ -145,6 +153,13 @@
   <tr><td>P2</td><td>准双向口</td><td>扩展时输出高8位地址</td></tr>
   <tr><td>P3</td><td>复用功能</td><td>串口/中断/定时器/读写线</td></tr>
 </table>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>51 核心记"三区两口"：CPU、ROM（4KB，放程序）、RAM（256B，放变量）、P0~P3 四个 8 位 IO 口。特殊功能寄存器 SFR 区（80H~FFH）是控制整块芯片的"控制面板"。</p>
+  <p><strong>📝 例子/口诀：</strong>时间关系必背：晶振 12MHz 时，时钟周期=1/12μs，机器周期=12 个时钟周期=<strong>1μs</strong>——以后算定时器初值、写延时函数全靠它。</p>
+  <p><strong>⚠️ 易错点：</strong>① P0 是开漏输出，做普通 IO 必须外接上拉电阻；② RAM 低 128B 直接寻址、高 128B 是 SFR 区（间接寻址访问），地址重叠但物理独立；③ PSW 里的 CY（进位）、AC（辅助进位）、OV（溢出）、P（奇偶）各自含义别张冠李戴。</p>
+  <p><strong>⭐ 学习重点：</strong>P0~P3 各口的第二功能表、PSW 标志位、机器周期与晶振频率的换算。</p>
+</div>
 </section>
 
 <!-- ============================ 第三章 ============================ -->
@@ -178,6 +193,13 @@ void t0_isr(void) interrupt 1       /* 中断号1=定时器0,标准C没有 */
     TH0 = (65536-50000)/256;        /* 重装初值 */
     TL0 = (65536-50000)%256;
 }</pre></div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>51 开发五步循环：建工程 → 写 C51 代码 → 编译生成 .hex → 烧录（STC 芯片用 stc-isp 串口下载）→ 上电运行看现象。调试手段主要是 LED 和串口打印。</p>
+  <p><strong>📝 例子/口诀：</strong>Keil 两个必踩的坑都和设置有关：① Target 里没勾 "Create HEX File" 就没有输出文件；② 晶振频率填错，delay 延时全不准。</p>
+  <p><strong>⚠️ 易错点：</strong>① STC 串口下载需要"冷启动"：先点下载按钮、再给板子上电；② Keil 选芯片型号要和实物一致（AT89C52/STC89C52 兼容）；③ C51 与标准 C 的差异：sbit 定义位变量、interrupt 关键字写中断函数、data/xdata 存储区域修饰。</p>
+  <p><strong>⭐ 学习重点：</strong>完整跑通"点亮一个 LED"、理解编译-烧录-运行循环、用 USB 转串口模块连接开发板。</p>
+</div>
 </section>
 
 <!-- ============================ 第四章 ============================ -->
@@ -213,6 +235,13 @@ if (KEY1 == 0) {                 /* 检测到按下 */
         LED = !LED;              /* 执行动作 */
     }
 }</pre></div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>点灯是嵌入式的 Hello World。操作 IO 本质就是读写寄存器：P1=0xFE 让 P1.0 输出低电平——LED 是亮是灭取决于电路接法（灌电流接法低电平亮，最常见）。</p>
+  <p><strong>📝 例子/口诀：</strong>流水灯两种写法：移位法（P1=_crol_(P1,1) 循环左移）和查表法（数组存花样）。按键必须<strong>消抖</strong>：检测到按下→延时 10~20ms→再确认仍按下才算真按。</p>
+  <p><strong>⚠️ 易错点：</strong>① sbit LED=P1^0 之后 LED=0 还是 LED=1 点亮，看原理图接法，背结论没用；② 读 IO 口电平前先写 1（准双向口特性）；③ delay 消抖期间 CPU 什么都不干——后续要用定时器扫描替代。</p>
+  <p><strong>⭐ 学习重点：</strong>流水灯（移位/查表）、独立按键检测+消抖、行列式键盘扫描（行输出列读入）。</p>
+</div>
 </section>
 
 <!-- ============================ 第五章 ============================ -->
@@ -254,6 +283,13 @@ void main(void)
     while (1) P2 = 0xF0;             /* 主循环干别的事 */
 }</pre></div>
 <div class="alert alert-warning">⚠️ <strong>ISR编写三原则</strong>：①越短越好（微秒级，绝不delay）②不用printf等重函数 ③共享变量加 volatile。</div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>中断 = 硬件"拍 CPU 的肩膀说有急事"，CPU 保存现场去处理、完事回来继续。比轮询（一直问"来了吗"）高效得多——CPU 平时可以干别的或休眠。</p>
+  <p><strong>📝 例子/口诀：</strong>使用中断四步口诀：<strong>EA=1 开总闸 → EX0=1 开分闸 → IT0=1 设触发方式 → 写 interrupt 函数</strong>。</p>
+  <p><strong>⚠️ 易错点：</strong>① 中断号对应关系必须背：0=INT0、1=T0、2=INT1、3=T1、4=串口——写错序号程序"看似没反应"；② 中断函数不能有参数、不能有返回值，也不要在里面长延时（阻塞别的代码）；③ 外部中断触发方式选下降沿（IT=1）比低电平可靠——电平不撤销会反复触发。</p>
+  <p><strong>⭐ 学习重点：</strong>五个中断源及优先级（IP 寄存器）、中断响应的现场保护机制、按键改用外部中断实现的写法。</p>
+</div>
 </section>
 
 <!-- ============================ 第六章 ============================ -->
@@ -304,6 +340,13 @@ void t0_isr(void) interrupt 1
     if (++tick >= 100) tick = 0;   /* 周期100拍=25.6ms */
     LED = (tick &lt; duty) ? 0 : 1;   /* 前 duty 拍点亮 */
 }</pre></div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>定时器本质是"数机器周期的计数器"：每来一个机器周期加 1，数到溢出（TF 置位）就申请中断。它的价值是让 CPU 从"死等延时"中解放出来。</p>
+  <p><strong>📝 例子/口诀：</strong>初值计算模板：12MHz、模式1（16位）、要定时 50ms → 需计 50000 个机器周期 → 初值 = 65536−50000 = 15536 = 0x3CB0 → TH0=0x3C、TL0=0xB0。要 1 秒就中断 20 次再计数。</p>
+  <p><strong>⚠️ 易错点：</strong>① TMOD 低 4 位管 T0、高 4 位管 T1，别写反；② 模式 2（8 位自动重装）适合产生串口波特率，模式 1 适合长定时；③ 中断方式下 TF 自动清零，查询方式必须手动清 TF。</p>
+  <p><strong>⭐ 学习重点：</strong>定时器初始化四步、任意时长的精确定时（中断计数法）、定时器中断产生方波/PWM 的思路。</p>
+</div>
 </section>
 
 <!-- ============================ 第七章 ============================ -->
@@ -371,6 +414,13 @@ void uart_isr(void) interrupt 4
   <tr><td>RS232</td><td>±3~15V(MAX232转换)</td><td>15m</td><td>老式工控/调试口</td></tr>
   <tr><td>RS485</td><td>差分信号(MAX485)</td><td>1200m</td><td>Modbus工业总线</td></tr>
 </table>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>串口是单片机和电脑、其他芯片对话的通道。通信双方必须约好参数——最常用"9600, 8, N, 1"（波特率 9600、8 位数据、无校验、1 位停止）。</p>
+  <p><strong>📝 例子/口诀：</strong>初始化五件套：SCON=0x50（模式1+允许接收）→ TMOD 设 T1 模式2 → TH1=0xFD（9600@11.0592MHz）→ TR1=1 → ES=1、EA=1。</p>
+  <p><strong>⚠️ 易错点：</strong>① 为什么用 11.0592MHz 晶振：12MHz 分频有误差、收发会乱码，11.0592 能整除出精确波特率；② 发送完 TI 要<strong>软件清零</strong>、接收完 RI 同理，否则下一次收发失效；③ printf 重定向需要重写 putchar。</p>
+  <p><strong>⭐ 学习重点：</strong>串口初始化代码默写、发送/接收单字节与字符串、电脑端串口助手联调（这是最实用的调试手段）。</p>
+</div>
 </section>
 
 <!-- ============================ 第八章 ============================ -->
@@ -411,6 +461,13 @@ unsigned char key_scan(void)
     }
     return 0xFF;                     /* 无键 */
 }</pre></div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>数码管 = 8 段 LED 按一定排列组成。分共阴（公共端接地，段码高电平亮）和共阳（段码低电平亮）——两种段码表互为取反。</p>
+  <p><strong>📝 例子/口诀：</strong>多位数码管用<strong>动态扫描</strong>：轮流快速点亮每一位（每位 1~2ms、整体刷新率 &gt;50Hz），靠人眼视觉暂留看起来"同时亮"。N 位只占 8+N 根线。</p>
+  <p><strong>⚠️ 易错点：</strong>① 动态扫描每位点亮时间太长会闪、太短会暗，1~2ms 是经验值；② 段码表加 code 关键字存 ROM，省宝贵的 RAM；③ 行列键盘扫描：行输出逐行拉低、列读入判断哪键按下，松手检测别忘了。</p>
+  <p><strong>⭐ 学习重点：</strong>共阴/共阳段码计算、动态扫描程序框架（配合定时器中断刷新，避免 delay 阻塞）、4×4 键盘扫描+键值显示。</p>
+</div>
 </section>
 
 <!-- ============================ 第九章 ============================ -->
@@ -453,6 +510,13 @@ void lcd_show(unsigned char pos, char *s)   /* pos:0x80+地址 */
   <tr><td>0x80+n</td><td>第一行第n列地址</td></tr>
   <tr><td>0xC0+n</td><td>第二行第n列地址</td></tr>
 </table>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>LCD1602 是 2 行×16 字符的字符屏（只能显示字符和自定义点阵），LCD12864 能显示图形和汉字。它们让单片机有了"输出界面"。</p>
+  <p><strong>📝 例子/口诀：</strong>操作时序一句话：RS=0 写指令、RS=1 写数据，配合 E 引脚的高脉冲锁存。初始化必须严格按手册顺序发指令序列。</p>
+  <p><strong>⚠️ 易错点：</strong>① 忙检测（读 BF 标志）不可省——LCD 没准备好时指令会被丢弃，现象是"偶尔显示不出来"；② 4 位模式先传高 4 位再传低 4 位；③ 1602 显示自定义字符要把点阵写入 CGRAM；12864 显示汉字要用取模软件生成字模。</p>
+  <p><strong>⭐ 学习重点：</strong>1602 初始化流程与显示字符串、自定义字符（CGRAM）、12864 画点与汉字显示原理。</p>
+</div>
 </section>
 
 <!-- ============================ 第十章 ============================ -->
@@ -506,6 +570,13 @@ CPOL/CPHA四种模式(模式0最常用: SCL空闲低,第一个边沿采样)
   <tr><td>寻址</td><td>协议内建</td><td>硬件片选</td></tr>
   <tr><td>场景</td><td>慢速传感器多挂</td><td>大容量快速传输</td></tr>
 </table>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>I2C = 两线总线（SDA 数据 + SCL 时钟），靠 7 位地址区分挂在同一对线上的多个器件；SPI = 四线（MOSI/MISO/SCK/CS），更快但每个从设备要一根片选线。51 没有硬件 I2C/SPI，需要 GPIO 软件"演"出时序。</p>
+  <p><strong>📝 例子/口诀：</strong>I2C 起始条件：SCL 高电平时 SDA 由高变低；停止条件相反。每传 8 位后第 9 个时钟是应答位（从机拉低 SDA 表示 ACK）。</p>
+  <p><strong>⚠️ 易错点：</strong>① 24C02 这类 EEPROM 的器件地址 = 固定高 4 位 + 硬件接线低 3 位；② SPI 四种模式（CPOL/CPHA 组合）由从设备手册指定，主从必须一致；③ 软件 I2C 的延时不达标会通信失败——示波器/逻辑分析仪是最好的排错工具。</p>
+  <p><strong>⭐ 学习重点：</strong>软件模拟 I2C 读写 EEPROM 全流程（起始→器件地址→存储地址→数据→停止）、SPI 驱动一个外设（如 Flash/显示屏）。</p>
+</div>
 </section>
 
 <!-- ============================ 第十一章 ============================ -->
@@ -553,6 +624,13 @@ void t0_isr(void) interrupt 1
     TH0 = 0xFF; TL0 = 0x00;      /* 256μs → 输出频率≈61Hz */
     DAC_DATA = sine_tab[i++ &amp; 63];
 }</pre></div>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>A/D 把模拟电压变成数字量（传感器→单片机的必经之路），D/A 反过来。两个关键指标：位数（8 位 = 256 级）和参考电压（决定满量程）。</p>
+  <p><strong>📝 例子/口诀：</strong>换算公式一条：数字量 = 输入电压/参考电压 × (2ⁿ−1)。例：3.3V 参考、8 位 ADC、输入 1V → 1/3.3×255 ≈ 77。</p>
+  <p><strong>⚠️ 易错点：</strong>① 采样时间要足够（内部采样电容要充电），时钟太快读数会漂；② 参考电压的稳定性直接决定精度，Vref 加电容滤波；③ 结果寄存器有左对齐/右对齐两种配置，读之前看清楚。</p>
+  <p><strong>⭐ 学习重点：</strong>用 PCF8591（I2C 接口的 4 路 ADC+1 路 DAC）做电压表/光强检测、数字量转电压显示的小数处理。</p>
+</div>
 </section>
 
 <!-- ============================ 第十二章 ============================ -->
@@ -594,6 +672,13 @@ HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);</pre></div>
   <li>第3阶段：RTOS（FreeRTOS）、DMA、低功耗、通信协议栈（LwIP/BLE）</li>
   <li>第4阶段：Linux嵌入式（树莓派/RK3568）或 DSP（定点运算、滤波器实现）</li>
 </ul>
+<div class="beginner-block">
+  <div class="bb-title">🌱 小白详解 · 新手怎么看懂本章</div>
+  <p><strong>🔍 通俗理解：</strong>从 51 到 STM32，就像从自行车换到摩托车：外设更多、速度更快，开发方式从"直接写寄存器"变成"调库函数（HAL/标准库）"。核心思维不变：配置外设寄存器让硬件干活。</p>
+  <p><strong>📝 例子/口诀：</strong>STM32 上手三板斧：先开<strong>时钟</strong>（RCC）→ 再配 GPIO 模式 → 最后配外设。忘开时钟是新手第一大坑：代码全对、外设纹丝不动。</p>
+  <p><strong>⚠️ 易错点：</strong>① GPIO 四种常用模式：浮空输入（按键）、推挽输出（点灯）、复用推挽（串口/PWM）、模拟（ADC）；② HAL_Delay 的单位是毫秒且依赖 SysTick；③ CubeMX 图形化生成工程后，先读懂再改，别盲目堆代码。</p>
+  <p><strong>⭐ 学习重点：</strong>STM32 学习路线图：点灯→按键中断→定时器 PWM→串口 printf→DMA→综合项目；HAL 库与寄存器开发的取舍（简历上"STM32+HAL 做过实际项目"远比"学过 51"值钱）。</p>
+</div>
 </section>
 
 <!-- ============================ 第十三章 ============================ -->
@@ -770,6 +855,7 @@ float read_temp(void)
   </ul>
 </div>
 
+</section>
 </main>
 </div>
 
