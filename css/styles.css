@@ -1432,3 +1432,60 @@ details .answer {
   .rv-num { width: 28px; height: 28px; font-size: 12.5px; }
   .rv-card { padding: 10px 12px 12px; }
 }
+
+/* ============================================
+   课程指定教材卡（tb-card）
+   ============================================ */
+.tb-card {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 14px 0 22px;
+  border: 1px solid #e3d9b8;
+  border-left: 4px solid #d4a017;
+  border-radius: 5px;
+  background: linear-gradient(150deg, #fffdf5, #fffaf0);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.tb-card .tb-head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(212, 160, 23, 0.12);
+  color: #8a6d1a;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  border-right: 1px dashed #e3d9b8;
+}
+.tb-card .tb-body {
+  padding: 10px 16px;
+  flex: 1;
+  min-width: 0;
+}
+.tb-card .tb-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #5a4a10;
+  margin-bottom: 5px;
+  line-height: 1.5;
+}
+.tb-card .tb-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  font-size: 12.5px;
+  color: var(--text-light);
+}
+.tb-card .tb-meta strong {
+  color: #8a6d1a;
+  font-weight: 600;
+  margin-right: 6px;
+}
+@media (max-width: 600px) {
+  .tb-card { flex-direction: column; }
+  .tb-card .tb-head { border-right: none; border-bottom: 1px dashed #e3d9b8; padding: 8px 14px; }
+  .tb-card .tb-meta { gap: 3px 12px; }
+}
