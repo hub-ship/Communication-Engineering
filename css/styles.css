@@ -1537,3 +1537,265 @@ details .answer {
 .tb-card .tb-guide strong {
   color: #8a6d1a;
 }
+
+/* ============================================
+   底部 Footer V2（大站风 - 四栏 + 链接组）
+   ============================================ */
+.site-footer-v2 {
+  background: var(--green-dark);
+  color: rgba(255,255,255,0.85);
+  padding: 28px 18px 10px;
+  margin-top: 24px;
+  font-size: 13px;
+  text-align: left;
+}
+.site-footer-v2 a { color: #fff; text-decoration: none; }
+.site-footer-v2 a:hover { color: #fff; text-decoration: underline; }
+.sf-cols {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.sf-col h5 {
+  font-size: 14.5px;
+  margin: 0 0 10px;
+  color: #fff;
+  font-weight: 700;
+}
+.sf-col p { line-height: 1.8; margin: 0; }
+.sf-col ul { list-style: none; padding: 0; margin: 0; }
+.sf-col li { margin: 5px 0; font-size: 12.5px; }
+.sf-bottom {
+  max-width: 1180px;
+  margin: 18px auto 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+}
+@media (max-width: 800px) {
+  .sf-cols { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .sf-bottom { flex-direction: column; align-items: center; text-align: center; }
+}
+@media (max-width: 480px) {
+  .sf-cols { grid-template-columns: 1fr; }
+}
+
+/* ============================================
+   招聘/外部链接按钮（薪资表里 BOSS 搜索链接）
+   ============================================ */
+a.ext {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: #fa8c16;
+  padding: 3px 10px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+a.ext:hover {
+  background: #d46b08;
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   卡片右上角「↗ 外链」小徽标
+   ============================================ */
+.ext-link {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 400;
+  color: #999;
+  margin-left: 4px;
+}
+a:hover .ext-link { color: var(--green); }
+
+/* ============================================
+   让 .field-card 在作为 <a> 时也保持卡型样式
+   ============================================ */
+a.field-card,
+a.field-card:hover {
+  color: var(--text);
+  text-decoration: none;
+  display: block;
+}
+
+/* ============================================
+   首页「六、专业证书推荐」证书卡片网格
+   ============================================ */
+.cert-intro {
+  margin: 0 0 14px 0;
+  color: #666;
+  font-size: 13.5px;
+}
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+@media (max-width: 900px) { .cert-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .cert-grid { grid-template-columns: 1fr; } }
+.cert-card {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px 16px;
+  text-decoration: none !important;
+  color: #333;
+  transition: all 0.15s;
+}
+.cert-card:hover {
+  border-color: var(--green);
+  box-shadow: 0 3px 12px rgba(150,188,75,0.22);
+  transform: translateY(-2px);
+}
+.cert-card .cc-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.cert-card .cc-ico { font-size: 22px; line-height: 1; }
+.cert-card .cc-level {
+  font-size: 11px;
+  color: #b3871a;
+  background: #fdf6e3;
+  border: 1px solid #f0e2b8;
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.cert-card .cc-name {
+  display: block;
+  font-size: 15px;
+  color: #222;
+  margin-bottom: 6px;
+}
+.cert-card .cc-desc {
+  margin: 0 0 10px 0;
+  font-size: 12.5px;
+  color: #777;
+  line-height: 1.65;
+  min-height: 64px;
+}
+.cert-card .cc-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--green-dark);
+}
+.cert-more { margin: 14px 0 0 0; }
+
+/* ============================================
+   首页「七、推荐资源」分块排版
+   ============================================ */
+.res-block { margin-top: 20px; }
+.res-block:first-child { margin-top: 0; }
+.res-block h4 {
+  margin: 0 0 10px 0;
+  font-size: 15px;
+  color: #222;
+  border-left: 4px solid var(--green);
+  padding-left: 10px;
+}
+.res-book-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.res-book {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 3px solid #d4a017;
+  border-radius: 4px;
+  padding: 9px 14px;
+}
+.res-book .rb-name { font-size: 13.5px; font-weight: 600; color: #333; }
+.res-book .rb-meta { font-size: 12px; color: #999; white-space: nowrap; }
+@media (max-width: 620px) {
+  .res-book { flex-direction: column; align-items: flex-start; gap: 3px; }
+  .res-book .rb-meta { white-space: normal; }
+}
+.res-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+@media (max-width: 900px) { .res-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .res-grid { grid-template-columns: 1fr; } }
+a.res-card {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 12px 14px;
+  text-decoration: none !important;
+  color: #333;
+  transition: all 0.15s;
+}
+a.res-card:hover {
+  border-color: var(--green);
+  box-shadow: 0 2px 10px rgba(150,188,75,0.18);
+  transform: translateY(-2px);
+}
+.res-card strong {
+  display: block;
+  font-size: 13.5px;
+  color: #222;
+  margin-bottom: 4px;
+}
+.res-card span {
+  display: block;
+  font-size: 12px;
+  color: #888;
+  line-height: 1.55;
+}
+
+/* ============================================
+   首页「三、就业」薪资参考表
+   ============================================ */
+.salary-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-size: 13px;
+}
+.salary-table th,
+.salary-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  vertical-align: middle;
+}
+.salary-table th {
+  background: #f7faf1;
+  color: #4a6e1a;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.salary-table tr:last-child td { border-bottom: none; }
+.salary-table td .job-sub { display: block; font-size: 11.5px; color: #999; }
+.salary-note { margin-top: 10px; font-size: 12px; color: #999; }
+@media (max-width: 700px) {
+  .salary-table { font-size: 12px; }
+  .salary-table th:nth-child(3),
+  .salary-table td:nth-child(3) { display: none; }
+}
