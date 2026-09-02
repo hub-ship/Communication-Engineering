@@ -584,18 +584,25 @@ a:hover { color: var(--link-hover); text-decoration: underline; }
 .kb-table a { color: var(--link); }
 
 /* ============================================
-   底部 Footer
+   底部 Footer（单行链接 · 简约风）
    ============================================ */
 .site-footer {
   background: var(--green-dark);
-  color: rgba(255,255,255,0.85);
+  color: rgba(255,255,255,0.95);
   text-align: center;
-  padding: 22px 16px;
+  padding: 14px 16px;
   margin-top: 24px;
-  font-size: 13px;
+  font-size: 12.5px;
+  line-height: 1.9;
 }
-.site-footer a { color: #fff; }
-.site-footer p { margin: 4px 0; }
+.site-footer a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 1px;
+}
+.site-footer a:hover { text-decoration: underline; }
+.sf-sep { margin: 0 12px; opacity: 0.45; }
+.sf-copy { opacity: 0.85; }
 
 /* ============================================
    习题折叠区
@@ -1539,55 +1546,6 @@ details .answer {
 }
 
 /* ============================================
-   底部 Footer V2（大站风 - 四栏 + 链接组）
-   ============================================ */
-.site-footer-v2 {
-  background: var(--green-dark);
-  color: rgba(255,255,255,0.85);
-  padding: 28px 18px 10px;
-  margin-top: 24px;
-  font-size: 13px;
-  text-align: left;
-}
-.site-footer-v2 a { color: #fff; text-decoration: none; }
-.site-footer-v2 a:hover { color: #fff; text-decoration: underline; }
-.sf-cols {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
-  max-width: 1180px;
-  margin: 0 auto;
-}
-.sf-col h5 {
-  font-size: 14.5px;
-  margin: 0 0 10px;
-  color: #fff;
-  font-weight: 700;
-}
-.sf-col p { line-height: 1.8; margin: 0; }
-.sf-col ul { list-style: none; padding: 0; margin: 0; }
-.sf-col li { margin: 5px 0; font-size: 12.5px; }
-.sf-bottom {
-  max-width: 1180px;
-  margin: 18px auto 0;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255,255,255,0.18);
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
-  font-size: 12px;
-  color: rgba(255,255,255,0.7);
-}
-@media (max-width: 800px) {
-  .sf-cols { grid-template-columns: repeat(2, 1fr); gap: 18px; }
-  .sf-bottom { flex-direction: column; align-items: center; text-align: center; }
-}
-@media (max-width: 480px) {
-  .sf-cols { grid-template-columns: 1fr; }
-}
-
-/* ============================================
    招聘/外部链接按钮（薪资表里 BOSS 搜索链接）
    ============================================ */
 a.ext {
@@ -1799,3 +1757,359 @@ a.res-card:hover {
   .salary-table th:nth-child(3),
   .salary-table td:nth-child(3) { display: none; }
 }
+
+/* ============================================
+   极简 footer（替换原 4 列 v2）
+   ============================================ */
+.site-footer-min {
+  background: #2d3a1f;
+  color: #cfe6b9;
+  padding: 18px 0;
+  margin-top: 28px;
+  font-size: 13px;
+}
+.sfm-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.sfm-brand { font-weight: 700; color: #fff; font-size: 15px; letter-spacing: 0.3px; }
+.sfm-links { display: flex; gap: 18px; flex-wrap: wrap; }
+.sfm-links a { color: #cfe6b9; text-decoration: none; font-size: 13px; }
+.sfm-links a:hover { color: #fff; }
+.sfm-copy { color: #8a9f6e; font-size: 12px; }
+.sfm-copy a { color: #8a9f6e; text-decoration: underline; }
+@media (max-width: 700px) {
+  .sfm-inner { flex-direction: column; text-align: center; gap: 10px; }
+  .sfm-links { justify-content: center; }
+}
+
+/* ============================================
+   面包屑
+   ============================================ */
+.breadcrumb {
+  max-width: 1080px;
+  margin: 10px auto 0;
+  padding: 0 16px;
+  font-size: 12.5px;
+  color: #888;
+}
+.breadcrumb a { color: var(--green-dark); text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.bc-sep { color: #ccc; margin: 0 6px; }
+
+/* ============================================
+   Section 内子标题（就业/薪资、教材、工具等）
+   ============================================ */
+.sub-head {
+  margin: 0 0 12px 0;
+  font-size: 14.5px;
+  color: #2d3a1f;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ============================================
+   岗位列表（行就是链接）— 替换旧薪资表
+   ============================================ */
+.job-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+}
+.job-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1.6fr 1.2fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  text-decoration: none !important;
+  color: #333;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.12s;
+}
+.job-row:last-child { border-bottom: none; }
+.job-row:hover { background: #f7faf1; }
+.job-row:hover .jr-go { color: #5a3f00; }
+.jr-title { font-size: 14px; font-weight: 600; color: #222; }
+.jr-sub { font-size: 12.5px; color: #888; }
+.jr-salary {
+  font-size: 13px;
+  color: var(--green-dark);
+  font-weight: 600;
+  font-family: 'SF Mono', Consolas, monospace;
+}
+.jr-go {
+  font-size: 12px;
+  color: #b3871a;
+  font-weight: 600;
+  white-space: nowrap;
+}
+@media (max-width: 720px) {
+  .job-row { grid-template-columns: 1fr 1fr; row-gap: 4px; }
+  .jr-sub { grid-column: 1 / -1; }
+  .jr-go { grid-column: 1 / -1; justify-self: end; }
+}
+
+/* ============================================
+   证书卡片 v2 — 整整齐齐、品类色顶条
+   ============================================ */
+.cert-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0;
+  text-decoration: none !important;
+  color: #333;
+  transition: all 0.2s;
+  overflow: hidden;
+  position: relative;
+  min-height: 180px;
+}
+.cert-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--cat-color, var(--green));
+}
+.cert-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  border-color: var(--cat-color, var(--green));
+}
+.cert-card .cc-cat {
+  font-size: 11px;
+  color: var(--cat-color, var(--green-dark));
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  padding: 12px 16px 0;
+}
+.cert-card .cc-ico {
+  font-size: 30px;
+  padding: 6px 16px 0;
+  line-height: 1;
+}
+.cert-card .cc-name {
+  display: block;
+  font-size: 15.5px;
+  color: #222;
+  padding: 8px 16px 0;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.cert-card .cc-desc {
+  font-size: 12.5px;
+  color: #666;
+  padding: 6px 16px 0;
+  margin: 0;
+  flex: 1;
+  line-height: 1.55;
+}
+.cert-card .cc-link {
+  font-size: 12px;
+  color: var(--cat-color, var(--green-dark));
+  font-weight: 600;
+  padding: 10px 16px;
+  border-top: 1px solid #f3f3f3;
+  background: #fafdf5;
+  margin-top: 10px;
+}
+
+/* ============================================
+   教材卡片网格
+   ============================================ */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 10px;
+}
+.book-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--bk, var(--green));
+  border-radius: 5px;
+  padding: 10px 14px;
+  transition: all 0.15s;
+}
+.book-card:hover {
+  transform: translateX(3px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.bk-cover {
+  width: 44px; height: 44px;
+  border-radius: 6px;
+  background: var(--bk, var(--green));
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+.bk-meta { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.bk-meta strong { font-size: 13.5px; color: #222; }
+.bk-meta span { font-size: 12px; color: #666; }
+.bk-meta em { font-size: 11.5px; color: #999; font-style: normal; font-family: 'SF Mono', Consolas, monospace; }
+
+/* ============================================
+   工具 / 社区卡片网格（精致卡片样式）
+   ============================================ */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+@media (max-width: 900px) { .tool-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .tool-grid { grid-template-columns: 1fr; } }
+.tool-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  text-decoration: none !important;
+  color: #333;
+  transition: all 0.15s;
+}
+.tool-card:hover {
+  border-color: var(--green);
+  box-shadow: 0 3px 12px rgba(150,188,75,0.18);
+  transform: translateY(-2px);
+}
+.tc-ico {
+  font-size: 26px;
+  width: 42px; height: 42px;
+  background: #f7faf1;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.tc-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.tc-body strong { font-size: 13.5px; color: #222; }
+.tc-body span { font-size: 12px; color: #888; line-height: 1.45; }
+
+/* ============================================
+   首页「专业证书推荐」紧凑列表（6 个证书）
+   ============================================ */
+.cert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cert-row {
+  display: grid;
+  grid-template-columns: 32px 1fr auto auto;
+  gap: 14px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  border-radius: 5px;
+  padding: 11px 14px;
+  text-decoration: none !important;
+  color: #333;
+  transition: all 0.15s;
+}
+.cert-row:hover {
+  border-color: var(--green);
+  border-left-color: var(--green-dark);
+  background: #fbfdf8;
+  transform: translateX(2px);
+}
+.cert-row .cr-ico { font-size: 20px; line-height: 1; text-align: center; }
+.cert-row .cr-name { font-size: 14.5px; font-weight: 600; color: #222; display: block; margin-bottom: 1px; }
+.cert-row .cr-desc { font-size: 12px; color: #888; }
+.cert-row .cr-tag {
+  font-size: 11px;
+  color: #b3871a;
+  background: #fdf6e3;
+  border: 1px solid #f0e2b8;
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.cert-row .cr-link { font-size: 12px; color: var(--green-dark); font-weight: 600; white-space: nowrap; }
+.cert-row:hover .cr-link { color: #5d8a2a; }
+@media (max-width: 680px) {
+  .cert-row { grid-template-columns: 28px 1fr; }
+  .cert-row .cr-tag, .cert-row .cr-link { grid-column: 2; justify-self: start; }
+}
+
+/* ============================================
+   首页「就业方向 + 薪资参考」左右两栏
+   ============================================ */
+.job-split {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 18px;
+  align-items: start;
+}
+@media (max-width: 960px) { .job-split { grid-template-columns: 1fr; } }
+.job-split .js-left h4,
+.job-split .js-right h4 {
+  margin: 0 0 10px;
+  font-size: 14.5px;
+  color: #4a6e1a;
+  border-left: 4px solid var(--green);
+  padding-left: 10px;
+}
+.job-split .js-right { background: #fff; border: 1px solid var(--border); border-radius: 5px; padding: 12px 14px; }
+.job-split .js-right .salary-table { font-size: 12.5px; }
+.job-split .js-right .salary-table th,
+.job-split .js-right .salary-table td { padding: 7px 8px; }
+
+/* ============================================
+   行业新闻：更紧凑的列表
+   ============================================ */
+.news-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 760px) { .news-grid { grid-template-columns: 1fr; } }
+a.news-card {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 12px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  border-radius: 4px;
+  padding: 10px 12px;
+  text-decoration: none !important;
+  color: #333;
+  transition: all 0.15s;
+}
+a.news-card:hover {
+  background: #fbfdf8;
+  border-left-color: var(--green-dark);
+  transform: translateX(2px);
+}
+a.news-card .nc-date {
+  text-align: center;
+  font-size: 12px;
+  color: var(--green-dark);
+  font-weight: 600;
+}
+a.news-card .nc-date span { display: block; font-size: 10.5px; color: #999; font-weight: normal; }
+a.news-card .nc-title { font-size: 13.5px; font-weight: 600; color: #222; margin-bottom: 2px; }
+a.news-card .nc-desc { font-size: 11.5px; color: #888; line-height: 1.5; }
